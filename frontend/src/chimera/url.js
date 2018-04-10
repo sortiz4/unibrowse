@@ -7,5 +7,5 @@ export function join(...args) {
     let result = args.join('/').trim();
     result = result.replace(duplicates, '/');
     result = result.replace(protocol, '://');
-    return result;
+    return result + '/';
 }

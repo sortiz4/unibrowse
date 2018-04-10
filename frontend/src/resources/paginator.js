@@ -1,4 +1,4 @@
-import {CodePoint} from 'chimera/unicode';
+import {CodePoint} from 'models/codepoint';
 import {Backend} from 'services/api';
 
 export class Paginator {
@@ -19,7 +19,7 @@ export class Paginator {
     get hasPrevious() {
         return this.page['has_previous'];
     }
-    async update() {
+    async sync() {
         // This method should be called after construction
         let response = await this.backend.page(this.index);
         this.page = response.data;
@@ -28,14 +28,14 @@ export class Paginator {
     async next() {
         if(this.hasNext) {
             this.index += 1;
-            await this.update();
+            await this.sync();
         }
         return this;
     }
     async previous() {
         if(this.hasPrevious) {
             this.index -= 1;
-            await this.update();
+            await this.sync();
         }
         return this;
     }

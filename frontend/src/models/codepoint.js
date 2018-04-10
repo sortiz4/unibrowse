@@ -43,6 +43,14 @@ export class CodePoint {
 
     constructor(source) {
         this.source = source;
+        return new Proxy(this, {
+            get: function(target, prop) {
+                if(prop in target) {
+                    return target[prop];
+                }
+                return target.source[prop];
+            },
+        });
     }
 
     get key() {
@@ -51,15 +59,7 @@ export class CodePoint {
 
     get value() {
         let {value} = this.source;
-        return `U+${value.toString(16).toUpperCase()}`;
-    }
-
-    get name() {
-        return this.source.name;
-    }
-
-    get block() {
-        return this.source.block;
+        return `U+${value.toString(16).toUpperCase().padStart(4, '0')}`;
     }
 
     get category() {

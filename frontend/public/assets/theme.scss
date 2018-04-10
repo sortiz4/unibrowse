@@ -8,9 +8,6 @@ $ub-base-font-size: 16px;
 $ub-base-font-weight: normal;
 $ub-base-line-height: 1.5;
 $ub-box-shadow-small: 0 2px 8px rgba(0, 0, 0, 0.08);
-$ub-box-shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.08);
-$ub-box-shadow-large: 0 14px 25px rgba(0, 0, 0, 0.16);
-$ub-box-shadow-xlarge: 0 28px 50px rgba(0, 0, 0, 0.16);
 $ub-card-border-color: darken($ub-background-color, 2.5%);
 $ub-card-header-height: 55px;
 $ub-card-width: 150px;
@@ -35,12 +32,6 @@ $ub-code-border-color: darken($ub-code-background-color, 15%);
 $ub-code-font-size: 90%;
 $ub-code-gutter-horizontal: 2px;
 $ub-code-gutter-vertical: 5px;
-$ub-column-1-color: #eb2e64;
-$ub-column-2-color: #eb8815;
-$ub-column-3-color: #17eb5c;
-$ub-column-4-color: #33c3f0;
-$ub-column-5-color: #1655eb;
-$ub-column-6-color: #8000eb;
 $ub-container-max-width: 1600px;
 $ub-font-size-small: 80%;
 $ub-full-width: 100%;
@@ -60,7 +51,6 @@ $ub-input-border-color: $ub-code-border-color;
 $ub-input-height: $ub-button-height;
 $ub-input-padding: $ub-gutter-small;
 $ub-input-radio-size: $ub-base-font-size;
-$ub-input-transition: 200ms ease;
 $ub-input-width: $ub-full-width;
 $ub-label-margin: $ub-gutter-xsmall;
 $ub-light-color: white;
@@ -72,9 +62,11 @@ $ub-search-height: 50px;
 $ub-search-padding: ($ub-search-height / 2);
 $ub-svg-checkbox: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%2F%3E%3C%2Fsvg%3E';
 $ub-svg-radio: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%2F%3E%3C%2Fsvg%3E';
+$ub-transition: 200ms ease;
 
 // Mixins
 @mixin hook-page {
+  color: $ub-base-font-color;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -211,7 +203,7 @@ select, textarea {
   width: $ub-input-width;
   height: $ub-input-height;
   padding: $ub-input-padding;
-  transition: $ub-input-transition;
+  transition: $ub-transition;
   &:focus {
     border: $ub-border-style $ub-primary-color;
     outline: 0;
@@ -240,7 +232,7 @@ input[type='radio'] {
   cursor: pointer;
   font: inherit;
   overflow: hidden;
-  transition: $ub-input-transition;
+  transition: $ub-transition;
   vertical-align: middle;
   width: $ub-input-radio-size;
   height: $ub-input-radio-size;
@@ -355,7 +347,7 @@ hr {
   border-radius: $ub-border-round;
   box-shadow: $ub-box-shadow-small;
   padding: $ub-margin-small;
-  transition: $ub-input-transition;
+  transition: $ub-transition;
   width: $ub-card-width;
   &:hover {
     transform: scale(1.1);
@@ -427,8 +419,8 @@ hr {
     margin: 0;
   }
   & > label {
-    align-items: center;
     display: flex;
+    align-items: center;
     &:not(:first-child) {
       margin-left: $ub-margin-medium;
     }
