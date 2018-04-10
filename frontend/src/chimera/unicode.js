@@ -1,4 +1,4 @@
-class CodePoint {
+export class CodePoint {
     static CATEGORY = [
         'Uppercase Letter', 'Lowercase Letter', 'Titlecase Letter',
         'Modifier Letter', 'Other Letter', 'Nonspacing Mark',
@@ -45,6 +45,23 @@ class CodePoint {
         this.source = source;
     }
 
+    get key() {
+        return this.source.value;
+    }
+
+    get value() {
+        let {value} = this.source;
+        return `U+${value.toString(16).toUpperCase()}`;
+    }
+
+    get name() {
+        return this.source.name;
+    }
+
+    get block() {
+        return this.source.block;
+    }
+
     get category() {
         let {category} = this.source;
         return CodePoint.CATEGORY[category];
@@ -60,11 +77,11 @@ class CodePoint {
 
     get bidirectionalClass() {
         let {'bidirectional_class': index} = this.source;
-        return CodePoint.CATEGORY[index];
+        return CodePoint.BIDIRECTIONAL_CLASSES[index];
     }
 
     get decompositionClass() {
         let {'decomposition_class': index} = this.source;
-        return CodePoint.CATEGORY[index];
+        return CodePoint.DECOMPOSITION_CLASSES[index];
     }
 }

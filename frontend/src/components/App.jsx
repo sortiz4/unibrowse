@@ -1,10 +1,10 @@
 import {Icon} from 'chimera/icons';
 import {Component} from 'chimera/react';
+import {Fragment} from 'chimera/react';
 import {React} from 'chimera/react';
-import {range} from 'chimera/utils';
 import {Container} from 'components';
 import {Header} from 'components';
-import {Fragment} from "react";
+import {Paginator} from 'resources';
 
 export function App() {
     return (
@@ -22,63 +22,102 @@ export function App() {
 class Viewport extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            error: null,
+            success: null,
+        };
         this.details = null;
+        this.paginator = new Paginator();
+        this.onNext = this.onNext.bind(this);
+        this.onPrevious = this.onPrevious.bind(this);
         this.update = this.update.bind(this);
+    }
+    async componentDidMount() {
+        try {
+            await this.paginator.update();
+            this.setState({success: true});
+        } catch(exc) {
+            this.setState({error: true});
+        }
+    }
+    async onNext() {
+        if(this.paginator.hasNext) {
+            try {
+                await this.paginator.next();
+                this.setState({success: true});
+            } catch(exc) {
+                this.setState({error: true});
+            }
+        }
+    }
+    async onPrevious() {
+        if(this.paginator.hasPrevious) {
+            try {
+                await this.paginator.previous();
+                this.setState({success: true});
+            } catch(exc) {
+                this.setState({error: true});
+            }
+        }
     }
     update(details) {
         this.details = details;
         this.setState({});
     }
+    panel() {
+        if(this.state.success) {
+            return <Panel paginator={this.paginator} event={this.update}/>;
+        }
+        return null;
+    }
     render() {
         return (
             <Fragment>
-                <Panel event={this.update}/>
-                <div className="page-left">
+                {this.panel()}
+                <a className="page-left" onClick={this.onPrevious}>
                     <h6>
                         <Icon icon="chevron-left"/>
                     </h6>
-                </div>
-                <div className="page-right">
+                </a>
+                <a className="page-right" onClick={this.onNext}>
                     <h6>
                         <Icon icon="chevron-right"/>
                     </h6>
-                </div>
+                </a>
                 <Details details={this.details}/>
             </Fragment>
         );
     }
 }
 
-class Details extends Component {
-    render() {
-        if(this.props.details) {
-            return (
-                <div className="details">
-                    <dl>
-                        <dt>Block</dt>
-                        <dd>Basic Latin</dd>
-                    </dl>
-                    <dl>
-                        <dt>Category</dt>
-                        <dd>Uppercase Letter</dd>
-                    </dl>
-                    <dl>
-                        <dt>Combining Class</dt>
-                        <dd>Not Reordered</dd>
-                    </dl>
-                    <dl>
-                        <dt>Bidirectional Class</dt>
-                        <dd>Left-to-right</dd>
-                    </dl>
-                    <dl>
-                        <dt>Decomposition Class</dt>
-                        <dd>Canonical</dd>
-                    </dl>
-                </div>
-            );
-        }
-        return null;
+function Details({details}) {
+    if(details) {
+        return (
+            <div className="details">
+                <dl>
+                    <dt>Block</dt>
+                    <dd>{details.block}</dd>
+                </dl>
+                <dl>
+                    <dt>Category</dt>
+                    <dd>{details.category}</dd>
+                </dl>
+                <dl>
+                    <dt>Combining Class</dt>
+                    <dd>{details.combiningClass}</dd>
+                </dl>
+                <dl>
+                    <dt>Bidirectional Class</dt>
+                    <dd>{details.bidirectionalClass}</dd>
+                </dl>
+                <dl>
+                    <dt>Decomposition Class</dt>
+                    <dd>{details.decompositionClass}</dd>
+                </dl>
+            </div>
+        );
     }
+    return null;
 }
 
 class Card extends Component {
@@ -89,22 +128,23 @@ class Card extends Component {
     }
     onHover() {
         if(!this.state.hover) {
-            this.props.event(true);
+            this.props.event(this.props.code);
         } else {
             this.props.event(null);
         }
         this.setState({hover: !this.state.hover});
     }
     render() {
+        let {code} = this.props;
         return (
             <div className="card"
                  onMouseEnter={this.onHover}
                  onMouseLeave={this.onHover}>
                 <div className="card-header">
-                    <h4 dangerouslySetInnerHTML={{__html: '&#47;'}}/>
-                    <dl className="card-subheader">
-                        <dt>U+9024F</dt>
-                        <dd>START OF HEADING</dd>
+                    <h4 dangerouslySetInnerHTML={{__html: `&#${code.key};`}}/>
+                    <dl className="card-subtitle">
+                        <dt>{code.value}</dt>
+                        <dd>{code.name}</dd>
                     </dl>
                 </div>
             </div>
@@ -115,8 +155,11 @@ class Card extends Component {
 class Panel extends Component {
     rows() {
         let rows = [];
-        for(let i of range(128)) {
-            rows.push(<Card key={i} event={this.props.event}/>);
+        for(let code of this.props.paginator) {
+            rows.push(
+                <Card key={code.key} code={code}
+                      event={this.props.event}/>
+            );
         }
         return rows;
     }

@@ -18,6 +18,7 @@ namespace Unibrowse {
         public void ConfigureServices(IServiceCollection services) {
             services.AddEntityFrameworkSqlite()
                 .AddDbContext<DatabaseContext>()
+                .AddCorsPolicies()
                 .AddMvc()
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver() {
@@ -29,7 +30,8 @@ namespace Unibrowse {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
             if(env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
+                app.UseCors("AllowAnyOrigin")
+                    .UseDeveloperExceptionPage();
             }
             var options = new RewriteOptions()
                 .Add(new IndexRedirect())

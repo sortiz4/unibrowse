@@ -42,6 +42,8 @@ namespace Unibrowse.Models {
                 Name = info.Name;
             } else if(info.NameAliases.Count > 0) {
                 Name = info.NameAliases[0].Name;
+            } else {
+                Name = "UNNAMED CODE POINT";
             }
             Value = value;
             Block = info.Block;
