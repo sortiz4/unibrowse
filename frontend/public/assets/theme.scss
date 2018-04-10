@@ -60,6 +60,9 @@ $ub-search-box-shadow: 0 0 0 5px rgba($ub-primary-color, 0.15);
 $ub-search-font-size: 150%;
 $ub-search-height: 50px;
 $ub-search-padding: ($ub-search-height / 2);
+$ub-state-error-color: #ff3140;
+$ub-state-icon-size: (100% * 3.5);
+$ub-state-loading-speed: 500ms;
 $ub-svg-checkbox: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%2F%3E%3C%2Fsvg%3E';
 $ub-svg-radio: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%2F%3E%3C%2Fsvg%3E';
 $ub-transition: 200ms ease;
@@ -76,6 +79,14 @@ $ub-transition: 200ms ease;
   bottom: 0;
   & > * {
     margin: ($ub-margin-small / 2);
+  }
+}
+@mixin hook-state($color) {
+  text-align: center;
+  & svg {
+    color: $color;
+    font-size: $ub-state-icon-size;
+    margin-bottom: $ub-margin-small;
   }
 }
 
@@ -448,4 +459,17 @@ hr {
   & > * {
     margin: $ub-gutter-xsmall;
   }
+}
+.state {
+  &-error {
+    @include hook-state($ub-state-error-color);
+  }
+  &-loading {
+    @include hook-state($ub-primary-color);
+  }
+}
+
+// Overridden classes
+.fa-spin {
+  animation-duration: $ub-state-loading-speed;
 }
