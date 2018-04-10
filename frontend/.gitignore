@@ -1,0 +1,7 @@
+*-lock.json
+*.css
+*.ico
+/.idea
+/node_modules
+fonts
+images
