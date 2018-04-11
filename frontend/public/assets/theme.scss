@@ -82,6 +82,7 @@ $ub-transition: 200ms ease;
   }
 }
 @mixin hook-state($color) {
+  padding: $ub-margin-large 0;
   text-align: center;
   & svg {
     color: $color;

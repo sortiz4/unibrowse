@@ -46,7 +46,7 @@ class Command:
         if not os.path.exists(os.path.dirname(Sass.OUT)):
             os.makedirs(os.path.dirname(Sass.OUT))
         process = Command.npm([Sass.CMD, Sass.SRC, *Sass.ARGS])
-        # process = Command.npm([CleanCss.CMD, *CleanCss.ARGS], input=process.stdout)
+        process = Command.npm([CleanCss.CMD, *CleanCss.ARGS], input=process.stdout)
         buffer = process.stdout.decode(sys.stdout.encoding)
         open(Sass.OUT, 'w+').write(buffer)
 

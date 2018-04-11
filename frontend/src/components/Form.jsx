@@ -21,12 +21,28 @@ export class Form extends Component {
         let form = new FormData(event.target);
 
         // Grab the form inputs
-        let input = form.get('query').trim().toLowerCase();
+        let input = form.get('query');
         let radio = form.get('field');
 
         // Compute the filter parameters and apply the filter
-        let field = radio === '2' ? 'name' : 'value';
-        let query = radio === '2' ? input : utils.decode(input);
+        let query, field = radio === '2' ? 'name' : 'value';
+        if(radio === '0') {
+            // Translate hexadecimal to decimal
+            query = Number.parseInt(input.trim().replace(/[uU]\+/, ''), 16);
+            if(Number.isNaN(query)) {
+                query = '';
+            }
+        } else if(radio === '1') {
+            // Translate literal to decimal
+            if(input.length > 0) {
+                query = utils.decode(input);
+            } else {
+                query = '';
+            }
+        } else {
+            // Name-based query
+            query = input.trim();
+        }
         this.props.onSubmit({field, query});
     }
     render() {

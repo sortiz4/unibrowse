@@ -2,6 +2,7 @@ export * from 'components/App';
 export * from 'components/Card';
 export * from 'components/Container';
 export * from 'components/Details';
+export * from 'components/Empty';
 export * from 'components/Error';
 export * from 'components/Form';
 export * from 'components/Header';

@@ -27,6 +27,9 @@ export class Paginator {
     get hasPrevious() {
         return this.page['has_previous'];
     }
+    get hasChildren() {
+        return this.page.children.length > 0;
+    }
     async sync() {
         // This method should be called after construction
         let response;

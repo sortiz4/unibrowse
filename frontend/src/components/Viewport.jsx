@@ -2,6 +2,7 @@ import {Component} from 'chimera/react';
 import {Fragment} from 'chimera/react';
 import {React} from 'chimera/react';
 import {Details} from 'components';
+import {Empty} from 'components';
 import {Error} from 'components';
 import {Form} from 'components';
 import {Loading} from 'components';
@@ -61,7 +62,10 @@ export class Viewport extends Component {
     }
     get panel() {
         if(this.state.success) {
-            return <Panel paginator={this.paginator} event={this.update}/>;
+            if(this.paginator.hasChildren) {
+                return <Panel paginator={this.paginator} event={this.update}/>;
+            }
+            return <Empty/>;
         } else if(this.state.error) {
             return <Error/>;
         }

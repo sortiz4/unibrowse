@@ -1,7 +1,5 @@
 *-lock.json
 *.css
-*.ico
 /.idea
+/build
 /node_modules
-fonts
-images
