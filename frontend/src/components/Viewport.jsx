@@ -20,6 +20,7 @@ export class Viewport extends Component {
         this.paginator = new Paginator();
         this.onNext = this.onNext.bind(this);
         this.onPrevious = this.onPrevious.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.update = this.update.bind(this);
     }
     async componentDidMount() {
@@ -50,6 +51,14 @@ export class Viewport extends Component {
             }
         }
     }
+    async onSubmit(args) {
+        try {
+            await this.paginator.filter(args);
+            this.success();
+        } catch(exc) {
+            this.error();
+        }
+    }
     get panel() {
         if(this.state.success) {
             return <Panel paginator={this.paginator} event={this.update}/>;
@@ -77,7 +86,7 @@ export class Viewport extends Component {
     render() {
         return (
             <Fragment>
-                <Form/>
+                <Form onSubmit={this.onSubmit}/>
                 {this.panel}
                 <PageButton previous onClick={this.onPrevious}/>
                 <PageButton next onClick={this.onNext}/>
