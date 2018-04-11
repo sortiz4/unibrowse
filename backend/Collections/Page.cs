@@ -11,7 +11,7 @@ namespace Unibrowse.Collections {
         public bool HasNext { get; }
         public bool HasPrevious { get; }
         public List<T> Children { get; }
-        
+
         public Page(int index, int pages, List<T> children) {
             PageNumber = index;
             PageCount = pages;
@@ -20,18 +20,26 @@ namespace Unibrowse.Collections {
             Children = children;
         }
 
-        public static async Task<Page<T>> CreateAsync(IQueryable<T> source, string query, int size = 128) {
+        public static async Task<Page<T>> CreateAsync(IQueryable<T> results, string query, int size = 128) {
             var index = 1;
-            var count = await source.CountAsync();
-            var pages = (int) Math.Ceiling(count / (double) size);
+            var count = await results.CountAsync();
+            var pages = (int)Math.Ceiling(count / (double)size);
+
+            if(count == 0) {
+                // Return an empty page if the results are empty
+                return new Page<T>(index, pages + 1, new List<T>());
+            }
             try {
                 index = int.Parse(query);
             } catch {
-                // The user supplied a bogus page index
+                // The user submitted a bogus page index
             } finally {
+                // Clamp the page index within range
                 index = Math.Clamp(index, 1, pages);
             }
-            var children = await source.Skip((index - 1) * size).Take(size).ToListAsync();
+
+            // Paginate the results
+            var children = await results.Skip((index - 1) * size).Take(size).ToListAsync();
             return new Page<T>(index, pages, children);
         }
     }

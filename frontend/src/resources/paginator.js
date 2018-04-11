@@ -3,9 +3,14 @@ import {Backend} from 'services/api';
 
 export class Paginator {
     constructor() {
+        // Underlying data source
         this.backend = new Backend();
-        this.index = 1;
         this.page = null;
+
+        // Search parameters
+        this.field = null;
+        this.query = null;
+        this.index = 1;
     }
     get pageNumber() {
         return this.index;

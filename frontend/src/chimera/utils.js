@@ -1,6 +1,17 @@
 import {NotFoundError} from 'chimera/errors';
 
 /**
+ * Decodes a string to an integer.
+ */
+export function decode(string) {
+    let number = 0;
+    for(let char of string) {
+        number += char.codePointAt(0);
+    }
+    return number;
+}
+
+/**
  * A small collection of DOM shortcuts.
  */
 export class Dom {

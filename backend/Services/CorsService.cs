@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Unibrowse.Middleware {
-    public static class CorsMiddleware {
+namespace Unibrowse.Services {
+    public static class CorsService {
         public static IServiceCollection AddCorsPolicies(this IServiceCollection services) {
             if(services == null) {
                 throw new ArgumentNullException(nameof(services));

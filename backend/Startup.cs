@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using Unibrowse.Middleware;
+using Unibrowse.Services;
 
 namespace Unibrowse {
     public class Startup {

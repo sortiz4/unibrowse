@@ -6,23 +6,14 @@ export class Backend {
     constructor() {
         this.path = url.join(settings.API_URL, 'codepoints');
     }
-    get(value) {
-        let path = url.join(this.path, value);
-        return Http.get(path);
-    }
-    page(number) {
-        return Http.get(this.path, {
-            params: {
-                page: number,
-            },
+    async page(page) {
+        return await Http.get(this.path, {
+            params: {page},
         });
     }
-    search(type, query) {
-        return Http.get(this.path, {
-            params: {
-                type,
-                query,
-            },
+    async search(page, query, field) {
+        return await Http.get(this.path, {
+            params: {page, query, field},
         });
     }
 }

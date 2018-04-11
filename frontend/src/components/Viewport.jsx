@@ -44,9 +44,9 @@ export class Viewport extends Component {
         if(this.paginator.hasPrevious) {
             try {
                 await this.paginator.previous();
-                this.setState({success: true});
+                this.success();
             } catch(exc) {
-                this.setState({error: true});
+                this.error();
             }
         }
     }
