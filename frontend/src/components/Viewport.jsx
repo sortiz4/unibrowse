@@ -14,7 +14,6 @@ export class Viewport extends Component {
     constructor(props) {
         super(props);
         this.state = {error: false, success: false};
-        this.details = null;
         this.paginator = new Paginator();
         this.onNext = this.onNext.bind(this);
         this.onPrevious = this.onPrevious.bind(this);
