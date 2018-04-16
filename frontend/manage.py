@@ -5,7 +5,7 @@ import sys
 from subprocess import PIPE
 from subprocess import run
 
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NODE_DIR = os.path.join(BASE_DIR, 'node_modules')
 SRC_DIR = os.path.join(BASE_DIR, 'public', 'assets')
 OUT_DIR = os.path.join(BASE_DIR, 'public', 'static')
@@ -48,7 +48,8 @@ class Command:
         process = Command.npm([Sass.CMD, Sass.SRC, *Sass.ARGS])
         process = Command.npm([CleanCss.CMD, *CleanCss.ARGS], input=process.stdout)
         buffer = process.stdout.decode(sys.stdout.encoding)
-        open(Sass.OUT, 'w+').write(buffer)
+        with open(Sass.OUT, 'w') as out:
+            out.write(buffer)
 
 
 if __name__ == '__main__':
