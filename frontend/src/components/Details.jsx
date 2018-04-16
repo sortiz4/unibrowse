@@ -1,7 +1,8 @@
 import {React} from 'chimera/react';
+import {CodePoint} from 'models/codepoint';
 
 export function Details({details}) {
-    if(details) {
+    if(details instanceof CodePoint) {
         return (
             <div className="details">
                 <dl>

@@ -1,7 +1,7 @@
 import {Icon} from 'chimera/icons';
 import {React} from 'chimera/react';
 
-export function Empty() {
+export function NotFound() {
     return (
         <div className="state-loading">
             <Icon icon="question-circle"/>

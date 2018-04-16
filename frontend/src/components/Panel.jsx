@@ -7,8 +7,7 @@ export class Panel extends Component {
         let rows = [];
         for(let code of this.props.paginator) {
             rows.push(
-                <Card key={code.key} code={code}
-                      event={this.props.event}/>
+                <Card key={code.key} code={code} update={this.props.update}/>
             );
         }
         return rows;

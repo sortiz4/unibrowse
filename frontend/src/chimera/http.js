@@ -1,2 +1,2 @@
 import axios from 'axios';
-export const Http = axios;
+export {axios as Http};

@@ -1,4 +1,4 @@
-import React, {Children, Component, PureComponent, Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
-export {React, Children, Component, PureComponent, Fragment};
+export {React, Component, Fragment};
 export {ReactDOM as ReactDom};

@@ -3,46 +3,53 @@ import {React} from 'chimera/react';
 import * as utils from 'chimera/utils';
 
 export class Form extends Component {
+    static CODEPOINT = 0x00;
+    static LITERAL = 0x01;
+    static NAME = 0x02;
     constructor(props) {
         super(props);
-        this.state = {query: '', field: 2};
-        this.onInput = this.onInput.bind(this);
-        this.onRadio = this.onRadio.bind(this);
+        this.state = {field: Form.NAME, query: ''};
+        this.onField = this.onField.bind(this);
+        this.onQuery = this.onQuery.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    onInput(event) {
-        this.setState({query: event.target.value});
-    }
-    onRadio(event) {
+    onField(event) {
         this.setState({field: Number(event.target.value)});
+    }
+    onQuery(event) {
+        this.setState({query: event.target.value});
     }
     onSubmit(event) {
         event.preventDefault();
-        let form = new FormData(event.target);
 
         // Grab the form inputs
-        let input = form.get('query');
-        let radio = form.get('field');
+        let field = this.state.field;
+        let query = this.state.query;
 
-        // Compute the filter parameters and apply the filter
-        let query, field = radio === '2' ? 'name' : 'value';
-        if(radio === '0') {
-            // Translate hexadecimal to decimal
-            query = Number.parseInt(input.trim().replace(/[uU]\+/, ''), 16);
+        // Transform the query
+        if(field === Form.CODEPOINT) {
+            // Transform hexadecimal to decimal
+            query = query.trim().replace(/[uU]\+/, '');
+            query = Number.parseInt(query, 16);
             if(Number.isNaN(query)) {
                 query = '';
             }
-        } else if(radio === '1') {
-            // Translate literal to decimal
-            if(input.length > 0) {
-                query = utils.decode(input);
+        } else if(field === Form.LITERAL) {
+            // Transform literal to decimal
+            if(query.length > 0) {
+                query = utils.decode(query);
             } else {
                 query = '';
             }
         } else {
-            // Name-based query
-            query = input.trim();
+            // Trim name-based queries
+            query = query.trim();
         }
+
+        // Transform the field
+        field = field === Form.NAME ? 'name' : 'value';
+
+        // Apply the filter
         this.props.onSubmit({field, query});
     }
     render() {
@@ -50,24 +57,24 @@ export class Form extends Component {
             <form onSubmit={this.onSubmit}>
                 <fieldset>
                     <input name="query" placeholder="Search..." type="search"
-                           value={this.state.query} onChange={this.onInput}/>
+                           value={this.state.query} onChange={this.onQuery}/>
                     <div className="options">
                         <label>
-                            <input name="field" type="radio" value="0"
-                                   checked={this.state.field === 0}
-                                   onChange={this.onRadio}/>
+                            <input name="field" type="radio" value={Form.CODEPOINT}
+                                   checked={this.state.field === Form.CODEPOINT}
+                                   onChange={this.onField}/>
                             <span>Code point</span>
                         </label>
                         <label>
-                            <input name="field" type="radio" value="1"
-                                   checked={this.state.field === 1}
-                                   onChange={this.onRadio}/>
+                            <input name="field" type="radio" value={Form.LITERAL}
+                                   checked={this.state.field === Form.LITERAL}
+                                   onChange={this.onField}/>
                             <span>Literal</span>
                         </label>
                         <label>
-                            <input name="field" type="radio" value="2"
-                                   checked={this.state.field === 2}
-                                   onChange={this.onRadio}/>
+                            <input name="field" type="radio" value={Form.NAME}
+                                   checked={this.state.field === Form.NAME}
+                                   onChange={this.onField}/>
                             <span>Name</span>
                         </label>
                     </div>

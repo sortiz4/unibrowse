@@ -2,10 +2,10 @@ import {Component} from 'chimera/react';
 import {Fragment} from 'chimera/react';
 import {React} from 'chimera/react';
 import {Details} from 'components';
-import {Empty} from 'components';
 import {Error} from 'components';
 import {Form} from 'components';
 import {Loading} from 'components';
+import {NotFound} from 'components';
 import {PageButton} from 'components';
 import {Panel} from 'components';
 import {Paginator} from 'resources/paginator';
@@ -13,10 +13,7 @@ import {Paginator} from 'resources/paginator';
 export class Viewport extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            error: null,
-            success: null,
-        };
+        this.state = {error: false, success: false};
         this.details = null;
         this.paginator = new Paginator();
         this.onNext = this.onNext.bind(this);
@@ -62,20 +59,18 @@ export class Viewport extends Component {
     }
     get panel() {
         if(this.state.success) {
-            if(this.paginator.hasChildren) {
-                return <Panel paginator={this.paginator} event={this.update}/>;
-            }
-            return <Empty/>;
-        } else if(this.state.error) {
+            return this.paginator.hasChildren
+                ? <Panel paginator={this.paginator} update={this.update}/>
+                : <NotFound/>;
+        }
+        if(this.state.error) {
             return <Error/>;
         }
         return <Loading/>;
     }
-    success() {
-        this.setState({
-            error: false,
-            success: true,
-        });
+    update(details = null) {
+        this.details = details;
+        this.setState({});
     }
     error() {
         this.setState({
@@ -83,9 +78,11 @@ export class Viewport extends Component {
             success: false,
         });
     }
-    update(details = null) {
-        this.details = details;
-        this.setState({});
+    success() {
+        this.setState({
+            error: false,
+            success: true,
+        });
     }
     render() {
         return (
