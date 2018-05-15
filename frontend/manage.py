@@ -7,7 +7,7 @@ from subprocess import run
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NODE_DIR = os.path.join(BASE_DIR, 'node_modules')
-SRC_DIR = os.path.join(BASE_DIR, 'public', 'assets')
+SRC_DIR = os.path.join(BASE_DIR, 'src', 'theme')
 OUT_DIR = os.path.join(BASE_DIR, 'public', 'static')
 
 
