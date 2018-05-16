@@ -10,9 +10,9 @@ export class Card extends Component {
     }
     onHover() {
         if(!this.state.hover) {
-            this.props.update(this.props.code);
+            this.props.onHover(this.props.code);
         } else {
-            this.props.update();
+            this.props.onHover(null);
         }
         this.setState({hover: !this.state.hover});
     }

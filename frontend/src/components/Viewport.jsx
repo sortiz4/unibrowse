@@ -18,7 +18,7 @@ export class Viewport extends Component {
         this.onNext = this.onNext.bind(this);
         this.onPrevious = this.onPrevious.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.update = this.update.bind(this);
+        this.onHover = this.onHover.bind(this);
     }
     async componentDidMount() {
         try {
@@ -56,20 +56,20 @@ export class Viewport extends Component {
             this.error();
         }
     }
+    onHover(details) {
+        this.details = details;
+        this.setState({});
+    }
     get panel() {
         if(this.state.success) {
             return this.paginator.hasChildren
-                ? <Panel paginator={this.paginator} update={this.update}/>
+                ? <Panel paginator={this.paginator} onHover={this.onHover}/>
                 : <NotFound/>;
         }
         if(this.state.error) {
             return <Error/>;
         }
         return <Loading/>;
-    }
-    update(details = null) {
-        this.details = details;
-        this.setState({});
     }
     error() {
         this.setState({
