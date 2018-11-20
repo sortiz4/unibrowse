@@ -1,18 +1,34 @@
-import fontawesome from '@fortawesome/fontawesome';
-import faChevronLeft from '@fortawesome/fontawesome-free-solid/faChevronLeft';
-import faChevronRight from '@fortawesome/fontawesome-free-solid/faChevronRight';
-import faExclamationCircle from '@fortawesome/fontawesome-free-solid/faExclamationCircle';
-import faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
-import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {React} from 'chimera/react';
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faExclamationCircle} from '@fortawesome/free-solid-svg-icons';
+import {faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
+import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
-fontawesome.library.add(
-    faChevronLeft, faChevronRight,
-    faExclamationCircle, faQuestionCircle,
-    faSpinner,
-);
+export class FaObject {
+    constructor(...icons) {
+        for(const icon of icons) {
+            this[icon.iconName] = {
+                width: icon.icon[0],
+                height: icon.icon[1],
+                path: icon.icon[4],
+            };
+        }
+    }
+}
 
-export function Icon({fw, ...props}) {
-    return <FontAwesomeIcon fixedWidth={fw} {...props}/>;
+export class FaIcon {
+    static solid = new FaObject(
+        faChevronLeft,
+        faChevronRight,
+        faExclamationCircle,
+        faQuestionCircle,
+        faSpinner,
+    );
+
+    static get(name) {
+        if(name in this.solid) {
+            return this.solid[name];
+        }
+        throw new TypeError(`'${name}' was not found`);
+    }
 }

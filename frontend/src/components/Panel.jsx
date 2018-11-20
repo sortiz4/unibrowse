@@ -12,6 +12,7 @@ export class Panel extends Component {
         }
         return rows;
     }
+
     render() {
         return (
             <div className="panel">

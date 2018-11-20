@@ -1,7 +1,5 @@
 import {React} from 'chimera/react';
-import {Container} from 'components';
-import {Header} from 'components';
-import {Viewport} from 'components';
+import {Container, Header, Viewport} from 'components';
 
 export function App() {
     return (

@@ -1,11 +1,11 @@
-import {Component} from 'chimera/react';
-import {React} from 'chimera/react';
+import {Component, React} from 'chimera/react';
 import * as utils from 'chimera/utils';
 
 export class Form extends Component {
     static CODEPOINT = 0x00;
     static LITERAL = 0x01;
     static NAME = 0x02;
+
     constructor(props) {
         super(props);
         this.state = {field: Form.NAME, query: ''};
@@ -13,12 +13,15 @@ export class Form extends Component {
         this.onQuery = this.onQuery.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
     onField(event) {
         this.setState({field: Number(event.target.value)});
     }
+
     onQuery(event) {
         this.setState({query: event.target.value});
     }
+
     onSubmit(event) {
         event.preventDefault();
 
@@ -29,8 +32,10 @@ export class Form extends Component {
         // Transform the query
         if(field === Form.CODEPOINT) {
             // Transform hexadecimal to decimal
-            query = query.trim().replace(/[uU]\+/, '');
-            query = Number.parseInt(query, 16);
+            query = Number.parseInt(
+                query.trim().replace(/[uU]\+/, ''),
+                16,
+            );
             if(Number.isNaN(query)) {
                 query = '';
             }
@@ -52,29 +57,47 @@ export class Form extends Component {
         // Apply the filter
         this.props.onSubmit({field, query});
     }
+
     render() {
         return (
             <form onSubmit={this.onSubmit}>
                 <fieldset>
-                    <input name="query" placeholder="Search..." type="search"
-                           value={this.state.query} onChange={this.onQuery}/>
+                    <input
+                        name="query"
+                        type="search"
+                        placeholder="Search..."
+                        value={this.state.query}
+                        onChange={this.onQuery}
+                    />
                     <div className="options">
                         <label>
-                            <input name="field" type="radio" value={Form.CODEPOINT}
-                                   checked={this.state.field === Form.CODEPOINT}
-                                   onChange={this.onField}/>
+                            <input
+                                name="field"
+                                type="radio"
+                                value={Form.CODEPOINT}
+                                checked={this.state.field === Form.CODEPOINT}
+                                onChange={this.onField}
+                            />
                             <span>Code point</span>
                         </label>
                         <label>
-                            <input name="field" type="radio" value={Form.LITERAL}
-                                   checked={this.state.field === Form.LITERAL}
-                                   onChange={this.onField}/>
+                            <input
+                                name="field"
+                                type="radio"
+                                value={Form.LITERAL}
+                                checked={this.state.field === Form.LITERAL}
+                                onChange={this.onField}
+                            />
                             <span>Literal</span>
                         </label>
                         <label>
-                            <input name="field" type="radio" value={Form.NAME}
-                                   checked={this.state.field === Form.NAME}
-                                   onChange={this.onField}/>
+                            <input
+                                name="field"
+                                type="radio"
+                                value={Form.NAME}
+                                checked={this.state.field === Form.NAME}
+                                onChange={this.onField}
+                            />
                             <span>Name</span>
                         </label>
                     </div>

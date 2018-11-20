@@ -1,12 +1,12 @@
-import {Icon} from 'chimera/icons';
 import {React} from 'chimera/react';
+import {Icon} from 'components';
 
 export function PageButton({next, previous, ...props}) {
-    let direction = next ? 'right' : 'left';
+    const direction = next ? 'right' : 'left';
     return (
         <a className={`page-${direction}`} {...props}>
             <h6>
-                <Icon icon={`chevron-${direction}`}/>
+                <Icon name={`chevron-${direction}`}/>
             </h6>
         </a>
     );

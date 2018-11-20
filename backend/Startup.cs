@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using Unibrowse.Middleware;
-using Unibrowse.Services;
 
 namespace Unibrowse {
     public class Startup {
@@ -19,7 +18,6 @@ namespace Unibrowse {
         public void ConfigureServices(IServiceCollection services) {
             services.AddEntityFrameworkSqlite()
                 .AddDbContext<DatabaseContext>()
-                .AddCorsPolicies()
                 .AddMvc()
                 .AddJsonOptions(options => {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver() {
@@ -31,8 +29,7 @@ namespace Unibrowse {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
             if(env.IsDevelopment()) {
-                app.UseCors("AllowAnyOrigin")
-                    .UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
             var options = new RewriteOptions()
                 .Add(new IndexRedirect())

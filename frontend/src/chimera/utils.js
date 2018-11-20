@@ -5,7 +5,7 @@ import {NotFoundError} from 'chimera/errors';
  */
 export function decode(string) {
     let number = 0;
-    for(let char of string) {
+    for(const char of string) {
         number += char.codePointAt(0);
     }
     return number;
@@ -16,7 +16,7 @@ export function decode(string) {
  */
 export class Dom {
     static id(id) {
-        let el = document.getElementById(id);
+        const el = document.getElementById(id);
         if(el === null) {
             throw new NotFoundError(`element '#${id}' not found`);
         }

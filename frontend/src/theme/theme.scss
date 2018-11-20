@@ -77,13 +77,16 @@ $ub-transition: 200ms ease;
   position: fixed;
   top: 0;
   bottom: 0;
+
   & > * {
     margin: ($ub-margin-small / 2);
   }
 }
+
 @mixin hook-state($color) {
   padding: $ub-margin-large 0;
   text-align: center;
+
   & svg {
     color: $color;
     font-size: $ub-state-icon-size;
@@ -100,6 +103,7 @@ html {
   font-weight: $ub-base-font-weight;
   line-height: $ub-base-line-height;
 }
+
 noscript {
   position: absolute;
   text-align: center;
@@ -113,26 +117,32 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: $ub-margin-medium;
 }
+
 h1 {
   font-size: $ub-h1-font-size;
   line-height: $ub-h1-line-height;
 }
+
 h2 {
   font-size: $ub-h2-font-size;
   line-height: $ub-h2-line-height;
 }
+
 h3 {
   font-size: $ub-h3-font-size;
   line-height: $ub-h3-line-height;
 }
+
 h4 {
   font-size: $ub-h4-font-size;
   line-height: $ub-h4-line-height;
 }
+
 h5 {
   font-size: $ub-h5-font-size;
   line-height: $ub-h5-line-height;
 }
+
 h6 {
   font-size: $ub-h6-font-size;
   line-height: $ub-h6-line-height;
@@ -141,6 +151,7 @@ h6 {
 // Links
 a {
   color: $ub-primary-color;
+
   &:hover, &:focus {
     color: $ub-primary-hover-color;
   }
@@ -167,18 +178,22 @@ input[type='reset'] {
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+
   &:active {
     transform: scale(0.98);
   }
+
   &:hover, &:focus {
     border-color: $ub-button-border-hover-color;
     color: $ub-button-font-hover-color;
     outline: 0;
   }
+
   &.button-primary {
     background-color: $ub-primary-color;
     border-color: $ub-primary-color;
     color: $ub-light-color;
+
     &:hover, &:focus {
       background-color: $ub-primary-hover-color;
       border-color: $ub-primary-hover-color;
@@ -199,6 +214,7 @@ textarea {
   -moz-appearance: none;
   -webkit-appearance: none;
 }
+
 input[type='email'],
 input[type='number'],
 input[type='password'],
@@ -216,19 +232,23 @@ select, textarea {
   height: $ub-input-height;
   padding: $ub-input-padding;
   transition: $ub-transition;
+
   &:focus {
     border: $ub-border-style $ub-primary-color;
     outline: 0;
   }
 }
+
 input[type='search'] {
   border-radius: $ub-border-pill;
   font-size: $ub-search-font-size;
   padding: 0 $ub-search-padding;
   height: $ub-search-height;
+
   &:active, &:focus {
     box-shadow: $ub-search-box-shadow;
   }
+
   &::-webkit-search-cancel-button,
   &::-webkit-search-decoration,
   &::-webkit-search-results-button,
@@ -236,6 +256,7 @@ input[type='search'] {
     display: none;
   }
 }
+
 input[type='checkbox'],
 input[type='radio'] {
   background: $ub-light-color no-repeat 50% 50%;
@@ -250,38 +271,47 @@ input[type='radio'] {
   height: $ub-input-radio-size;
   -moz-appearance: none;
   -webkit-appearance: none;
+
   &:checked {
     background-color: $ub-primary-color;
     border-color: transparent;
   }
+
   &:checked, &:active, &:focus {
     outline: transparent none;
     -moz-appearance: none;
     -webkit-appearance: none;
   }
 }
+
 input[type='checkbox'] {
   border-radius: $ub-border-round;
+
   &:checked {
     background-image: url($ub-svg-checkbox);
   }
 }
+
 input[type='radio'] {
   border-radius: $ub-border-circle;
+
   &:checked {
     background-image: url($ub-svg-radio);
   }
 }
+
 fieldset {
   border-width: 0;
   margin: 0;
   padding: 0;
 }
+
 label, legend {
   display: block;
   font-weight: bold;
   margin-bottom: $ub-label-margin;
 }
+
 textarea {
   resize: vertical;
 }
@@ -290,13 +320,16 @@ textarea {
 ol {
   list-style: decimal inside;
 }
+
 ul {
   list-style: circle inside;
 }
+
 ol, ul {
   padding-left: 0;
   margin-top: 0;
 }
+
 ol ol, ol ul,
 ul ol, ul ul {
   margin: 0 0 0 $ub-margin-medium;
@@ -312,6 +345,7 @@ code {
   border: $ub-border-style $ub-code-border-color;
   border-radius: $ub-border-round;
 }
+
 pre > code {
   display: block;
   padding: $ub-margin-small $ub-margin-small;
@@ -322,17 +356,21 @@ pre > code {
 table {
   width: $ub-full-width;
 }
+
 tbody > tr {
   &:nth-child(even) {
     background-color: $ub-light-color;
   }
 }
+
 th {
   font-weight: bold;
 }
+
 th, td {
   padding: $ub-gutter-xsmall $ub-gutter-small;
 }
+
 thead {
   background-color: $ub-light-color;
 }
@@ -341,12 +379,15 @@ thead {
 blockquote, dl, ol, ul, figure, form, p, pre, table {
   margin-bottom: $ub-margin-medium;
 }
+
 button, .button {
   margin-bottom: $ub-margin-small;
 }
+
 fieldset, input, select, textarea {
   margin-bottom: $ub-margin-small;
 }
+
 hr {
   border-width: 0;
   border-top: $ub-border-style $ub-code-border-color;
@@ -361,11 +402,14 @@ hr {
   padding: $ub-margin-small;
   transition: $ub-transition;
   width: $ub-card-width;
+
   &:hover {
     transform: scale(1.1);
   }
+
   &-header {
     text-align: center;
+
     & > h4 {
       background-color: $ub-background-color;
       border: $ub-border-style $ub-card-border-color;
@@ -376,17 +420,21 @@ hr {
       padding: $ub-gutter-small;
     }
   }
+
   &-subtitle {
     font-size: $ub-font-size-small;
     margin: 0;
+
     & > dt {
       font-weight: bold;
     }
+
     & > dd {
       margin: 0;
     }
   }
 }
+
 .container {
   box-sizing: border-box;
   margin: 0 auto;
@@ -394,6 +442,7 @@ hr {
   padding: 0 $ub-margin-medium;
   position: relative;
 }
+
 .details {
   background-color: $ub-light-color;
   box-shadow: $ub-box-shadow-small;
@@ -405,66 +454,82 @@ hr {
   left: 0;
   right: 0;
   bottom: 0;
+
   & dl {
     margin: $ub-margin-small;
+
     & > dt {
       font-weight: bold;
     }
+
     & > dd {
       margin: 0;
     }
   }
 }
+
 .header {
   margin-top: $ub-margin-large;
   margin-bottom: $ub-margin-medium;
   text-align: center;
+
   & > * {
     margin: 0;
   }
 }
+
 .options {
   display: flex;
   flex-wrap: wrap;
+
   & input,
   & label {
     margin: 0;
   }
+
   & > label {
     display: flex;
     align-items: center;
+
     &:not(:first-child) {
       margin-left: $ub-margin-medium;
     }
   }
+
   & span {
     font-weight: normal;
     margin-left: $ub-label-margin;
   }
 }
+
 .page {
   &-left {
     left: 0;
     @include hook-page;
   }
+
   &-right {
     right: 0;
     @include hook-page;
   }
 }
+
 .panel {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   margin-bottom: ($ub-margin-small * 6);
+
   & > * {
     margin: $ub-gutter-xsmall;
   }
 }
+
 .state {
   &-error {
     @include hook-state($ub-state-error-color);
   }
+
   &-loading {
     @include hook-state($ub-primary-color);
   }

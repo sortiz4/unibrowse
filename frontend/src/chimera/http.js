@@ -1,2 +1,1 @@
-import axios from 'axios';
-export {axios as Http};
+export {default as Http} from 'axios';

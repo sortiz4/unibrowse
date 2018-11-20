@@ -1,10 +1,10 @@
-import {Icon} from 'chimera/icons';
 import {React} from 'chimera/react';
+import {Icon} from 'components';
 
 export function Loading() {
     return (
         <div className="state-loading">
-            <Icon icon="spinner" spin/>
+            <Icon name="spinner" spin/>
         </div>
     );
 }

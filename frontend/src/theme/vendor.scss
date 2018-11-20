@@ -1,0 +1,28 @@
+// Font Awesome
+$fa-offset: -0.125em;
+$fa-size: 1em;
+$fa-wide: 1.5em;
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa {
+  vertical-align: $fa-offset;
+  width: $fa-size;
+  height: $fa-size;
+
+  &-spin {
+    animation: spin 500ms infinite linear;
+  }
+
+  &-wide {
+    width: $fa-wide;
+  }
+}

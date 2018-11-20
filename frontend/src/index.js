@@ -1,5 +1,4 @@
-import {React} from 'chimera/react';
-import {ReactDom} from 'chimera/react';
+import {React, ReactDom} from 'chimera/react';
 import {Dom} from 'chimera/utils';
 import {App} from 'components';
 

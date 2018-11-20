@@ -15,32 +15,38 @@ export class Paginator {
         // Backend state
         this.state = {filter: false};
     }
+
     get pageNumber() {
         return this.index;
     }
+
     get pageCount() {
         return this.page['page_count'];
     }
+
     get hasNext() {
         return this.page['has_next'];
     }
+
     get hasPrevious() {
         return this.page['has_previous'];
     }
+    
     get hasChildren() {
         return this.page.children.length > 0;
     }
+
     async sync() {
         // This method should be called after construction
-        let response;
-        if(this.state.filter) {
-            response = await this.backend.filter(this);
-        } else {
-            response = await this.backend.all(this);
-        }
+        const response = this.state.filter ? (
+            await this.backend.filter(this)
+        ): (
+            await this.backend.all(this)
+        );
         this.page = response.data;
         return this;
     }
+
     async next() {
         if(this.hasNext) {
             this.index += 1;
@@ -48,6 +54,7 @@ export class Paginator {
         }
         return this;
     }
+
     async previous() {
         if(this.hasPrevious) {
             this.index -= 1;
@@ -55,6 +62,7 @@ export class Paginator {
         }
         return this;
     }
+
     async filter({field, query}) {
         // Disable the filter if the query is empty
         this.state.filter = query.length !== 0;
@@ -70,6 +78,7 @@ export class Paginator {
         }
         return this;
     }
+
     *[Symbol.iterator]() {
         for(let child of this.page.children) {
             yield new CodePoint(child);
