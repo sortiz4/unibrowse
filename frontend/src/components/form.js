@@ -1,5 +1,5 @@
-import {Component, React} from 'chimera/react';
-import * as utils from 'chimera/utils';
+import {Component, React} from 'core/react';
+import * as utils from 'core/utils';
 
 export class Form extends Component {
     static CODEPOINT = 0x00;

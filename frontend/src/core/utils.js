@@ -1,4 +1,4 @@
-import {NotFoundError} from 'chimera/errors';
+import {NotFoundError} from 'core/errors';
 
 /**
  * Decodes a string to an integer.

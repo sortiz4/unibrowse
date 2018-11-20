@@ -1,4 +1,3 @@
-import {Component, Fragment, React} from 'chimera/react';
 import {
     Details,
     Error,
@@ -8,6 +7,7 @@ import {
     PageButton,
     Panel,
 } from 'components';
+import {Component, Fragment, React} from 'core/react';
 import {Paginator} from 'resources/paginator';
 
 export class Viewport extends Component {

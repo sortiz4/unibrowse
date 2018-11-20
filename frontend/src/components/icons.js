@@ -1,6 +1,6 @@
-import {FaIcon} from 'chimera/icons';
-import {React} from 'chimera/react';
-import {classNames} from 'chimera/string';
+import {FaIcon} from 'core/icons';
+import {React} from 'core/react';
+import {classNames} from 'core/string';
 
 export function Icon({name, size, spin, wide, className, ...props}) {
     const {width, height, path} = FaIcon.get(name);

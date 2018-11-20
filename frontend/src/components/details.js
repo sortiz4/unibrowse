@@ -1,5 +1,5 @@
-import {React} from 'chimera/react';
 import {CodePoint} from 'models/codepoint';
+import {React} from 'core/react';
 
 export function Details({details}) {
     return details instanceof CodePoint ? (

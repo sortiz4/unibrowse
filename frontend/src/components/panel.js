@@ -1,6 +1,5 @@
-import {Component} from 'chimera/react';
-import {React} from 'chimera/react';
 import {Card} from 'components';
+import {Component, React} from 'core/react';
 
 export class Panel extends Component {
     get rows() {

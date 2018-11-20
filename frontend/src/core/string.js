@@ -1,4 +1,4 @@
-import {camelCase, snakeCase} from 'chimera/lodash';
+import {camelCase, snakeCase} from 'core/lodash';
 export {camelCase, snakeCase};
 
 /**

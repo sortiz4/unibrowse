@@ -1,5 +1,5 @@
-import {Component, React} from 'chimera/react';
 import {Literal} from 'components';
+import {Component, React} from 'core/react';
 
 export class Card extends Component {
     constructor(props) {

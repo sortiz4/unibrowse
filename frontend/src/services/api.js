@@ -1,4 +1,4 @@
-import {Http} from 'chimera/http';
+import {Http} from 'core/http';
 
 export class Backend {
     constructor() {

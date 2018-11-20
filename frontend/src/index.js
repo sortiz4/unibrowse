@@ -1,5 +1,5 @@
-import {React, ReactDom} from 'chimera/react';
-import {Dom} from 'chimera/utils';
 import {App} from 'components';
+import {React, ReactDom} from 'core/react';
+import {Dom} from 'core/utils';
 
 ReactDom.render(<App/>, Dom.id('root'));

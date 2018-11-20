@@ -1,5 +1,5 @@
-import {React} from 'chimera/react';
 import {Icon} from 'components';
+import {React} from 'core/react';
 
 export function Loading() {
     return (
