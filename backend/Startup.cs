@@ -32,8 +32,7 @@ namespace Unibrowse {
                 app.UseDeveloperExceptionPage();
             }
             var options = new RewriteOptions()
-                .Add(new IndexRedirect())
-                .Add(new AppendSlash());
+                .Add(new IndexRedirect());
             app.UseStaticFiles()
                 .UseRewriter(options)
                 .UseMvcWithDefaultRoute();
