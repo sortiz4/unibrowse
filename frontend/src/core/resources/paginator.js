@@ -2,20 +2,6 @@ import {CodePoint} from 'core/models';
 import {Backend} from 'core/services';
 
 export class Paginator {
-    constructor() {
-        // Underlying data source
-        this.backend = new Backend();
-        this.page = null;
-
-        // Filter parameters
-        this.field = null;
-        this.query = null;
-        this.index = 1;
-
-        // Backend state
-        this.state = {filter: false};
-    }
-
     get pageNumber() {
         return this.index;
     }
@@ -34,6 +20,20 @@ export class Paginator {
     
     get hasChildren() {
         return this.page.children.length > 0;
+    }
+
+    constructor() {
+        // Underlying data source
+        this.backend = new Backend();
+        this.page = null;
+
+        // Filter parameters
+        this.field = null;
+        this.query = null;
+        this.index = 1;
+
+        // Backend state
+        this.state = {filter: false};
     }
 
     async sync() {
@@ -77,6 +77,15 @@ export class Paginator {
             await this.sync();
         }
         return this;
+    }
+
+    map(callback) {
+        let index = 0;
+        const children = [];
+        for(const child of this) {
+            children.push(callback(child, index++, children));
+        }
+        return children;
     }
 
     *[Symbol.iterator]() {
