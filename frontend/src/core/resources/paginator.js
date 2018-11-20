@@ -1,5 +1,5 @@
-import {CodePoint} from 'models/codepoint';
-import {Backend} from 'services/api';
+import {CodePoint} from 'core/models';
+import {Backend} from 'core/services';
 
 export class Paginator {
     constructor() {

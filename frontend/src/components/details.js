@@ -1,4 +1,4 @@
-import {CodePoint} from 'models/codepoint';
+import {CodePoint} from 'core/models';
 import {React} from 'core/react';
 
 export function Details({details}) {

@@ -8,7 +8,7 @@ import {
     Panel,
 } from 'components';
 import {Component, Fragment, React} from 'core/react';
-import {Paginator} from 'resources/paginator';
+import {Paginator} from 'core/resources';
 
 export class Viewport extends Component {
     constructor(props) {
