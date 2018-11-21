@@ -9,16 +9,16 @@ export class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {field: Form.NAME, query: ''};
-        this.onField = this.onField.bind(this);
-        this.onQuery = this.onQuery.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.onType = this.onType.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onField(event) {
+    onSelect(event) {
         this.setState({field: Number(event.target.value)});
     }
 
-    onQuery(event) {
+    onType(event) {
         this.setState({query: event.target.value});
     }
 
@@ -67,7 +67,7 @@ export class Form extends Component {
                         type="search"
                         placeholder="Search..."
                         value={this.state.query}
-                        onChange={this.onQuery}
+                        onChange={this.onType}
                     />
                     <div className="options">
                         <label>
@@ -76,7 +76,7 @@ export class Form extends Component {
                                 type="radio"
                                 value={Form.CODEPOINT}
                                 checked={this.state.field === Form.CODEPOINT}
-                                onChange={this.onField}
+                                onChange={this.onSelect}
                             />
                             <span>Code point</span>
                         </label>
@@ -86,7 +86,7 @@ export class Form extends Component {
                                 type="radio"
                                 value={Form.LITERAL}
                                 checked={this.state.field === Form.LITERAL}
-                                onChange={this.onField}
+                                onChange={this.onSelect}
                             />
                             <span>Literal</span>
                         </label>
@@ -96,7 +96,7 @@ export class Form extends Component {
                                 type="radio"
                                 value={Form.NAME}
                                 checked={this.state.field === Form.NAME}
-                                onChange={this.onField}
+                                onChange={this.onSelect}
                             />
                             <span>Name</span>
                         </label>

@@ -62,22 +62,15 @@ export class Viewport extends Component {
     }
 
     onHover(details) {
-        this.details = details;
-        this.setState({});
+        this.setState(() => this.details = details);
     }
 
     error() {
-        this.setState({
-            error: true,
-            success: false,
-        });
+        this.setState({error: true, success: false});
     }
 
     success() {
-        this.setState({
-            error: false,
-            success: true,
-        });
+        this.setState({error: false, success: true});
     }
 
     render() {
