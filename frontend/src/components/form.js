@@ -1,33 +1,33 @@
+import {bind} from 'core/decorators';
 import {Component, React} from 'core/react';
-import * as utils from 'core/utils';
+import {Unicode} from 'core/string';
 
 export class Form extends Component {
-    static CODEPOINT = 0x00;
-    static LITERAL = 0x01;
-    static NAME = 0x02;
+    static CODEPOINT = 0;
+    static LITERAL = 1;
+    static NAME = 2;
 
-    constructor(props) {
-        super(props);
-        this.state = {field: Form.NAME, query: ''};
-        this.onSelect = this.onSelect.bind(this);
-        this.onType = this.onType.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+    field = Form.NAME;
+    query = '';
 
+    @bind
     onSelect(event) {
-        this.setState({field: Number(event.target.value)});
+        const {value} = event.target;
+        this.setState(() => this.field = Number(value));
     }
 
+    @bind
     onType(event) {
-        this.setState({query: event.target.value});
+        const {value} = event.target;
+        this.setState(() => this.query = value);
     }
 
+    @bind
     onSubmit(event) {
         event.preventDefault();
 
         // Grab the form inputs
-        let field = this.state.field;
-        let query = this.state.query;
+        let {field, query} = this;
 
         // Transform the query
         if(field === Form.CODEPOINT) {
@@ -41,18 +41,22 @@ export class Form extends Component {
             }
         } else if(field === Form.LITERAL) {
             // Transform literal to decimal
-            if(query.length > 0) {
-                query = utils.decode(query);
-            } else {
-                query = '';
-            }
+            query = query.length > 0 ? (
+                Unicode.fromString(query)
+            ) : (
+                ''
+            );
         } else {
             // Trim name-based queries
             query = query.trim();
         }
 
         // Transform the field
-        field = field === Form.NAME ? 'name' : 'value';
+        field = field === Form.NAME ? (
+            'name'
+        ) : (
+            'value'
+        );
 
         // Apply the filter
         this.props.onSubmit({field, query});
@@ -66,7 +70,7 @@ export class Form extends Component {
                         name="query"
                         type="search"
                         placeholder="Search..."
-                        value={this.state.query}
+                        value={this.query}
                         onChange={this.onType}
                     />
                     <div className="options">
@@ -75,7 +79,7 @@ export class Form extends Component {
                                 name="field"
                                 type="radio"
                                 value={Form.CODEPOINT}
-                                checked={this.state.field === Form.CODEPOINT}
+                                checked={this.field === Form.CODEPOINT}
                                 onChange={this.onSelect}
                             />
                             <span>Code point</span>
@@ -85,7 +89,7 @@ export class Form extends Component {
                                 name="field"
                                 type="radio"
                                 value={Form.LITERAL}
-                                checked={this.state.field === Form.LITERAL}
+                                checked={this.field === Form.LITERAL}
                                 onChange={this.onSelect}
                             />
                             <span>Literal</span>
@@ -95,7 +99,7 @@ export class Form extends Component {
                                 name="field"
                                 type="radio"
                                 value={Form.NAME}
-                                checked={this.state.field === Form.NAME}
+                                checked={this.field === Form.NAME}
                                 onChange={this.onSelect}
                             />
                             <span>Name</span>

@@ -20,7 +20,16 @@ module.exports = {
             style: {
                 extract: false,
                 loaders: [
-                    'clean-css-loader',
+                    {
+                        loader: 'clean-css-loader',
+                        options: {
+                            level: {
+                                1: {
+                                    specialComments: 0,
+                                },
+                            },
+                        },
+                    },
                     'sass-loader',
                 ],
                 test: /\.(css|sass|scss)$/,
@@ -31,6 +40,18 @@ module.exports = {
                 browsers: [
                     'Firefox >= 40',
                 ],
+            },
+
+            // Babel plugins
+            babel: {
+                plugins: [
+                    ['@babel/plugin-proposal-decorators', {
+                        decoratorsBeforeExport: true,
+                    }],
+                    ['@babel/plugin-proposal-class-properties', {
+                        loose: true,
+                    }],
+                ]
             },
         }],
         (neutrino) => {
@@ -44,11 +65,16 @@ module.exports = {
                 .prepend('@babel/polyfill')
                 .prepend('theme/index.scss');
 
-            // Configure the JavaScript optimizer (keep names)
+            // Configure the JavaScript optimizer
             if(process.env.NODE_ENV === 'production') {
                 neutrino.config.optimization.minimizer('terser')
-                    .tap(([defaultOptions]) => [{
-                        ...defaultOptions,
+                    .use(require.resolve('terser-webpack-plugin'), [{
+                        cache: true,
+                        parallel: true,
+                        sourceMap: (
+                            neutrino.config.devtool &&
+                            /source-?map/.test(neutrino.config.devtool)
+                        ),
                         terserOptions: {
                             output: {
                                 comments: false,

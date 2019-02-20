@@ -1,10 +1,10 @@
 import {Card} from 'components';
 import {React} from 'core/react';
 
-export function Panel({paginator, onHover}) {
+export function Panel({page, onHover}) {
     return (
         <div className="panel">
-            {paginator.map((code, i) => (
+            {page.map((code, i) => (
                 <Card
                     key={i}
                     code={code}

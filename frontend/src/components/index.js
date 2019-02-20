@@ -1,4 +1,5 @@
 export * from './app';
+export * from './async-component';
 export * from './card';
 export * from './container';
 export * from './details';

@@ -1,25 +1,27 @@
 {
   "name": "unibrowse",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "@fortawesome/free-solid-svg-icons": "^5.5.0",
+    "@babel/polyfill": "^7.2.5",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "axios": "^0.18.0",
-    "react-dom": "^16.6.3",
-    "react": "^16.6.3"
+    "lodash": "^4.17.11",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2"
   },
   "devDependencies": {
-    "@neutrinojs/eslint": "^9.0.0-beta.1",
-    "@neutrinojs/react": "^9.0.0-beta.1",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@neutrinojs/eslint": "^9.0.0-rc.0",
+    "@neutrinojs/react": "^9.0.0-rc.0",
     "clean-css-loader": "^1.1.0",
-    "eslint": "^5.9.0",
-    "neutrino": "^9.0.0-beta.1",
-    "node-sass": "^4.10.0",
+    "eslint": "^5.14.1",
+    "neutrino": "^9.0.0-rc.0",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
     "build": "webpack --mode=production",

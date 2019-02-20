@@ -1,4 +1,6 @@
-export class CodePoint {
+import {Model} from 'core/models';
+
+export class CodePoint extends Model {
     static CATEGORY = [
         'Uppercase Letter', 'Lowercase Letter', 'Titlecase Letter',
         'Modifier Letter', 'Other Letter', 'Nonspacing Mark',
@@ -41,47 +43,51 @@ export class CodePoint {
         'Wide', 'Narrow', 'Small', 'Square', 'Fraction', 'Compatibility',
     ];
 
-    constructor(source) {
-        this.source = source;
-        return new Proxy(this, {
-            get: function(target, prop) {
-                if(prop in target) {
-                    return target[prop];
-                }
-                return target.source[prop];
-            },
-        });
+    static objects() {
+        return this.request('api:codepoints');
+    }
+
+    constructor({
+        value,
+        category,
+        combiningClass,
+        bidirectionalClass,
+        decompositionClass,
+        ...props
+    } = {}) {
+        super(props);
+        this._value = value;
+        this._category = category;
+        this._combiningClass = combiningClass;
+        this._bidirectionalClass = bidirectionalClass;
+        this._decompositionClass = decompositionClass;
     }
 
     get key() {
-        return this.source.value;
+        return this._value;
     }
 
     get value() {
-        let {value} = this.source;
-        return `U+${value.toString(16).toUpperCase().padStart(4, '0')}`;
+        return `U+${this._value.toString(16).toUpperCase().padStart(4, '0')}`;
     }
 
     get category() {
-        let {category} = this.source;
-        return CodePoint.CATEGORY[category];
+        return CodePoint.CATEGORY[this._category];
     }
 
     get combiningClass() {
-        let {'combining_class': index} = this.source;
-        if(index >= 10 && index <= 199) {
-            return `CCC${index}`;
-        }
-        return CodePoint.COMBINING_CLASSES[index];
+        return this._combiningClass >= 10 && this._combiningClass <= 199 ? (
+            `CCC${this._combiningClass}`
+        ) : (
+            CodePoint.COMBINING_CLASSES[this._combiningClass]
+        );
     }
 
     get bidirectionalClass() {
-        let {'bidirectional_class': index} = this.source;
-        return CodePoint.BIDIRECTIONAL_CLASSES[index];
+        return CodePoint.BIDIRECTIONAL_CLASSES[this._bidirectionalClass];
     }
 
     get decompositionClass() {
-        let {'decomposition_class': index} = this.source;
-        return CodePoint.DECOMPOSITION_CLASSES[index];
+        return CodePoint.DECOMPOSITION_CLASSES[this._decompositionClass];
     }
 }

@@ -1,95 +1,96 @@
 import {
+    AsyncComponent,
     Details,
-    Error,
     Form,
-    Loading,
     NotFound,
     PageButton,
     Panel,
 } from 'components';
-import {Component, Fragment, React} from 'core/react';
-import {Paginator} from 'core/resources';
+import {bind} from 'core/decorators';
+import {CodePoint} from 'core/models';
+import {Fragment, React} from 'core/react';
 
-export class Viewport extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {error: false, success: false};
-        this.paginator = new Paginator();
-        this.onNext = this.onNext.bind(this);
-        this.onPrevious = this.onPrevious.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onHover = this.onHover.bind(this);
+export class Viewport extends AsyncComponent {
+    index = 1;
+    search = {};
+
+    afterMount() {
+        this.onRequest();
     }
 
-    async afterMount() {
+    afterCatch(exc) {
+        this.setState(() => this.failure = exc);
+    }
+
+    @bind
+    onNext() {
+        if(this.page.hasNext) {
+            this.onChange(this.index + 1, this.search);
+        }
+    }
+
+    @bind
+    onPrevious() {
+        if(this.page.hasPrevious) {
+            this.onChange(this.index - 1, this.search);
+        }
+    }
+
+    @bind
+    onSubmit(search) {
+        this.onChange(1, search);
+    }
+
+    onChange(index, search) {
+        this.onRequest(
+            request => request.search({page: index, ...search}),
+            () => {
+                this.index = index;
+                this.search = search;
+            },
+        );
+    }
+
+    async onRequest(handler, updater) {
+        if(typeof handler !== 'function') {
+            handler = request => request;
+        }
+        if(typeof updater !== 'function') {
+            updater = () => {};
+        }
         try {
-            await this.paginator.sync();
-            this.success();
+            const request = CodePoint.objects().paginate();
+            const page = await handler(request).get();
+            this.setState(() => {
+                updater();
+                this.page = page;
+                this.success = true;
+            });
         } catch(exc) {
-            this.error();
+            this.setState(() => this.failure = exc);
         }
     }
 
-    async onNext() {
-        if(this.paginator.hasNext) {
-            try {
-                await this.paginator.next();
-                this.success();
-            } catch(exc) {
-                this.error();
-            }
-        }
-    }
-
-    async onPrevious() {
-        if(this.paginator.hasPrevious) {
-            try {
-                await this.paginator.previous();
-                this.success();
-            } catch(exc) {
-                this.error();
-            }
-        }
-    }
-
-    async onSubmit(args) {
-        try {
-            await this.paginator.filter(args);
-            this.success();
-        } catch(exc) {
-            this.error();
-        }
-    }
-
+    @bind
     onHover(details) {
         this.setState(() => this.details = details);
-    }
-
-    error() {
-        this.setState({error: true, success: false});
-    }
-
-    success() {
-        this.setState({error: false, success: true});
     }
 
     render() {
         return (
             <Fragment>
                 <Form onSubmit={this.onSubmit}/>
-                {this.state.success ? (
-                    this.paginator.hasChildren ? (
+                {this.success ? (
+                    this.page.children.length > 0 ? (
                         <Panel
-                            paginator={this.paginator}
+                            page={this.page}
                             onHover={this.onHover}
                         />
                     ) : (
                         <NotFound/>
                     )
-                ) : this.state.error ? (
-                    <Error/>
                 ) : (
-                    <Loading/>
+                    super.render()
                 )}
                 <PageButton previous onClick={this.onPrevious}/>
                 <PageButton next onClick={this.onNext}/>

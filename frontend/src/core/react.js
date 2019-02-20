@@ -10,7 +10,6 @@ export {default as ReactDom} from 'react-dom';
 export class Component extends BaseComponent {
     constructor(props) {
         super(props);
-        this.update = this.setState.bind(this);
         this.componentDidMount = this.afterMount;
         this.componentWillUnmount = this.beforeUnmount;
         this.shouldComponentUpdate = this.shouldUpdate;
@@ -42,18 +41,16 @@ export class Component extends BaseComponent {
     setState(updater, callback) {
         switch(typeof updater) {
             case 'function':
-                // Closures enqueue an update when primitives are returned
-                return super.setState((prevState, props) => {
-                    const result = updater(prevState, props);
-                    return (
-                        result !== null &&
-                        typeof result === 'object'
-                    ) ? result : {};
-                }, callback);
-            case 'undefined':
-                // Empty calls will always enqueue an update
-                return super.setState({});
+                // Closures always enqueue an update
+                return super.setState(
+                    (prevState, props) => {
+                        updater(prevState, props);
+                        return {};
+                    },
+                    callback,
+                );
         }
+
         // Default behavior resumes in all other cases
         return super.setState(updater, callback);
     }
