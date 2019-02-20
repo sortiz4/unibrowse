@@ -62,8 +62,8 @@ module.exports = {
 
             // Prepend styles, extensions, and polyfills to the index
             neutrino.config.entry('index')
-                .prepend('@babel/polyfill')
-                .prepend('theme/index.scss');
+                .prepend('theme/index.scss')
+                .prepend('@babel/polyfill');
 
             // Configure the JavaScript optimizer
             if(process.env.NODE_ENV === 'production') {
