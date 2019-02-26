@@ -12,14 +12,12 @@ export class Form extends Component {
 
     @bind
     onSelect(event) {
-        const {value} = event.target;
-        this.setState(() => this.field = Number(value));
+        this.setState({field: Number(event.target.value)});
     }
 
     @bind
     onType(event) {
-        const {value} = event.target;
-        this.setState(() => this.query = value);
+        this.setState({query: event.target.value});
     }
 
     @bind

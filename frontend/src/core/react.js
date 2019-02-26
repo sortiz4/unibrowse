@@ -39,19 +39,27 @@ export class Component extends BaseComponent {
     }
 
     setState(updater, callback) {
+        // Updates mutate the component
         switch(typeof updater) {
             case 'function':
-                // Closures always enqueue an update
                 return super.setState(
-                    (prevState, props) => {
-                        updater(prevState, props);
-                        return {};
+                    (state, props) => {
+                        updater(state, props);
+                        return true;
+                    },
+                    callback,
+                );
+            case 'object':
+                return super.setState(
+                    () => {
+                        Object.assign(this, updater);
+                        return true;
                     },
                     callback,
                 );
         }
 
-        // Default behavior resumes in all other cases
+        // Default behavior resumes
         return super.setState(updater, callback);
     }
 }

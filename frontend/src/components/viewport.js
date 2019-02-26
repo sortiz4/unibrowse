@@ -19,7 +19,7 @@ export class Viewport extends AsyncComponent {
     }
 
     afterCatch(exc) {
-        this.setState(() => this.failure = exc);
+        this.setState({failure: exc});
     }
 
     @bind
@@ -44,10 +44,7 @@ export class Viewport extends AsyncComponent {
     onChange(index, search) {
         this.onRequest(
             request => request.search({page: index, ...search}),
-            () => {
-                this.index = index;
-                this.search = search;
-            },
+            {index, search},
         );
     }
 
@@ -55,25 +52,25 @@ export class Viewport extends AsyncComponent {
         if(typeof handler !== 'function') {
             handler = request => request;
         }
-        if(typeof updater !== 'function') {
-            updater = () => {};
+        if(typeof updater !== 'object') {
+            updater = {};
         }
         try {
             const request = CodePoint.objects().paginate();
             const page = await handler(request).get();
-            this.setState(() => {
-                updater();
-                this.page = page;
-                this.success = true;
+            this.setState({
+                success: true,
+                page: page,
+                ...updater,
             });
         } catch(exc) {
-            this.setState(() => this.failure = exc);
+            this.setState({failure: exc});
         }
     }
 
     @bind
     onHover(details) {
-        this.setState(() => this.details = details);
+        this.setState({details});
     }
 
     render() {

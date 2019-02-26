@@ -12,7 +12,7 @@ export class Card extends Component {
     @bind
     onHover() {
         this.props.onHover(!this.hover ? this.code : null);
-        this.setState(() => this.hover = !this.hover);
+        this.setState({hover: !this.hover});
     }
 
     render() {
