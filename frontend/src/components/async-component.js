@@ -1,4 +1,4 @@
-import {Error, Loading} from 'components';
+import {States} from 'components';
 import {Component, React} from 'core/react';
 
 export class AsyncComponent extends Component {
@@ -6,7 +6,7 @@ export class AsyncComponent extends Component {
     static SUCCESS = 2;
     static FAILURE = 3;
 
-    _status = 1;
+    _status = 0;
 
     get loading() {
         return this._status === this.constructor.LOADING;
@@ -40,7 +40,7 @@ export class AsyncComponent extends Component {
     }
 
     set message(value) {
-        if(value && value.stack && value.message) {
+        if(value instanceof Error) {
             this._message = value.message;
             console.error(value);
         } else {
@@ -54,9 +54,9 @@ export class AsyncComponent extends Component {
 
     render() {
         return this.failure ? (
-            <Error message={this.message}/>
+            <States.Error message={this.message}/>
         ) : (
-            <Loading/>
+            <States.Loading/>
         );
     }
 }
