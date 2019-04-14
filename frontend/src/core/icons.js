@@ -26,9 +26,9 @@ export class FaIcon {
     );
 
     static get(name) {
-        if(name in this.solid) {
+        if(this.solid.hasOwnProperty(name)) {
             return this.solid[name];
         }
-        throw new TypeError(`'${name}' was not found`);
+        throw new TypeError(`Icon '${name}' was not found`);
     }
 }

@@ -72,22 +72,22 @@ export class CodePoint extends Model {
     }
 
     get category() {
-        return CodePoint.CATEGORY[this._category];
+        return this.meta.CATEGORY[this._category];
     }
 
     get combiningClass() {
         return this._combiningClass >= 10 && this._combiningClass <= 199 ? (
             `CCC${this._combiningClass}`
         ) : (
-            CodePoint.COMBINING_CLASSES[this._combiningClass]
+            this.meta.COMBINING_CLASSES[this._combiningClass]
         );
     }
 
     get bidirectionalClass() {
-        return CodePoint.BIDIRECTIONAL_CLASSES[this._bidirectionalClass];
+        return this.meta.BIDIRECTIONAL_CLASSES[this._bidirectionalClass];
     }
 
     get decompositionClass() {
-        return CodePoint.DECOMPOSITION_CLASSES[this._decompositionClass];
+        return this.meta.DECOMPOSITION_CLASSES[this._decompositionClass];
     }
 }

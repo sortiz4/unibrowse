@@ -110,10 +110,7 @@ export class RequestBuilder {
     }
 
     args(...args) {
-        if(
-            args.length === 1 &&
-            typeof args[0] === 'object'
-        ) {
+        if(args.length === 1 && typeof args[0] === 'object') {
             this._args = args[0];
         } else {
             this._args = args;
@@ -184,6 +181,8 @@ export class Model {
     @memoize
     static get request() {
         const builder = RequestBuilder.for(this);
+
+        // The request can be called or chained
         return new Proxy(builder, {
             apply: function(_0, _1, args) {
                 return new builder(...args);

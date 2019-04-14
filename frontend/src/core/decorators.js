@@ -8,7 +8,7 @@ export function bind({key, kind, placement, descriptor, ...other}) {
         placement !== 'prototype' ||
 	    typeof value !== 'function'
     ) {
-		throw new TypeError('only methods can be bound');
+		throw new TypeError('Only methods can be bound');
 	}
 	return {
         key,
@@ -54,7 +54,7 @@ export function memoize({key, kind, descriptor, ...other}) {
 	    ['get', descriptor.get]
     );
     if(kind !== 'method' || typeof value !== 'function') {
-		throw new TypeError('only methods can be memoized');
+		throw new TypeError('Only getters and methods can be memoized');
 	}
 	return {
         key,
