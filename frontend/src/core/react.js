@@ -10,32 +10,20 @@ export {default as ReactDom} from 'react-dom';
 export class Component extends BaseComponent {
     constructor(props) {
         super(props);
+
+        // Alias the lifecycle methods
+        this.componentDidCatch = this.afterCatch;
         this.componentDidMount = this.afterMount;
+        this.componentDidUpdate = this.afterUpdate;
         this.componentWillUnmount = this.beforeUnmount;
         this.shouldComponentUpdate = this.shouldUpdate;
-        this.componentDidUpdate = this.afterUpdate;
-        this.componentDidCatch = this.afterCatch;
-    }
+        this.UNSAFE_componentWillMount = this.beforeMount;
+        this.UNSAFE_componentWillReceiveProps = this.beforeProps;
+        this.UNSAFE_componentWillUpdate = this.beforeUpdate;
 
-    afterMount() {
-        // Default behavior (empty)
-    }
-
-    beforeUnmount() {
-        // Default behavior (empty)
-    }
-
-    shouldUpdate(nextProps, nextState) {
-        // Default behavior (true)
-        return true;
-    }
-
-    afterUpdate(prevProps, prevState, snapshot) {
-        // Default behavior (empty)
-    }
-
-    afterCatch(error, info) {
-        // Default behavior (empty)
+        // Monkey patch the render method
+        const render = this.render.bind(this);
+        this.render = () => render(this.props);
     }
 
     setState(updater, callback) {
@@ -61,26 +49,5 @@ export class Component extends BaseComponent {
 
         // Default behavior resumes
         return super.setState(updater, callback);
-    }
-}
-
-export class PureComponent extends Component {
-    shouldUpdate(nextProps) {
-        // Only perform a shallow comparison on properties because the
-        // component state may exist outside of it's traditional context
-        if(this.props === nextProps) {
-            return true;
-        }
-        const thisKeys = Object.keys(this.props);
-        const nextKeys = Object.keys(nextProps);
-        if(thisKeys.length !== nextKeys.length) {
-            return false;
-        }
-        for(const key of thisKeys) {
-            if(this.props[key] !== nextProps[key]) {
-                return false;
-            }
-        }
-        return true;
     }
 }
