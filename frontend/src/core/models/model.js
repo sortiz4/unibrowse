@@ -182,15 +182,8 @@ export class Model {
     static get request() {
         const builder = RequestBuilder.for(this);
 
-        // The request can be called or chained
-        return new Proxy(builder, {
-            apply: function(_0, _1, args) {
-                return new builder(...args);
-            },
-            get: function(_, key) {
-                return new builder()[key];
-            },
-        });
+        // The request builder can only be called
+        return (...args) => new builder(...args);
     }
 
     /**

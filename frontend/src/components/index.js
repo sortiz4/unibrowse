@@ -14,7 +14,4 @@ export * from './page-button';
 export * from './panel';
 export * from './viewport';
 
-export class States {
-    static Error = Error;
-    static Loading = Loading;
-}
+export const States = {Error, Loading};

@@ -1,5 +1,6 @@
 import {States} from 'components';
-import {Component, React} from 'core/react';
+import {Component} from 'core/butter';
+import {React} from 'core/react';
 
 export class AsyncComponent extends Component {
     static LOADING = 1;

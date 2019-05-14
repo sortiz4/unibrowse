@@ -1,5 +1,6 @@
+import {Component} from 'core/butter';
 import {bind} from 'core/decorators';
-import {Component, React} from 'core/react';
+import {React} from 'core/react';
 import {Unicode} from 'core/string';
 
 export class Form extends Component {

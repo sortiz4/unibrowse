@@ -5,13 +5,7 @@ export function Error({message}) {
     return (
         <div className="state-error">
             <Icon name="exclamation-circle"/>
-            <h5>
-                {!message ? (
-                    'Something went wrong...'
-                ) : (
-                    message
-                )}
-            </h5>
+            <h5>{message ? message : 'Something went wrong...'}</h5>
         </div>
     );
 }

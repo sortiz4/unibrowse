@@ -1,12 +1,12 @@
 module.exports = {
     use: [
-        '@neutrinojs/eslint',
-        ['@neutrinojs/react', {
+        require('@neutrinojs/eslint')(),
+        require('@neutrinojs/react')({
             // Browser request proxy (development)
             devServer: {
                 port: 8000,
                 proxy: [{
-                    context: ['/api', '/static'],
+                    context: ['/api'],
                     target: 'http://localhost:5000',
                 }],
             },
@@ -53,40 +53,36 @@ module.exports = {
                     }],
                 ],
             },
-        }],
+        }),
         (neutrino) => {
             // Add `node_modules` and `src` to the module resolver
             neutrino.config.resolve.modules
                 .add('node_modules')
                 .add('src');
 
-            // Prepend styles, extensions, and polyfills to the index
+            // Prepend styles and polyfills to the entry point
             neutrino.config.entry('index')
                 .prepend('theme/index.scss')
                 .prepend('@babel/polyfill');
 
-            // Configure the JavaScript optimizer
             if(process.env.NODE_ENV === 'production') {
+                // Configure the optimizer
                 neutrino.config.optimization.minimizer('terser')
-                    .use(require.resolve('terser-webpack-plugin'), [{
+                    .use(require('terser-webpack-plugin'), [{
                         cache: true,
                         parallel: true,
-                        sourceMap: (
-                            neutrino.config.devtool &&
-                            /source-?map/.test(neutrino.config.devtool)
-                        ),
                         terserOptions: {
                             output: {
                                 comments: false,
                             },
                         },
                     }]);
-            }
 
-            // Disable application splitting
-            neutrino.config.optimization
-                .delete('runtimeChunk')
-                .delete('splitChunks');
+                // Disable application splitting
+                neutrino.config.optimization
+                    .delete('runtimeChunk')
+                    .delete('splitChunks');
+            }
         },
     ],
 };
