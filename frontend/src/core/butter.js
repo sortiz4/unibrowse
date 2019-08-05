@@ -5,7 +5,7 @@ const _createElement = createElement;
 const _useContext = useContext;
 
 // Hidden component properties
-const UPDATER = Symbol.for('butter.updater');
+const UPDATER = '_butterUpdater';
 
 // Lifecycle method aliases
 const ALIASES = [
@@ -23,57 +23,59 @@ const ALIASES = [
 const STATE = {};
 
 /**
- * Coerces an object into an array.
- */
-const _array = (object) => (
-    !(object instanceof Array) ? (
-        [object]
-    ) : (
-        object
-    )
-);
-
-/**
- * Waits for each callback in order.
- */
-const _awaitAll = async (callbacks) => {
-    const results = [];
-    for(const callback of callbacks) {
-        results.push(await callback());
-    }
-    return results;
-};
-
-/**
- * Consumes and combines one or more contexts using a consumer.
- */
-const _consume = (context, consumer) => {
-    const result = {};
-    for(const _context of _array(context)) {
-        Object.assign(result, consumer(_context));
-    }
-    return Object.freeze(result);
-};
-
-/**
- * Consumes and combines one or more contexts (does not subscribe).
- */
-const _consumer = (context) => _consume(context, _readContext);
-
-/**
- * A no-op function (used as a fallback).
+ * A no-op function (fallback).
  */
 const _noop = () => {};
 
 /**
- * Reads a context without subscribing to it.
+ * Coerces an object into an array.
  */
-const _readContext = (context) => context._currentValue;
+function _array(object) {
+    return !(object instanceof Array) ? (
+        [object]
+    ) : (
+        object
+    );
+}
+
+/**
+ * Waits for each callback in order.
+ */
+async function _awaitAll(callbacks) {
+    for(const callback of callbacks) {
+        await callback();
+    }
+}
+
+/**
+ * Consumes and combines one or more contexts using a consumer.
+ */
+function _consume(consumer, context) {
+    const aggregate = {}, producers = _array(context);
+    for(const producer of producers) {
+        Object.assign(aggregate, consumer(producer));
+    }
+    return Object.freeze(aggregate);
+}
+
+/**
+ * Consumes and combines one or more contexts (does not subscribe).
+ */
+function _consumer(context) {
+    return _consume(_readContext, context);
+}
+
+/**
+ * Reads the current value of a context without subscribing to it.
+ */
+function _readContext(context) {
+    return context._currentValue;
+}
 
 /**
  * An enhanced render method (wrapper).
  */
-const _render = (instance, render) => {
+function _render(instance, render) {
     // Access the context
     const {context} = instance.constructor;
 
@@ -82,7 +84,7 @@ const _render = (instance, render) => {
         _createElement(
             Consumer,
             {context},
-            (context) => {
+            context => {
                 // Update the context
                 instance.context = context;
 
@@ -93,14 +95,14 @@ const _render = (instance, render) => {
     ) : (
         render(instance.props)
     );
-};
+}
 
 /**
- * Consumes and combines one or more contexts (subscribes).
+ * Consumes and combines one or more contexts (does subscribe).
  */
-const Consumer = ({children, context}) => (
-    children(_consume(context, _useContext))
-);
+function Consumer({children, context}) {
+    return children(_consume(_useContext, context));
+}
 
 /**
  * An enhanced component with a modern interface.
@@ -110,7 +112,15 @@ export class Component extends BaseComponent {
         super(props);
 
         // Bind the updater
-        this[UPDATER] = this[UPDATER].bind(this);
+        this[UPDATER] = () => new Promise(
+            resolve => {
+                if(this.updater.isMounted(this)) {
+                    super.setState(STATE, resolve);
+                } else {
+                    resolve();
+                }
+            }
+        );
 
         // Consume the context
         if(typeof this.constructor.context !== 'undefined') {
@@ -119,23 +129,6 @@ export class Component extends BaseComponent {
 
         // Monkey patch the render method
         this.render = _render.bind(null, this, this.render.bind(this));
-
-        // Bind the lifecycle methods
-        for(const [name, alias] of ALIASES) {
-            if(alias in this) {
-                this[name] = this[alias];
-            }
-        }
-    }
-
-    [UPDATER]() {
-        return new Promise(resolve => {
-            if(this.updater.isMounted(this)) {
-                super.setState(STATE, resolve);
-            } else {
-                resolve();
-            }
-        });
     }
 
     setState(updater, callback) {
@@ -156,6 +149,50 @@ export class Component extends BaseComponent {
         );
 
         // Call the functions and wait
-        return _awaitAll([_updater, this[UPDATER], _callback]).then(_noop);
+        return _awaitAll([_updater, this[UPDATER], _callback]);
     }
+}
+
+// Lifecycle methods
+for(const [name, alias] of ALIASES) {
+    Component.prototype[alias] = () => true;
+    Component.prototype[name] = function() {
+        return this[alias](...arguments);
+    };
+}
+
+/**
+ * Decorator for accessing context.
+ */
+export function context({key}) {
+    return {
+        key,
+        kind: 'method',
+        placement: 'prototype',
+        descriptor: {
+            configurable: true,
+            enumerable: false,
+            get: function() {
+                return this.context[key];
+            },
+        },
+    };
+}
+
+/**
+ * Decorator for accessing props.
+ */
+export function prop({key}) {
+    return {
+        key,
+        kind: 'method',
+        placement: 'prototype',
+        descriptor: {
+            configurable: true,
+            enumerable: false,
+            get: function() {
+                return this.props[key];
+            },
+        },
+    };
 }

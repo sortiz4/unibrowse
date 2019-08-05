@@ -2,7 +2,7 @@ module.exports = {
     use: [
         require('@neutrinojs/eslint')(),
         require('@neutrinojs/react')({
-            // Browser request proxy (development)
+            // Server proxies
             devServer: {
                 port: 8000,
                 proxy: [{
@@ -54,7 +54,7 @@ module.exports = {
                 ],
             },
         }),
-        (neutrino) => {
+        neutrino => {
             // Add `node_modules` and `src` to the module resolver
             neutrino.config.resolve.modules
                 .add('node_modules')
@@ -63,7 +63,8 @@ module.exports = {
             // Prepend styles and polyfills to the entry point
             neutrino.config.entry('index')
                 .prepend('theme/index.scss')
-                .prepend('@babel/polyfill');
+                .prepend('regenerator-runtime')
+                .prepend('core-js');
 
             if(process.env.NODE_ENV === 'production') {
                 // Configure the optimizer

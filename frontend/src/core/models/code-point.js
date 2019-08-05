@@ -47,22 +47,6 @@ export class CodePoint extends Model {
         return this.request('api:codepoints');
     }
 
-    constructor({
-        value,
-        category,
-        combiningClass,
-        bidirectionalClass,
-        decompositionClass,
-        ...props
-    } = {}) {
-        super(props);
-        this._value = value;
-        this._category = category;
-        this._combiningClass = combiningClass;
-        this._bidirectionalClass = bidirectionalClass;
-        this._decompositionClass = decompositionClass;
-    }
-
     get key() {
         return this._value;
     }
@@ -89,5 +73,21 @@ export class CodePoint extends Model {
 
     get decompositionClass() {
         return this.meta.DECOMPOSITION_CLASSES[this._decompositionClass];
+    }
+
+    constructor({
+        value,
+        category,
+        combiningClass,
+        bidirectionalClass,
+        decompositionClass,
+        ...props
+    } = {}) {
+        super(props);
+        this._value = value;
+        this._category = category;
+        this._combiningClass = combiningClass;
+        this._bidirectionalClass = bidirectionalClass;
+        this._decompositionClass = decompositionClass;
     }
 }

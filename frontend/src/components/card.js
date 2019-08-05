@@ -1,14 +1,13 @@
 import {Literal} from 'components';
-import {Component} from 'core/butter';
+import {Component, prop} from 'core/butter';
 import {bind} from 'core/decorators';
 import {React} from 'core/react';
 
 export class Card extends Component {
     hover = false;
 
-    get code() {
-        return this.props.code;
-    }
+    @prop
+    code;
 
     @bind
     onHover() {

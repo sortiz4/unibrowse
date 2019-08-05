@@ -1,4 +1,4 @@
 export * from './model';
 
 // Models (order matters)
-export * from './code-point'
+export * from './code-point';

@@ -1,9 +1,11 @@
 // Variables
 $ub-background-color: #f2f4f6;
 $ub-base-font-color: #222222;
-$ub-base-font-family: 'Noto Sans', ProximaNova, -apple-system,
-  BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-  Arial, sans-serif;
+$ub-base-font-family: (
+  'Noto Sans', ProximaNova, -apple-system,
+  BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, sans-serif
+);
 $ub-base-font-size: 16px;
 $ub-base-font-weight: normal;
 $ub-base-line-height: 1.5;
@@ -63,8 +65,8 @@ $ub-search-padding: ($ub-search-height / 2);
 $ub-state-error-color: #ff3140;
 $ub-state-icon-size: (100% * 3.5);
 $ub-state-loading-speed: 500ms;
-$ub-svg-checkbox: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpolygon%20fill%3D%22%23fff%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%2F%3E%3C%2Fsvg%3E';
-$ub-svg-radio: 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%2F%3E%3C%2Fsvg%3E';
+$ub-svg-checkbox: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTEiIHZpZXdCb3g9IjAgMCAxNCAxMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cG9seWdvbiBmaWxsPSIjZmZmIiBwb2ludHM9IjEyIDEgNSA3LjUgMiA1IDEgNS41IDUgMTAgMTMgMS41Ii8+PC9zdmc+';
+$ub-svg-radio: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGZpbGw9IiNmZmYiIGN4PSI4IiBjeT0iOCIgcj0iMiIvPjwvc3ZnPg==';
 $ub-transition: 200ms ease;
 
 // Mixins

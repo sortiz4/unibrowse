@@ -19,7 +19,7 @@ export class Viewport extends AsyncComponent {
     }
 
     afterCatch(exc) {
-        this.setState({failure: exc});
+        this.setState({didReject: exc});
     }
 
     @bind
@@ -56,15 +56,10 @@ export class Viewport extends AsyncComponent {
             updater = {};
         }
         try {
-            const request = CodePoint.objects().paginate();
-            const page = await handler(request).get();
-            this.setState({
-                success: true,
-                page: page,
-                ...updater,
-            });
+            const page = await handler(CodePoint.objects().paginate()).get();
+            this.setState({didAccept: true, page, ...updater});
         } catch(exc) {
-            this.setState({failure: exc});
+            this.setState({didReject: exc});
         }
     }
 
@@ -77,7 +72,7 @@ export class Viewport extends AsyncComponent {
         return (
             <Fragment>
                 <Form onSubmit={this.onSubmit}/>
-                {this.success ? (
+                {this.didAccept ? (
                     this.page.children.length > 0 ? (
                         <Panel
                             page={this.page}
