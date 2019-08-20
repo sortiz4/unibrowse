@@ -14,4 +14,4 @@ Those seeking to compile must have...
 
 Once these requirements have been met, simply clone the repository and execute
 `py setup.py -sb` (this will setup and compile the project). Once completed,
-the `backend` can then be deployed like any ASP.NET Core application.
+the `server` can then be deployed like any ASP.NET Core application.

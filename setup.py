@@ -5,22 +5,22 @@ from distutils import dir_util
 from subprocess import run
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-BACK_DIR = os.path.join(BASE_DIR, 'backend')
-BACK_ASSET_DIR = os.path.join(BACK_DIR, 'wwwroot', 'static')
-FRONT_DIR = os.path.join(BASE_DIR, 'frontend')
-FRONT_BUILD_DIR = os.path.join(FRONT_DIR, 'build')
-FRONT_ASSET_DIR = os.path.join(FRONT_BUILD_DIR, 'assets')
+CLIENT_DIR = os.path.join(BASE_DIR, 'client')
+CLIENT_BUILD_DIR = os.path.join(CLIENT_DIR, 'build')
+CLIENT_ASSET_DIR = os.path.join(CLIENT_BUILD_DIR, 'assets')
+SERVER_DIR = os.path.join(BASE_DIR, 'server')
+SERVER_ASSET_DIR = os.path.join(SERVER_DIR, 'wwwroot', 'static')
 
 
 class Setup:
-    HELP = 'Download backend and frontend dependencies.'
-    BACK = ['dotnet', 'restore']
-    FRONT = ['npm', 'install']
+    HELP = 'Download server and client dependencies.'
+    CLIENT = ['npm', 'install']
+    SERVER = ['dotnet', 'restore']
 
 
 class Build:
-    HELP = 'Compile and move frontend assets to the backend.'
-    FRONT = ['npm', 'run', 'build']
+    HELP = 'Compile and move client assets to the server.'
+    CLIENT = ['npm', 'run', 'build']
 
 
 class Command:
@@ -40,30 +40,30 @@ class Command:
 
     @staticmethod
     def setup():
-        os.chdir(BACK_DIR)
-        run(Setup.BACK, shell=True)
-        os.chdir(FRONT_DIR)
-        run(Setup.FRONT, shell=True)
+        os.chdir(SERVER_DIR)
+        run(Setup.SERVER, shell=True)
+        os.chdir(CLIENT_DIR)
+        run(Setup.CLIENT, shell=True)
 
     @staticmethod
     def build():
-        # Compile the frontend
-        os.chdir(FRONT_DIR)
-        run(Build.FRONT, shell=True)
+        # Compile the client
+        os.chdir(CLIENT_DIR)
+        run(Build.CLIENT, shell=True)
 
         # Organize the assets
-        for root, dirs, files in os.walk(FRONT_ASSET_DIR):
+        for root, dirs, files in os.walk(CLIENT_ASSET_DIR):
             for name in files:
                 if name.endswith('.js'):
-                    old_path = os.path.join(FRONT_ASSET_DIR, name)
-                    new_path = os.path.join(FRONT_ASSET_DIR, 'app.js')
+                    old_path = os.path.join(CLIENT_ASSET_DIR, name)
+                    new_path = os.path.join(CLIENT_ASSET_DIR, 'app.js')
                     os.rename(old_path, new_path)
                     break
             break
         
-        # Move the assets to the backend
-        dir_util.copy_tree(FRONT_ASSET_DIR, BACK_ASSET_DIR)
-        dir_util.remove_tree(FRONT_BUILD_DIR)
+        # Move the assets to the server
+        dir_util.copy_tree(CLIENT_ASSET_DIR, SERVER_ASSET_DIR)
+        dir_util.remove_tree(CLIENT_BUILD_DIR)
     
 
 if __name__ == '__main__':
