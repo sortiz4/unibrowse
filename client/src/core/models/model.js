@@ -126,13 +126,17 @@ export class RequestBuilder {
     paginate(model) {
         this._settings
             .transformResponse
-            .push(data => new Page(data, model));
+            .push(data => data?.children ? (
+                new Page(data, model)
+            ) : (
+                data
+            ));
         return this;
     }
 
     search(updater) {
         this._settings.params = {
-            ...(this._settings.params || {}),
+            ...this._settings.params ?? {},
             ...updater,
         };
         return this;
