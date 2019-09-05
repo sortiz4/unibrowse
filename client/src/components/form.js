@@ -3,12 +3,12 @@ import {bind} from 'core/decorators';
 import {React} from 'core/react';
 import {Unicode} from 'core/string';
 
-export class Form extends Component {
-    static CODEPOINT = 0;
-    static LITERAL = 1;
-    static NAME = 2;
+const CODEPOINT = 0;
+const LITERAL = 1;
+const NAME = 2;
 
-    field = Form.NAME;
+export class Form extends Component {
+    field = NAME;
     query = '';
 
     @bind
@@ -29,7 +29,7 @@ export class Form extends Component {
         let {field, query} = this;
 
         // Transform the query
-        if(field === Form.CODEPOINT) {
+        if(field === CODEPOINT) {
             // Transform hexadecimal to decimal
             query = Number.parseInt(
                 query.trim().replace(/[uU]\+/, ''),
@@ -38,7 +38,7 @@ export class Form extends Component {
             if(Number.isNaN(query)) {
                 query = '';
             }
-        } else if(field === Form.LITERAL) {
+        } else if(field === LITERAL) {
             // Transform literal to decimal
             query = query.length > 0 ? (
                 Unicode.fromString(query)
@@ -51,7 +51,7 @@ export class Form extends Component {
         }
 
         // Transform the field
-        field = field === Form.NAME ? (
+        field = field === NAME ? (
             'name'
         ) : (
             'value'
@@ -77,8 +77,8 @@ export class Form extends Component {
                             <input
                                 name="field"
                                 type="radio"
-                                value={Form.CODEPOINT}
-                                checked={this.field === Form.CODEPOINT}
+                                value={CODEPOINT}
+                                checked={this.field === CODEPOINT}
                                 onChange={this.onSelect}
                             />
                             <span>Code point</span>
@@ -87,8 +87,8 @@ export class Form extends Component {
                             <input
                                 name="field"
                                 type="radio"
-                                value={Form.LITERAL}
-                                checked={this.field === Form.LITERAL}
+                                value={LITERAL}
+                                checked={this.field === LITERAL}
                                 onChange={this.onSelect}
                             />
                             <span>Literal</span>
@@ -97,8 +97,8 @@ export class Form extends Component {
                             <input
                                 name="field"
                                 type="radio"
-                                value={Form.NAME}
-                                checked={this.field === Form.NAME}
+                                value={NAME}
+                                checked={this.field === NAME}
                                 onChange={this.onSelect}
                             />
                             <span>Name</span>
