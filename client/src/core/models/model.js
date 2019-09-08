@@ -185,8 +185,6 @@ export class Model {
     @memoize
     static get request() {
         const builder = RequestBuilder.for(this);
-
-        // The request builder can only be called
         return (...args) => new builder(...args);
     }
 

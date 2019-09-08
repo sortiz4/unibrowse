@@ -6,7 +6,7 @@ export function App() {
         <Container>
             <Header>
                 <h2>Unibrowse</h2>
-                <h5>The unicode browser</h5>
+                <h5>A Unicode Browser</h5>
             </Header>
             <Viewport/>
         </Container>
