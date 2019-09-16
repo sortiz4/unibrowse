@@ -28,45 +28,42 @@ const STATE = {};
 const _noop = () => {};
 
 /**
- * Coerces an object into an array.
+ * Consumes and combines one or more context values using a consumer.
  */
-function _array(object) {
-    return !(object instanceof Array) ? (
-        [object]
-    ) : (
-        object
+function _consume(consumer, from) {
+    from = !(from instanceof Array) ? [from] : from;
+    return Object.freeze(
+        from.reduce(
+            (a, c) => Object.assign(a, consumer(c)),
+            {},
+        )
     );
 }
 
 /**
- * Waits for each callback in order.
+ * Provides one or more context values.
  */
-async function _awaitAll(callbacks) {
-    for(const callback of callbacks) {
-        await callback();
-    }
+function _provide(from, children) {
+    return from.length > 0 ? (
+        _createElement(
+            from[0][0].Provider,
+            {value: from[0][1]},
+            _provide(from.slice(1), children),
+        )
+    ) : (
+        children
+    );
 }
 
 /**
- * Consumes and combines one or more contexts using a consumer.
+ * Consumes and combines one or more context values (does not subscribe).
  */
-function _consume(consumer, context) {
-    const aggregate = {}, producers = _array(context);
-    for(const producer of producers) {
-        Object.assign(aggregate, consumer(producer));
-    }
-    return Object.freeze(aggregate);
+function _read(from) {
+    return _consume(_readContext, from);
 }
 
 /**
- * Consumes and combines one or more contexts (does not subscribe).
- */
-function _consumer(context) {
-    return _consume(_readContext, context);
-}
-
-/**
- * Reads the current value of a context without subscribing to it.
+ * Reads a context value without subscribing to it.
  */
 function _readContext(context) {
     return context._currentValue;
@@ -76,14 +73,14 @@ function _readContext(context) {
  * An enhanced render method (wrapper).
  */
 function _render(instance, render) {
-    // Access the context
-    const {context} = instance.constructor;
+    // Access the sources
+    const {consume} = instance.constructor;
 
     // Render the component
-    return typeof context !== 'undefined' ? (
+    return typeof consume !== 'undefined' ? (
         _createElement(
-            Consumer,
-            {context},
+            Consume,
+            {from: consume},
             context => {
                 // Update the context
                 instance.context = context;
@@ -98,14 +95,7 @@ function _render(instance, render) {
 }
 
 /**
- * Consumes and combines one or more contexts (does subscribe).
- */
-function Consumer({children, context}) {
-    return children(_consume(_useContext, context));
-}
-
-/**
- * An enhanced component with a modern interface.
+ * An enhanced component with a simple interface.
  */
 export class Component extends BaseComponent {
     constructor(props) {
@@ -122,9 +112,9 @@ export class Component extends BaseComponent {
             }
         );
 
-        // Consume the context
-        if(typeof this.constructor.context !== 'undefined') {
-            this.context = _consumer(this.constructor.context);
+        // Read the sources
+        if(typeof this.constructor.consume !== 'undefined') {
+            this.context = _read(this.constructor.consume);
         }
 
         // Monkey patch the render method
@@ -148,17 +138,40 @@ export class Component extends BaseComponent {
             _noop
         );
 
-        // Call the functions and wait
-        return _awaitAll([_updater, this[UPDATER], _callback]);
+        // Resolve the functions
+        return (
+            Promise
+                .resolve()
+                .then(_updater)
+                .then(this[UPDATER])
+                .then(_callback)
+                .then(_noop)
+        );
     }
 }
 
 // Lifecycle methods
 for(const [name, alias] of ALIASES) {
-    Component.prototype[alias] = () => true;
     Component.prototype[name] = function() {
         return this[alias](...arguments);
     };
+    Component.prototype[alias] = function() {
+        return true;
+    };
+}
+
+/**
+ * Consumes and combines one or more context values (does subscribe).
+ */
+export function Consume({from, children}) {
+    return children(_consume(_useContext, from));
+}
+
+/**
+ * Provides one or more context values.
+ */
+export function Provide({from, children}) {
+    return _provide(from, children);
 }
 
 /**
@@ -196,3 +209,6 @@ export function prop({key}) {
         },
     };
 }
+
+// Module namespace
+export const Butter = {Component, Consume, Provide, context, prop};
