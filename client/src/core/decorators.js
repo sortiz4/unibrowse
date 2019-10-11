@@ -2,15 +2,15 @@
  * Lazily binds a class method to an instance.
  */
 export function bind({key, kind, placement, descriptor, ...other}) {
-	let {value} = descriptor;
-	if(
-	    kind !== 'method' ||
+    let {value} = descriptor;
+    if(
+        kind !== 'method' ||
         placement !== 'prototype' ||
-	    typeof value !== 'function'
+        typeof value !== 'function'
     ) {
-		throw new TypeError('Only methods can be bound');
-	}
-	return {
+        throw new TypeError('Only methods can be bound');
+    }
+    return {
         key,
         kind,
         placement,
@@ -40,7 +40,7 @@ export function bind({key, kind, placement, descriptor, ...other}) {
             },
             configurable: true,
         },
-	    ...other,
+        ...other,
     };
 }
 
@@ -48,15 +48,15 @@ export function bind({key, kind, placement, descriptor, ...other}) {
  * Caches the result of a method call.
  */
 export function memoize({key, kind, descriptor, ...other}) {
-	const [slot, value] = descriptor.value ? (
-	    ['value', descriptor.value]
+    const [slot, value] = descriptor.value ? (
+        ['value', descriptor.value]
     ) : (
-	    ['get', descriptor.get]
+        ['get', descriptor.get]
     );
     if(kind !== 'method' || typeof value !== 'function') {
-		throw new TypeError('Only getters and methods can be memoized');
-	}
-	return {
+        throw new TypeError('Only getters and methods can be memoized');
+    }
+    return {
         key,
         kind,
         descriptor: {
@@ -72,6 +72,6 @@ export function memoize({key, kind, descriptor, ...other}) {
                 return result;
             },
         },
-	    ...other,
+        ...other,
     };
 }
