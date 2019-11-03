@@ -77,7 +77,7 @@ function _render(instance, render) {
     const {consume} = instance.constructor;
 
     // Render the component
-    return typeof consume !== 'undefined' ? (
+    return consume !== undefined ? (
         _createElement(
             Consume,
             {from: consume},
@@ -113,7 +113,7 @@ export class Component extends BaseComponent {
         );
 
         // Read the sources
-        if(typeof this.constructor.consume !== 'undefined') {
+        if(this.constructor.consume !== undefined) {
             this.context = _read(this.constructor.consume);
         }
 

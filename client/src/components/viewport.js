@@ -56,7 +56,7 @@ export class Viewport extends AsyncComponent {
             updater = {};
         }
         try {
-            const page = await handler(CodePoint.objects().paginate()).get();
+            const page = await handler(CodePoint.all().paginate()).get();
             this.setState({didAccept: true, page, ...updater});
         } catch(exc) {
             this.setState({didReject: exc});

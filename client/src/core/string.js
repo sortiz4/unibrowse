@@ -1,5 +1,5 @@
-import {default as camelCase} from 'lodash/camelCase';
-import {default as snakeCase} from 'lodash/snakeCase';
+import camelCase from 'lodash/camelCase';
+import snakeCase from 'lodash/snakeCase';
 export {camelCase, snakeCase};
 
 /**
@@ -10,39 +10,37 @@ export function classNames(...args) {
 }
 
 /**
+ * Recursively transforms keys.
+ */
+function mapKeys(map, input) {
+    if(typeof input === 'object' && input !== null) {
+        if(input instanceof Array) {
+            return input.map(v => mapKeys(map, v));
+        } else {
+            const output = {};
+            for(const k in input) {
+                if(input.hasOwnProperty(k)) {
+                    output[map(k)] = mapKeys(map, input[k]);
+                }
+            }
+            return output;
+        }
+    }
+    return input;
+}
+
+/**
  * Recursively transforms keys to camel case.
  */
 export function camelCaseKeys(source) {
-    if(source instanceof Array) {
-        return source.map(camelCaseKeys);
-    } else if(source instanceof Object) {
-        const clone = {};
-        for(const key in source) {
-            if(source.hasOwnProperty(key)) {
-                clone[camelCase(key)] = camelCaseKeys(source[key]);
-            }
-        }
-        return clone;
-    }
-    return source;
+    return mapKeys(camelCase, source);
 }
 
 /**
  * Recursively transforms keys to snake case.
  */
 export function snakeCaseKeys(source) {
-    if(source instanceof Array) {
-        return source.map(snakeCaseKeys);
-    } else if(source instanceof Object) {
-        const clone = {};
-        for(const key in source) {
-            if(source.hasOwnProperty(key)) {
-                clone[snakeCase(key)] = snakeCaseKeys(source[key]);
-            }
-        }
-        return clone;
-    }
-    return source;
+    return mapKeys(snakeCase, source);
 }
 
 /**

@@ -43,35 +43,3 @@ export function bind({key, kind, placement, descriptor, ...other}) {
         ...other,
     };
 }
-
-/**
- * Caches the result of a method call.
- */
-export function memoize({key, kind, descriptor, ...other}) {
-    const [slot, value] = descriptor.value ? (
-        ['value', descriptor.value]
-    ) : (
-        ['get', descriptor.get]
-    );
-    if(kind !== 'method' || typeof value !== 'function') {
-        throw new TypeError('Only getters and methods can be memoized');
-    }
-    return {
-        key,
-        kind,
-        descriptor: {
-            ...descriptor,
-            [slot]: function(...args) {
-                const result = value.call(this, ...args);
-                Object.defineProperty(this, key, {
-                    ...descriptor,
-                    [slot]: function() {
-                        return result;
-                    },
-                });
-                return result;
-            },
-        },
-        ...other,
-    };
-}

@@ -43,7 +43,7 @@ export class CodePoint extends Model {
         'Wide', 'Narrow', 'Small', 'Square', 'Fraction', 'Compatibility',
     ];
 
-    static objects() {
+    static all() {
         return this.request('api:codepoints');
     }
 
@@ -56,23 +56,23 @@ export class CodePoint extends Model {
     }
 
     get category() {
-        return this.meta.CATEGORY[this._category];
+        return this.constructor.CATEGORY[this._category];
     }
 
     get combiningClass() {
         return this._combiningClass >= 10 && this._combiningClass <= 199 ? (
             `CCC${this._combiningClass}`
         ) : (
-            this.meta.COMBINING_CLASSES[this._combiningClass]
+            this.constructor.COMBINING_CLASSES[this._combiningClass]
         );
     }
 
     get bidirectionalClass() {
-        return this.meta.BIDIRECTIONAL_CLASSES[this._bidirectionalClass];
+        return this.constructor.BIDIRECTIONAL_CLASSES[this._bidirectionalClass];
     }
 
     get decompositionClass() {
-        return this.meta.DECOMPOSITION_CLASSES[this._decompositionClass];
+        return this.constructor.DECOMPOSITION_CLASSES[this._decompositionClass];
     }
 
     constructor({
