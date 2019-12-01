@@ -22,8 +22,7 @@ namespace Unibrowse {
             if(env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles()
-                .UseMvcWithDefaultRoute();
+            app.UseStaticFiles().UseMvcWithDefaultRoute();
         }
     }
 }
