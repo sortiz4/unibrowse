@@ -11,14 +11,15 @@ export function Icon({name, size, spin, wide, className, ...props}) {
             width={size}
             height={size}
             viewBox={`0 0 ${width} ${height}`}
-            className={classNames(
-                !size && 'fa',
-                spin && 'fa-spin',
-                wide && 'fa-wide',
-                className,
-            )}
-        >
-            <path fill="currentColor" d={path}/>
-        </svg>
+            className={
+                classNames(
+                    !size && 'fa',
+                    spin && 'fa-spin',
+                    wide && 'fa-wide',
+                    className,
+                )
+            }
+            children={<path fill="currentColor" d={path}/>}
+        />
     );
 }

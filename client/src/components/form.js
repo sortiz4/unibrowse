@@ -1,5 +1,4 @@
-import {Component} from 'core/butter';
-import {bind} from 'core/decorators';
+import {Hooks} from 'core/hooks';
 import {React} from 'core/react';
 import {Unicode} from 'core/string';
 
@@ -7,26 +6,20 @@ const CODEPOINT = 0;
 const LITERAL = 1;
 const NAME = 2;
 
-export class Form extends Component {
+export class State {
     field = NAME;
     query = '';
+}
 
-    @bind
-    onSelect(event) {
-        this.setState({field: Number(event.target.value)});
-    }
-
-    @bind
-    onType(event) {
-        this.setState({query: event.target.value});
-    }
-
-    @bind
-    onSubmit(event) {
+export function Form({onSubmit}) {
+    const [state, setState] = Hooks.useClassState(State);
+    const onType = event => setState({query: event.target.value});
+    const onSelect = event => setState({field: Number(event.target.value)});
+    const onSubmitOverride = event => {
         event.preventDefault();
 
         // Grab the form inputs
-        let {field, query} = this;
+        let {field, query} = state;
 
         // Transform the query
         if(field === CODEPOINT) {
@@ -58,54 +51,51 @@ export class Form extends Component {
         );
 
         // Apply the filter
-        this.props.onSubmit({field, query});
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.onSubmit}>
-                <fieldset>
-                    <input
-                        name="query"
-                        type="search"
-                        placeholder="Search..."
-                        value={this.query}
-                        onChange={this.onType}
-                    />
-                    <div className="options">
-                        <label>
-                            <input
-                                name="field"
-                                type="radio"
-                                value={CODEPOINT}
-                                checked={this.field === CODEPOINT}
-                                onChange={this.onSelect}
-                            />
-                            <span>Code point</span>
-                        </label>
-                        <label>
-                            <input
-                                name="field"
-                                type="radio"
-                                value={LITERAL}
-                                checked={this.field === LITERAL}
-                                onChange={this.onSelect}
-                            />
-                            <span>Literal</span>
-                        </label>
-                        <label>
-                            <input
-                                name="field"
-                                type="radio"
-                                value={NAME}
-                                checked={this.field === NAME}
-                                onChange={this.onSelect}
-                            />
-                            <span>Name</span>
-                        </label>
-                    </div>
-                </fieldset>
-            </form>
-        );
-    }
+        onSubmit({field, query});
+    };
+    return (
+        <form onSubmit={onSubmitOverride}>
+            <fieldset>
+                <input
+                    name="query"
+                    type="search"
+                    placeholder="Search..."
+                    value={state.query}
+                    onChange={onType}
+                />
+                <div className="options">
+                    <label>
+                        <input
+                            name="field"
+                            type="radio"
+                            value={CODEPOINT}
+                            checked={state.field === CODEPOINT}
+                            onChange={onSelect}
+                        />
+                        <span>Code point</span>
+                    </label>
+                    <label>
+                        <input
+                            name="field"
+                            type="radio"
+                            value={LITERAL}
+                            checked={state.field === LITERAL}
+                            onChange={onSelect}
+                        />
+                        <span>Literal</span>
+                    </label>
+                    <label>
+                        <input
+                            name="field"
+                            type="radio"
+                            value={NAME}
+                            checked={state.field === NAME}
+                            onChange={onSelect}
+                        />
+                        <span>Name</span>
+                    </label>
+                </div>
+            </fieldset>
+        </form>
+    );
 }

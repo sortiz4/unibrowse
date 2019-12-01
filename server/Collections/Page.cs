@@ -1,8 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Unibrowse.Collections {
     public class Page<T> {
@@ -29,6 +29,7 @@ namespace Unibrowse.Collections {
                 // Return an empty page if the results are empty
                 return new Page<T>(index, pages + 1, new List<T>());
             }
+
             try {
                 index = int.Parse(query);
             } catch {
@@ -39,8 +40,11 @@ namespace Unibrowse.Collections {
             }
 
             // Paginate the results
-            var children = await results.Skip((index - 1) * size).Take(size).ToListAsync();
-            return new Page<T>(index, pages, children);
+            return new Page<T>(
+                index,
+                pages,
+                await results.Skip((index - 1) * size).Take(size).ToListAsync()
+            );
         }
     }
 }

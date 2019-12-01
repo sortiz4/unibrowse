@@ -1,6 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Unibrowse.Models;
 
 namespace Unibrowse {
@@ -13,7 +13,7 @@ namespace Unibrowse {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<CodePoint>()
-                .ToTable("codepoints")
+                .ToTable(nameof(CodePoint).ToLower())
                 .HasIndex(c => c.Value)
                 .IsUnique();
         }
@@ -25,7 +25,7 @@ namespace Unibrowse {
         public static void Initialize(DatabaseContext context) {
             context.Database.EnsureCreated();
 
-            // Skip if the database has been initialized
+            // Skip this if the database has been initialized
             if(context.CodePoints.Any()) {
                 return;
             }

@@ -1,4 +1,4 @@
 /**
- * An exception that occurs when a something has not been implemented.
+ * An exception that occurs when something has not been implemented.
  */
 export class NotImplementedError extends Error {}

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Unicode;
-using Newtonsoft.Json;
 
 namespace Unibrowse.Models {
     public class CodePoint {
-        [Column("id"), JsonIgnore]
+        [Column("id")]
         public int Id { get; set; }
 
         [Column("value")]
@@ -35,9 +34,11 @@ namespace Unibrowse.Models {
 
         public CodePoint(int value) {
             var info = UnicodeInfo.GetCharInfo(value);
+
             if(info.Block.Equals("No_Block")) {
                 throw new KeyNotFoundException();
             }
+
             if(info.Name != null) {
                 Name = info.Name;
             } else if(info.NameAliases.Count > 0) {
@@ -45,6 +46,7 @@ namespace Unibrowse.Models {
             } else {
                 Name = "NOT ASSIGNED";
             }
+
             Value = value;
             Block = info.Block;
             Category = (int)info.Category;

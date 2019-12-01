@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Unibrowse.Collections;
 using Unibrowse.Models;
 
@@ -17,10 +17,11 @@ namespace Unibrowse.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> Get() {
-            IQueryable<CodePoint> records;
-            var pageNumber = Request.Query["page"];
             var field = Request.Query["field"];
             var query = Request.Query["query"];
+            var page = Request.Query["page"];
+            IQueryable<CodePoint> records;
+
             if(query.Count > 0) {
                 if(field == "value") {
                     // Search for a single code point
@@ -50,11 +51,10 @@ namespace Unibrowse.Controllers {
                     select c
                 );
             }
+            records = records.OrderBy(c => c.Value).AsNoTracking();
+
             try {
-                // Sort and paginate the results
-                records = records.OrderBy(c => c.Value).AsNoTracking();
-                var page = await Page<CodePoint>.CreateAsync(records, pageNumber);
-                return Json(page);
+                return Json(await Page<CodePoint>.CreateAsync(records, page));
             } catch(InvalidOperationException) {
                 return NotFound();
             }
@@ -63,8 +63,7 @@ namespace Unibrowse.Controllers {
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id) {
             try {
-                var record = await _db.CodePoints.SingleAsync(c => c.Value == id);
-                return Json(record);
+                return Json(await _db.CodePoints.SingleAsync(c => c.Value == id));
             } catch(InvalidOperationException) {
                 return NotFound();
             }

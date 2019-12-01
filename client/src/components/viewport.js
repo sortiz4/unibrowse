@@ -1,54 +1,24 @@
 import {
-    AsyncComponent,
     Details,
+    Fallback,
     Form,
     NotFound,
     PageButton,
     Panel,
 } from 'components';
-import {bind} from 'core/decorators';
+import {Hooks} from 'core/hooks';
 import {CodePoint} from 'core/models';
 import {Fragment, React} from 'core/react';
+import {PromiseState} from 'core/states';
 
-export class Viewport extends AsyncComponent {
+export class State extends PromiseState {
     index = 1;
     search = {};
+}
 
-    afterMount() {
-        this.onRequest();
-    }
-
-    afterCatch(exc) {
-        this.setState({didReject: exc});
-    }
-
-    @bind
-    onNext() {
-        if(this.page.hasNext) {
-            this.onChange(this.index + 1, this.search);
-        }
-    }
-
-    @bind
-    onPrevious() {
-        if(this.page.hasPrevious) {
-            this.onChange(this.index - 1, this.search);
-        }
-    }
-
-    @bind
-    onSubmit(search) {
-        this.onChange(1, search);
-    }
-
-    onChange(index, search) {
-        this.onRequest(
-            request => request.search({page: index, ...search}),
-            {index, search},
-        );
-    }
-
-    async onRequest(handler, updater) {
+export function Viewport() {
+    const [state, setState] = Hooks.useClassState(State);
+    const onRequest = async (handler, updater) => {
         if(typeof handler !== 'function') {
             handler = request => request;
         }
@@ -57,37 +27,48 @@ export class Viewport extends AsyncComponent {
         }
         try {
             const page = await handler(CodePoint.all().paginate()).get();
-            this.setState({didAccept: true, page, ...updater});
+            setState({didAccept: true, page, ...updater});
         } catch(exc) {
-            this.setState({didReject: exc});
+            setState({didReject: exc});
         }
-    }
-
-    @bind
-    onHover(details) {
-        this.setState({details});
-    }
-
-    render() {
-        return (
-            <Fragment>
-                <Form onSubmit={this.onSubmit}/>
-                {this.didAccept ? (
-                    this.page.children.length > 0 ? (
-                        <Panel
-                            page={this.page}
-                            onHover={this.onHover}
-                        />
-                    ) : (
-                        <NotFound/>
-                    )
+    };
+    const onChange = (index, search) => (
+        onRequest(
+            request => request.search({page: index, ...search}),
+            {index, search},
+        )
+    );
+    const onNext = () => {
+        if(state.page.hasNext) {
+            onChange(state.index + 1, state.search);
+        }
+    };
+    const onPrevious = () => {
+        if(state.page.hasPrevious) {
+            onChange(state.index - 1, state.search);
+        }
+    };
+    const onHover = details => setState({details});
+    const onSubmit = search => onChange(1, search);
+    Hooks.usePromiseEffect(onRequest, [setState]);
+    return (
+        <Fragment>
+            <Form onSubmit={onSubmit}/>
+            {state.didAccept ? (
+                state.page.children.length > 0 ? (
+                    <Panel
+                        page={state.page}
+                        onHover={onHover}
+                    />
                 ) : (
-                    super.render()
-                )}
-                <PageButton previous onClick={this.onPrevious}/>
-                <PageButton next onClick={this.onNext}/>
-                <Details details={this.details}/>
-            </Fragment>
-        );
-    }
+                    <NotFound/>
+                )
+            ) : (
+                <Fallback state={state}/>
+            )}
+            <PageButton previous onClick={onPrevious}/>
+            <PageButton next onClick={onNext}/>
+            <Details details={state.details}/>
+        </Fragment>
+    );
 }

@@ -1,5 +1,4 @@
 import Http from 'axios';
-import {camelCaseKeys, snakeCaseKeys} from 'core/string';
 
 /**
  * A simple page interface.
@@ -31,12 +30,10 @@ export class Request {
         this._maps = [];
         this._settings = {
             transformRequest: [
-                snakeCaseKeys,
                 ...Http.defaults.transformRequest,
             ],
             transformResponse: [
                 ...Http.defaults.transformResponse,
-                camelCaseKeys,
             ],
         };
     }
