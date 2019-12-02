@@ -28,6 +28,20 @@ export function useClassState(constructor, initial) {
 }
 
 /**
+ * State that will not enqueue an update when changed.
+ */
+export function useHiddenState(initial) {
+    const state = React.useRef(initial);
+    return [
+        state,
+        React.useCallback(
+            update => void (state.current = update),
+            [state],
+        ),
+    ];
+}
+
+/**
  * Wraps the effect and ignores the return value.
  */
 export function usePromiseEffect(effect, inputs) {
@@ -35,4 +49,4 @@ export function usePromiseEffect(effect, inputs) {
 }
 
 // Module namespace
-export const Hooks = {useClassState, usePromiseEffect};
+export const Hooks = {useClassState, useHiddenState, usePromiseEffect};

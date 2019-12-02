@@ -1,11 +1,12 @@
 import {Literal} from 'components';
+import {Hooks} from 'core/hooks';
 import {React} from 'core/react';
 
 export function Card({code, onHover}) {
-    const hover = React.useRef(false);
+    const [hover, setHover] = Hooks.useHiddenState(false);
     const onHoverOverride = () => {
         onHover(!hover.current ? code : null);
-        hover.current = !hover.current;
+        setHover(!hover.current);
     };
     return (
         <div
