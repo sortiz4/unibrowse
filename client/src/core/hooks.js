@@ -1,8 +1,5 @@
 import {React} from 'core/react';
 
-// Hidden React aliases
-const _useEffect = React.useEffect;
-
 /**
  * Constructs the state once and mutates the state on subsequent updates.
  */
@@ -45,7 +42,8 @@ export function useHiddenState(initial) {
  * Wraps the effect and ignores the return value.
  */
 export function usePromiseEffect(effect, inputs) {
-    _useEffect(() => void effect(), inputs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    React.useEffect(() => void effect(), inputs);
 }
 
 // Module namespace
