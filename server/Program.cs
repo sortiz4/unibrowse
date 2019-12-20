@@ -1,20 +1,17 @@
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Unibrowse.Extensions;
 
 namespace Unibrowse {
     public class Program {
         public static void Main(string[] args) {
-            BuildWebHost(args)
-                .EnsureDatabase()
-                .Run();
+            CreateHostBuilder(args).Build().Setup().Run();
         }
 
-        private static IWebHost BuildWebHost(string[] args) {
+        public static IHostBuilder CreateHostBuilder(string[] args) {
             return (
-                WebHost.CreateDefaultBuilder(args)
-                    .UseStartup<Startup>()
-                    .Build()
+                Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(web => web.UseStartup<Startup>())
             );
         }
     }

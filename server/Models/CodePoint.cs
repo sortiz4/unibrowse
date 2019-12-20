@@ -28,10 +28,6 @@ namespace Unibrowse.Models {
         [Column("decomposition_class")]
         public int DecompositionClass { get; set; }
 
-        public CodePoint() {
-            // Empty constructor (required)
-        }
-
         public CodePoint(int value) {
             var info = UnicodeInfo.GetCharInfo(value);
 

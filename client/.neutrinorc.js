@@ -4,10 +4,9 @@ module.exports = {
         require('@neutrinojs/react')({
             // Server proxies
             devServer: {
-                port: 8000,
                 proxy: [{
                     context: ['/api'],
-                    target: 'http://localhost:5000',
+                    target: 'http://localhost:8000',
                 }],
             },
 

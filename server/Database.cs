@@ -7,12 +7,12 @@ namespace Unibrowse {
     public class DatabaseContext : DbContext {
         public DbSet<CodePoint> CodePoints { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlite("Filename=db.sqlite");
+        protected override void OnConfiguring(DbContextOptionsBuilder options) {
+            options.UseSqlite("Filename=db.sqlite");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<CodePoint>()
+        protected override void OnModelCreating(ModelBuilder model) {
+            model.Entity<CodePoint>()
                 .ToTable(nameof(CodePoint).ToLower())
                 .HasIndex(c => c.Value)
                 .IsUnique();

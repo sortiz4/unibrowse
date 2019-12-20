@@ -10,24 +10,45 @@ export function useClassState(constructor, initial) {
             [constructor, initial],
         )
     );
-    const [_, setState] = React.useReducer(
-        (prevState, updater) => {
-            if(typeof updater !== 'function') {
-                Object.assign(state.current, updater);
-            } else {
-                updater(state.current);
-            }
-            return !prevState;
-        },
-        true,
-    );
-    return [state.current, setState];
+    const params = useParams(React.useState(true));
+    return [
+        state.current,
+        React.useCallback(
+            updater => {
+                const [signal, setSignal] = params.current;
+                if(typeof updater !== 'function') {
+                    Object.assign(state.current, updater);
+                } else {
+                    updater(state.current);
+                }
+                setSignal(!signal);
+            },
+            [state, params],
+        ),
+    ];
+}
+
+/**
+ * Reduces invalidation by storing parameters in a stable container.
+ */
+export function useParams(current) {
+    const params = React.useRef(current);
+    params.current = current;
+    return params;
+}
+
+/**
+ * Ignores the promise returned by a concurrent effect.
+ */
+export function usePromiseEffect(effect, inputs) {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return React.useEffect(() => void effect(), inputs);
 }
 
 /**
  * State that will not enqueue an update when changed.
  */
-export function useHiddenState(initial) {
+export function useShadowState(initial) {
     const state = React.useRef(initial);
     return [
         state,
@@ -38,13 +59,10 @@ export function useHiddenState(initial) {
     ];
 }
 
-/**
- * Wraps the effect and ignores the return value.
- */
-export function usePromiseEffect(effect, inputs) {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    React.useEffect(() => void effect(), inputs);
-}
-
 // Module namespace
-export const Hooks = {useClassState, useHiddenState, usePromiseEffect};
+export const Hooks = {
+    useClassState,
+    useParams,
+    usePromiseEffect,
+    useShadowState,
+};

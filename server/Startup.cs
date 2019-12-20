@@ -15,14 +15,19 @@ namespace Unibrowse {
         public void ConfigureServices(IServiceCollection services) {
             services.AddEntityFrameworkSqlite()
                 .AddDbContext<DatabaseContext>()
-                .AddMvc(options => options.EnableEndpointRouting = false);
+                .AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if(env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles().UseMvcWithDefaultRoute();
+            app.UseStaticFiles()
+                .UseRouting()
+                .UseEndpoints(endpoints => {
+                    endpoints.MapControllers();
+                    endpoints.MapDefaultControllerRoute();
+                });
         }
     }
 }

@@ -16,13 +16,9 @@ namespace Unibrowse.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get() {
-            var field = Request.Query["field"];
-            var query = Request.Query["query"];
-            var page = Request.Query["page"];
+        public async Task<IActionResult> Get(string query, string field, string page) {
             IQueryable<CodePoint> records;
-
-            if(query.Count > 0) {
+            if(query?.Length > 0) {
                 if(field == "value") {
                     // Search for a single code point
                     var value = -1;

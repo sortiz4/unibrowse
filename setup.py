@@ -13,13 +13,13 @@ SERVER_ASSET_DIR = os.path.join(SERVER_DIR, 'wwwroot', 'static')
 
 
 class Setup:
-    HELP = 'Download server and client dependencies.'
+    HELP = 'Download the client and server dependencies.'
     CLIENT = ['npm', 'install']
     SERVER = ['dotnet', 'restore']
 
 
 class Build:
-    HELP = 'Compile and move client assets to the server.'
+    HELP = 'Compile and move the client assets to the server.'
     CLIENT = ['npm', 'run', 'build']
 
 
@@ -27,32 +27,32 @@ class Command:
     help = 'Setup and prepare the application for publishing.'
 
     def __init__(self):
-        parser = argparse.ArgumentParser(description=Command.help)
+        parser = argparse.ArgumentParser(description=self.help)
         parser.add_argument('-s', '--setup', action='store_true', help=Setup.HELP)
         parser.add_argument('-b', '--build', action='store_true', help=Build.HELP)
         self.args = parser.parse_args()
 
     def handle(self):
         if self.args.setup:
-            Command.setup()
+            self.setup()
         if self.args.build:
-            Command.build()
+            self.build()
 
-    @staticmethod
-    def setup():
-        os.chdir(SERVER_DIR)
-        run(Setup.SERVER, shell=True)
+    @classmethod
+    def setup(cls):
         os.chdir(CLIENT_DIR)
         run(Setup.CLIENT, shell=True)
+        os.chdir(SERVER_DIR)
+        run(Setup.SERVER, shell=True)
 
-    @staticmethod
-    def build():
+    @classmethod
+    def build(cls):
         # Compile the client
         os.chdir(CLIENT_DIR)
         run(Build.CLIENT, shell=True)
 
         # Organize the assets
-        for root, dirs, files in os.walk(CLIENT_ASSET_DIR):
+        for root, _, files in os.walk(CLIENT_ASSET_DIR):
             for name in files:
                 if name.endswith('.js'):
                     old_path = os.path.join(CLIENT_ASSET_DIR, name)
@@ -60,11 +60,11 @@ class Command:
                     os.rename(old_path, new_path)
                     break
             break
-        
+
         # Move the assets to the server
         dir_util.copy_tree(CLIENT_ASSET_DIR, SERVER_ASSET_DIR)
         dir_util.remove_tree(CLIENT_BUILD_DIR)
-    
+
 
 if __name__ == '__main__':
     Command().handle()

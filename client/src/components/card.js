@@ -3,7 +3,7 @@ import {Hooks} from 'core/hooks';
 import {React} from 'core/react';
 
 export function Card({code, onHover}) {
-    const [hover, setHover] = Hooks.useHiddenState(false);
+    const [hover, setHover] = Hooks.useShadowState(false);
     const onHoverOverride = () => {
         onHover(!hover.current ? code : null);
         setHover(!hover.current);
