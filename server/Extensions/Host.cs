@@ -8,7 +8,7 @@ namespace Unibrowse.Extensions {
         public static IHost Setup(this IHost host) {
             using(var scope = host.Services.CreateScope()) {
                 try {
-                    DatabaseInitializer
+                    DatabaseManager
                         .Initialize(scope.ServiceProvider.GetRequiredService<DatabaseContext>());
                 } catch(Exception exc) {
                     scope.ServiceProvider

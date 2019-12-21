@@ -19,7 +19,7 @@ namespace Unibrowse {
         }
     }
 
-    public static class DatabaseInitializer {
+    public static class DatabaseManager {
         private const int UnicodeEnd = 0x10FFFF;
 
         public static void Initialize(DatabaseContext context) {
