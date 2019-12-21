@@ -4,10 +4,10 @@ import {React} from 'core/react';
 
 export function Card({code, onHover}) {
     const [hover, setHover] = Hooks.useShadowState(false);
-    const onHoverOverride = () => {
+    function onHoverOverride() {
         onHover(!hover.current ? code : null);
         setHover(!hover.current);
-    };
+    }
     return (
         <div
             className="card"

@@ -18,7 +18,7 @@ export class State extends PromiseState {
 
 export function Viewport() {
     const [state, setState] = Hooks.useClassState(State);
-    const onRequest = async (handler, updater) => {
+    async function onRequest(handler, updater) {
         if(typeof handler !== 'function') {
             handler = request => request;
         }
@@ -31,25 +31,29 @@ export function Viewport() {
         } catch(exc) {
             setState({didReject: exc});
         }
-    };
-    const onChange = (index, search) => (
+    }
+    function onChange(index, search) {
         onRequest(
             request => request.search({page: index, ...search}),
             {index, search},
-        )
-    );
-    const onNext = () => {
+        );
+    }
+    function onNext() {
         if(state.page.hasNext) {
             onChange(state.index + 1, state.search);
         }
-    };
-    const onPrevious = () => {
+    }
+    function onPrevious() {
         if(state.page.hasPrevious) {
             onChange(state.index - 1, state.search);
         }
-    };
-    const onHover = details => setState({details});
-    const onSubmit = search => onChange(1, search);
+    }
+    function onHover(details) {
+        setState({details});
+    }
+    function onSubmit(search) {
+        onChange(1, search);
+    }
     Hooks.usePromiseEffect(onRequest, [setState]);
     return (
         <Fragment>

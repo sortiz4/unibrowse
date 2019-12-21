@@ -13,9 +13,13 @@ export class State {
 
 export function Form({onSubmit}) {
     const [state, setState] = Hooks.useClassState(State);
-    const onType = event => setState({query: event.target.value});
-    const onSelect = event => setState({field: Number(event.target.value)});
-    const onSubmitOverride = event => {
+    function onType(event) {
+        setState({query: event.target.value});
+    }
+    function onSelect(event) {
+        setState({field: Number(event.target.value)});
+    }
+    function onSubmitOverride(event) {
         event.preventDefault();
 
         // Grab the form inputs
@@ -52,7 +56,7 @@ export function Form({onSubmit}) {
 
         // Apply the filter
         onSubmit({field, query});
-    };
+    }
     return (
         <form onSubmit={onSubmitOverride}>
             <fieldset>
