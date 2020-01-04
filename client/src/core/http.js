@@ -51,7 +51,7 @@ export class Request {
     }
 
     request(closure) {
-        const i = this._settings.transformRequest.length - 2;
+        const i = this._settings.transformRequest.length - 1;
         this._settings.transformRequest.splice(i, 0, closure);
         return this;
     }
