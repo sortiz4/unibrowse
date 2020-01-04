@@ -99,8 +99,8 @@ export class Rest extends Request {
     }
 
     _url() {
-        if(this._path.length > 0) {
-            let path = this._path.replace(/:/g, '/');
+        if(this._path?.length > 0) {
+            let path = this._path.replace(/^|$|:/g, '/');
             if(this._args instanceof Array) {
                 for(const value of this._args) {
                     path = path.replace(/{\w+}/, value);
@@ -110,9 +110,9 @@ export class Rest extends Request {
                     path = path.replace(`{${key}}`, value);
                 }
             }
-            return `/${path}/`;
+            return path;
         }
-        return '';
+        return '/';
     }
 
     path(path, ...args) {
@@ -124,11 +124,11 @@ export class Rest extends Request {
     }
 
     args(...args) {
-        if(args.length === 1 && typeof args[0] === 'object') {
-            this._args = args[0];
-        } else {
-            this._args = args;
-        }
+        this._args = args.length === 1 && typeof args[0] === 'object' ? (
+            args[0]
+        ) : (
+            args
+        );
         return this;
     }
 
