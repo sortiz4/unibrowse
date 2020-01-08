@@ -4,8 +4,9 @@ import {React} from 'core/react';
 function mapMessage(message) {
     if(message instanceof Error) {
         console.error(message);
+        return `${message}`;
     }
-    return `${message}`;
+    return message;
 }
 
 export function Fallback({state}) {

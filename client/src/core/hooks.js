@@ -3,7 +3,7 @@ import {React} from 'core/react';
 /**
  * Constructs the state once and mutates the state on subsequent updates.
  */
-export function useClassState(constructor, initial) {
+function useClassState(constructor, initial) {
     const state = React.useRef(
         React.useMemo(
             () => Object.assign(new constructor(), initial),
@@ -31,7 +31,7 @@ export function useClassState(constructor, initial) {
 /**
  * Reduces invalidation by storing parameters in a stable container.
  */
-export function useParams(current) {
+function useParams(current) {
     const params = React.useRef(current);
     params.current = current;
     return params;
@@ -40,7 +40,7 @@ export function useParams(current) {
 /**
  * Ignores the promise returned by a concurrent effect.
  */
-export function usePromiseEffect(effect, inputs) {
+function usePromiseEffect(effect, inputs) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return React.useEffect(() => void effect(), inputs);
 }
@@ -48,7 +48,7 @@ export function usePromiseEffect(effect, inputs) {
 /**
  * State that will not enqueue an update when changed.
  */
-export function useShadowState(initial) {
+function useShadowState(initial) {
     const state = React.useRef(initial);
     return [
         state,
