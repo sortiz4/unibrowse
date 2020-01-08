@@ -1,11 +1,18 @@
 import {Icon} from 'components';
 import {React} from 'core/react';
 
+function mapMessage(message) {
+    if(message instanceof Error) {
+        console.error(message);
+    }
+    return `${message}`;
+}
+
 export function Fallback({state}) {
     return state.didReject ? (
         <div className="fallback-error">
             <Icon name="exclamation-circle"/>
-            <h5>{`${state.message ?? 'Something went wrong...'}`}</h5>
+            <h5>{mapMessage(state.message ?? 'Something went wrong...')}</h5>
         </div>
     ) : (
         <div className="fallback-loading">
