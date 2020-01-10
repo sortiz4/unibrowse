@@ -11,7 +11,7 @@ import {CodePoint} from 'core/models';
 import {Fragment, React} from 'core/react';
 import {PromiseState} from 'core/states';
 
-export class State extends PromiseState {
+class State extends PromiseState {
     index = 1;
     search = {};
 }

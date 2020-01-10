@@ -6,7 +6,7 @@ const CODEPOINT = 0;
 const LITERAL = 1;
 const NAME = 2;
 
-export class State {
+class State {
     field = NAME;
     query = '';
 }
