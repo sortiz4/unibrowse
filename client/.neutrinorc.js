@@ -44,47 +44,48 @@ module.exports = {
             // Babel plugins
             babel: {
                 plugins: [
-                    [
-                        '@babel/plugin-proposal-decorators',
-                        {decoratorsBeforeExport: true},
-                    ],
-                    [
-                        '@babel/plugin-proposal-class-properties',
-                        {loose: true},
-                    ],
                     '@babel/plugin-proposal-nullish-coalescing-operator',
-                    '@babel/plugin-proposal-optional-chaining',
                     '@babel/plugin-proposal-numeric-separator',
+                    '@babel/plugin-proposal-optional-chaining',
                 ],
             },
         }),
         neutrino => {
             // Add `node_modules` and `src` to the module resolver
-            neutrino.config.resolve.modules
+            neutrino.config
+                .resolve
+                .modules
                 .add('node_modules')
                 .add('src');
 
             // Prepend styles and polyfills to the entry point
-            neutrino.config.entry('index')
+            neutrino.config
+                .entry('index')
                 .prepend('theme/index.scss')
                 .prepend('regenerator-runtime')
                 .prepend('core-js');
 
             if(process.env.NODE_ENV === 'production') {
                 // Configure the optimizer
-                neutrino.config.optimization.minimizer('terser')
-                    .use(require('terser-webpack-plugin'), [{
-                        cache: true,
-                        parallel: true,
-                        terserOptions: {
-                            output: {
-                                comments: false,
+                neutrino.config
+                    .optimization
+                    .minimizer('terser')
+                    .use(
+                        require('terser-webpack-plugin'),
+                        [{
+                            cache: true,
+                            parallel: true,
+                            terserOptions: {
+                                output: {
+                                    comments: false,
+                                },
                             },
-                        },
-                    }]);
+                        }],
+                    );
 
                 // Disable application splitting
-                neutrino.config.optimization
+                neutrino.config
+                    .optimization
                     .delete('runtimeChunk')
                     .delete('splitChunks');
             }
