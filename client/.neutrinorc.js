@@ -44,9 +44,7 @@ module.exports = {
             // Babel plugins
             babel: {
                 plugins: [
-                    '@babel/plugin-proposal-nullish-coalescing-operator',
                     '@babel/plugin-proposal-numeric-separator',
-                    '@babel/plugin-proposal-optional-chaining',
                 ],
             },
         }),
