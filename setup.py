@@ -56,7 +56,7 @@ class Command:
             for name in files:
                 if name.endswith('.js'):
                     old_path = os.path.join(CLIENT_ASSET_DIR, name)
-                    new_path = os.path.join(CLIENT_ASSET_DIR, 'app.js')
+                    new_path = os.path.join(CLIENT_ASSET_DIR, 'unibrowse.js')
                     os.rename(old_path, new_path)
                     break
             break

@@ -70,7 +70,7 @@ $ub-svg-radio: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIH
 $ub-transition: 200ms ease;
 
 // Mixins
-@mixin hook-fallback($color) {
+@mixin ub-fallback($color) {
   padding: $ub-margin-large 0;
   text-align: center;
 
@@ -81,7 +81,7 @@ $ub-transition: 200ms ease;
   }
 }
 
-@mixin hook-page {
+@mixin ub-page {
   color: $ub-base-font-color;
   cursor: pointer;
   display: flex;
@@ -472,11 +472,11 @@ hr {
 
 .fallback {
   &-error {
-    @include hook-fallback($ub-fallback-error-color);
+    @include ub-fallback($ub-fallback-error-color);
   }
 
   &-loading {
-    @include hook-fallback($ub-primary-color);
+    @include ub-fallback($ub-primary-color);
   }
 }
 
@@ -517,12 +517,12 @@ hr {
 .page {
   &-left {
     left: 0;
-    @include hook-page;
+    @include ub-page;
   }
 
   &-right {
     right: 0;
-    @include hook-page;
+    @include ub-page;
   }
 }
 
