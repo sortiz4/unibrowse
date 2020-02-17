@@ -1,16 +1,17 @@
-const ACCEPTED = 1;
-const REJECTED = 2;
-const PENDING = 3;
+const RESOLVED = 0;
+const REJECTED = 1;
+const PENDING = 2;
+const NONE = 3;
 
-export class PromiseState {
-    _status = 0;
+export class ObservableState {
+    _status = NONE;
 
-    get didAccept() {
-        return this._status === ACCEPTED;
+    get didResolve() {
+        return this._status === RESOLVED;
     }
 
-    set didAccept(value) {
-        this._status = value ? ACCEPTED : 0;
+    set didResolve(value) {
+        this._status = value ? RESOLVED : NONE;
         this.message = value;
     }
 
@@ -19,7 +20,7 @@ export class PromiseState {
     }
 
     set didReject(value) {
-        this._status = value ? REJECTED : 0;
+        this._status = value ? REJECTED : NONE;
         this.message = value;
     }
 
@@ -28,7 +29,7 @@ export class PromiseState {
     }
 
     set isPending(value) {
-        this._status = value ? PENDING : 0;
+        this._status = value ? PENDING : NONE;
         this.message = value;
     }
 

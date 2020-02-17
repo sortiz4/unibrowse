@@ -105,7 +105,7 @@ const DECOMPOSITION_CLASSES = [
 
 export class CodePoint extends Model {
     static all() {
-        return this.request('api:codepoints');
+        return this.request('api/codepoints');
     }
 
     get key() {

@@ -24,10 +24,12 @@ namespace Unibrowse {
             }
             app.UseStaticFiles()
                 .UseRouting()
-                .UseEndpoints(endpoints => {
-                    endpoints.MapControllers();
-                    endpoints.MapDefaultControllerRoute();
-                });
+                .UseEndpoints(
+                    endpoints => {
+                        endpoints.MapControllers();
+                        endpoints.MapDefaultControllerRoute();
+                    }
+                );
         }
     }
 }

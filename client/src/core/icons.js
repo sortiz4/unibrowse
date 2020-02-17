@@ -4,13 +4,13 @@ import {faExclamationCircle} from '@fortawesome/free-solid-svg-icons';
 import {faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
-export class FaObject {
+class FaObject {
     constructor(...icons) {
         for(const icon of icons) {
             this[icon.iconName] = {
+                path: icon.icon[4],
                 width: icon.icon[0],
                 height: icon.icon[1],
-                path: icon.icon[4],
             };
         }
     }

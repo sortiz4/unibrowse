@@ -1,6 +1,5 @@
 import {FaIcon} from 'core/icons';
-import {React} from 'core/react';
-import {classNames} from 'core/string';
+import {classNames, React} from 'core/react';
 
 export function Icon({name, size, spin, wide, className, ...props}) {
     const {width, height, path} = FaIcon.get(name);

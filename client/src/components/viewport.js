@@ -9,34 +9,38 @@ import {
 import {Hooks} from 'core/hooks';
 import {CodePoint} from 'core/models';
 import {Fragment, React} from 'core/react';
-import {PromiseState} from 'core/states';
+import {map} from 'core/rx';
+import {ObservableState} from 'core/states';
 
-class State extends PromiseState {
+class State extends ObservableState {
     index = 1;
     search = {};
 }
 
 export function Viewport() {
     const [state, setState] = Hooks.useClassState(State);
-    async function onRequest(handler, updater) {
+    function onRequest(handler, updater) {
         if(typeof handler !== 'function') {
             handler = request => request;
         }
         if(typeof updater !== 'object') {
             updater = {};
         }
-        try {
-            const page = await handler(CodePoint.all().paginate()).get();
-            setState({didAccept: true, page, ...updater});
-        } catch(exc) {
-            setState({didReject: exc});
-        }
+        return (
+            handler(CodePoint.all().paginate())
+                .get()
+                .pipe(map(page => ({page, ...updater})))
+        );
+    }
+    function onThen(update) {
+        setState({didResolve: true, ...update});
+    }
+    function onCatch(exc) {
+        setState({didReject: exc});
     }
     function onChange(index, search) {
-        onRequest(
-            request => request.search({page: index, ...search}),
-            {index, search},
-        );
+        const handler = request => request.search({page: index, ...search});
+        onRequest(handler, {index, search}).subscribe(onThen, onCatch);
     }
     function onNext() {
         if(state.page.hasNext) {
@@ -54,11 +58,11 @@ export function Viewport() {
     function onSubmit(search) {
         onChange(1, search);
     }
-    Hooks.usePromiseEffect(onRequest, [setState]);
+    Hooks.useObservableEffect([onRequest, onThen, onCatch], [setState]);
     return (
         <Fragment>
             <Form onSubmit={onSubmit}/>
-            {state.didAccept ? (
+            {state.didResolve ? (
                 state.page.children.length > 0 ? (
                     <Panel
                         page={state.page}

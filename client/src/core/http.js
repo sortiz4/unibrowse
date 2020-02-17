@@ -1,4 +1,33 @@
 import Http from 'axios';
+import {from} from 'core/rx';
+
+/**
+ * Ensures all paths begin and end with a slash.
+ */
+export function normalize(source) {
+    const slash = '/';
+    const path = source instanceof Array ? (
+        source.join(slash)
+    ) : typeof source === 'string' ? (
+        source
+    ) : (
+        ''
+    );
+    if(path.length > 0) {
+        const doesNotStartWith = !path.startsWith(slash);
+        const doesNotEndWith = !path.endsWith(slash);
+        return doesNotStartWith && doesNotEndWith ? (
+            slash.concat(path, slash)
+        ) : doesNotStartWith ? (
+            slash + path
+        ) : doesNotEndWith ? (
+            path + slash
+        ) : (
+            path
+        );
+    }
+    return slash;
+}
 
 /**
  * A simple page interface.
@@ -71,10 +100,9 @@ export class Request {
  * Enables programmatic request construction (REST).
  */
 export class Rest extends Request {
-    constructor(model, path, ...args) {
+    constructor(model, path) {
         super();
         this.path(path);
-        this.args(...args);
         this._model = model;
     }
 
@@ -99,36 +127,11 @@ export class Rest extends Request {
     }
 
     _url() {
-        if(this._path?.length > 0) {
-            let path = this._path.replace(/^|$|:/g, '/');
-            if(this._args instanceof Array) {
-                for(const value of this._args) {
-                    path = path.replace(/{\w+}/, value);
-                }
-            } else {
-                for(const [key, value] of Object.entries(this._args)) {
-                    path = path.replace(`{${key}}`, value);
-                }
-            }
-            return path;
-        }
-        return '/';
+        return normalize(this._path);
     }
 
-    path(path, ...args) {
+    path(path) {
         this._path = path;
-        if(args.length > 0) {
-            this.args(...args);
-        }
-        return this;
-    }
-
-    args(...args) {
-        this._args = args.length === 1 && typeof args[0] === 'object' ? (
-            args[0]
-        ) : (
-            args
-        );
         return this;
     }
 
@@ -158,7 +161,7 @@ for(const method of ['delete', 'get', 'head', 'options']) {
             url: this._url(),
             ...this._settings,
         };
-        return Http.request(settings).then(r => this._resolve(r));
+        return from(Http.request(settings).then(r => this._resolve(r)));
     };
 }
 
@@ -171,6 +174,6 @@ for(const method of ['patch', 'post', 'put']) {
             url: this._url(),
             ...this._settings,
         };
-        return Http.request(settings).then(r => this._resolve(r));
+        return from(Http.request(settings).then(r => this._resolve(r)));
     };
 }
