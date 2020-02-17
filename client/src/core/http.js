@@ -4,7 +4,7 @@ import {from} from 'core/rx';
 /**
  * Ensures all paths begin and end with a slash.
  */
-export function normalize(source) {
+function normalize(source) {
     const slash = '/';
     const path = source instanceof Array ? (
         source.join(slash)
