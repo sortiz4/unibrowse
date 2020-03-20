@@ -12,8 +12,7 @@ export function Card({code, onHover}) {
         <div
             className="card"
             onMouseEnter={onHoverOverride}
-            onMouseLeave={onHoverOverride}
-        >
+            onMouseLeave={onHoverOverride}>
             <div className="card-header">
                 <Literal value={code.key}/>
                 <dl className="card-subtitle">
