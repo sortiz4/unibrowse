@@ -40,13 +40,6 @@ module.exports = {
                     'Firefox >= 40',
                 ],
             },
-
-            // Babel plugins
-            babel: {
-                plugins: [
-                    '@babel/plugin-proposal-numeric-separator',
-                ],
-            },
         }),
         neutrino => {
             // Add `node_modules` and `src` to the module resolver
