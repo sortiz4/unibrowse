@@ -26,16 +26,16 @@ namespace Unibrowse {
             context.Database.EnsureCreated();
 
             // Skip this if the database has been initialized
-            if(context.CodePoints.Any()) {
+            if (context.CodePoints.Any()) {
                 return;
             }
 
             // Add all available code points to the database
             var codePoints = new List<CodePoint>();
-            for(var i = 0; i < UnicodeEnd + 1; i++) {
+            for (var i = 0; i < UnicodeEnd + 1; i++) {
                 try {
                     codePoints.Add(new CodePoint(i));
-                } catch(KeyNotFoundException) {
+                } catch (KeyNotFoundException) {
                     // Skip unknown code points
                 }
             }

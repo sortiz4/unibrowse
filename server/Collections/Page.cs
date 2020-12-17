@@ -25,7 +25,7 @@ namespace Unibrowse.Collections {
             var count = await results.CountAsync();
             var pages = (int)Math.Ceiling(count / (double)size);
 
-            if(count == 0) {
+            if (count == 0) {
                 // Return an empty page if the results are empty
                 return new Page<T>(index, pages + 1, new List<T>());
             }

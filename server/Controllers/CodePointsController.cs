@@ -18,8 +18,8 @@ namespace Unibrowse.Controllers {
         [HttpGet]
         public async Task<IActionResult> Get(string query, string field, string page) {
             IQueryable<CodePoint> records;
-            if(query?.Length > 0) {
-                if(field == "value") {
+            if (query?.Length > 0) {
+                if (field == "value") {
                     // Search for a single code point
                     var value = -1;
                     try {
@@ -51,7 +51,7 @@ namespace Unibrowse.Controllers {
 
             try {
                 return Json(await Page<CodePoint>.CreateAsync(records, page));
-            } catch(InvalidOperationException) {
+            } catch (InvalidOperationException) {
                 return NotFound();
             }
         }
@@ -60,7 +60,7 @@ namespace Unibrowse.Controllers {
         public async Task<IActionResult> Get(int id) {
             try {
                 return Json(await _db.CodePoints.SingleAsync(c => c.Value == id));
-            } catch(InvalidOperationException) {
+            } catch (InvalidOperationException) {
                 return NotFound();
             }
         }

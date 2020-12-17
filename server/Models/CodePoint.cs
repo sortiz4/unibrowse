@@ -31,13 +31,13 @@ namespace Unibrowse.Models {
         public CodePoint(int value) {
             var info = UnicodeInfo.GetCharInfo(value);
 
-            if(info.Block.Equals("No_Block")) {
+            if (info.Block.Equals("No_Block")) {
                 throw new KeyNotFoundException();
             }
 
-            if(info.Name != null) {
+            if (info.Name != null) {
                 Name = info.Name;
-            } else if(info.NameAliases.Count > 0) {
+            } else if (info.NameAliases.Count > 0) {
                 Name = info.NameAliases[0].Name;
             } else {
                 Name = "NOT ASSIGNED";
