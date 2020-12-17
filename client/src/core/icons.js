@@ -6,7 +6,7 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 class FaObject {
     constructor(...icons) {
-        for(const icon of icons) {
+        for (const icon of icons) {
             this[icon.iconName] = {
                 path: icon.icon[4],
                 width: icon.icon[0],
@@ -26,7 +26,7 @@ export class FaIcon {
     );
 
     static get(name) {
-        if(this.solid.hasOwnProperty(name)) {
+        if (this.solid.hasOwnProperty(name)) {
             return this.solid[name];
         }
         throw new TypeError(`Icon '${name}' was not found`);

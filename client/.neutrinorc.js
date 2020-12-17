@@ -56,7 +56,7 @@ module.exports = {
                 .prepend('regenerator-runtime')
                 .prepend('core-js');
 
-            if(process.env.NODE_ENV === 'production') {
+            if (process.env.NODE_ENV === 'production') {
                 // Configure the optimizer
                 neutrino.config
                     .optimization

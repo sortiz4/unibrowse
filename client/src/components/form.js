@@ -26,16 +26,16 @@ export function Form({onSubmit}) {
         let {field, query} = state;
 
         // Transform the query
-        if(field === CODEPOINT) {
+        if (field === CODEPOINT) {
             // Transform hexadecimal to decimal
             query = Number.parseInt(
                 query.trim().replace(/[uU]\+/, ''),
                 16,
             );
-            if(Number.isNaN(query)) {
+            if (Number.isNaN(query)) {
                 query = '';
             }
-        } else if(field === LITERAL) {
+        } else if (field === LITERAL) {
             // Transform literal to decimal
             query = query.length > 0 ? (
                 Unicode.fromString(query)

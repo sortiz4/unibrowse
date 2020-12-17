@@ -20,10 +20,10 @@ class State extends ObservableState {
 export function Viewport() {
     const [state, setState] = Hooks.useClassState(State);
     function onRequest(handler, updater) {
-        if(typeof handler !== 'function') {
+        if (typeof handler !== 'function') {
             handler = request => request;
         }
-        if(typeof updater !== 'object') {
+        if (typeof updater !== 'object') {
             updater = {};
         }
         return (
@@ -43,12 +43,12 @@ export function Viewport() {
         onRequest(handler, {index, search}).subscribe(onThen, onCatch);
     }
     function onNext() {
-        if(state.page.hasNext) {
+        if (state.page.hasNext) {
             onChange(state.index + 1, state.search);
         }
     }
     function onPrevious() {
-        if(state.page.hasPrevious) {
+        if (state.page.hasPrevious) {
             onChange(state.index - 1, state.search);
         }
     }

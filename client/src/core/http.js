@@ -13,7 +13,7 @@ function normalize(source) {
     ) : (
         ''
     );
-    if(path.length > 0) {
+    if (path.length > 0) {
         const doesNotStartWith = !path.startsWith(slash);
         const doesNotEndWith = !path.endsWith(slash);
         return doesNotStartWith && doesNotEndWith ? (
@@ -45,7 +45,7 @@ export class Page {
     }
 
     *[Symbol.iterator]() {
-        for(const value of this.children) {
+        for (const value of this.children) {
             yield value;
         }
     }
@@ -68,7 +68,7 @@ export class Request {
     }
 
     _resolve(response) {
-        for(const map of this._maps) {
+        for (const map of this._maps) {
             response = map(response);
         }
         return response;
@@ -154,7 +154,7 @@ export class Rest extends Request {
 }
 
 // Bodiless HTTP methods
-for(const method of ['delete', 'get', 'head', 'options']) {
+for (const method of ['delete', 'get', 'head', 'options']) {
     Rest.prototype[method] = function() {
         const settings = {
             method,
@@ -166,7 +166,7 @@ for(const method of ['delete', 'get', 'head', 'options']) {
 }
 
 // Bodied HTTP methods
-for(const method of ['patch', 'post', 'put']) {
+for (const method of ['patch', 'post', 'put']) {
     Rest.prototype[method] = function(data) {
         const settings = {
             data,

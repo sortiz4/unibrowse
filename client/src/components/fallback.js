@@ -2,7 +2,7 @@ import {Icon} from 'components';
 import {React} from 'core/react';
 
 function mapLogMessage(message) {
-    if(message instanceof Error) {
+    if (message instanceof Error) {
         console.error(message);
         return `${message}`;
     }
