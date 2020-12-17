@@ -1,5 +1,5 @@
-import {Icon} from 'components';
-import {React} from 'core/react';
+import { Icon } from 'components';
+import { React } from 'core/react';
 
 export function NotFound() {
     return (

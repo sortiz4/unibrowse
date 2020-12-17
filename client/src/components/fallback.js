@@ -1,5 +1,5 @@
-import {Icon} from 'components';
-import {React} from 'core/react';
+import { Icon } from 'components';
+import { React } from 'core/react';
 
 function mapLogMessage(message) {
     if (message instanceof Error) {
@@ -9,7 +9,7 @@ function mapLogMessage(message) {
     return message;
 }
 
-export function Fallback({state}) {
+export function Fallback({ state }) {
     return state.didReject ? (
         <div className="fallback-error">
             <Icon name="exclamation-circle"/>

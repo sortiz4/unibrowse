@@ -1,10 +1,7 @@
-import {React} from 'core/react';
+import { React } from 'core/react';
 
 export function Container(props) {
     return (
-        <div
-            className="container"
-            {...props}
-        />
+        <div className="container" {...props}/>
     );
 }

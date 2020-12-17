@@ -1,4 +1,4 @@
-import {Model} from 'core/models';
+import { Model } from 'core/models';
 
 const CATEGORY = [
     'Uppercase Letter',
@@ -136,14 +136,7 @@ export class CodePoint extends Model {
         return DECOMPOSITION_CLASSES[this._decompositionClass];
     }
 
-    constructor({
-        value,
-        category,
-        combiningClass,
-        bidirectionalClass,
-        decompositionClass,
-        ...props
-    }) {
+    constructor({ value, category, combiningClass, bidirectionalClass, decompositionClass, ...props }) {
         super(props);
         this._value = value;
         this._category = category;

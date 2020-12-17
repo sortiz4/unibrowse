@@ -1,5 +1,5 @@
-import {NotImplementedError} from 'core/errors';
-import {Rest} from 'core/http';
+import { NotImplementedError } from 'core/errors';
+import { Rest } from 'core/http';
 
 /**
  * A basic model that maps to a resource.

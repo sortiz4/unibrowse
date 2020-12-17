@@ -38,10 +38,7 @@ export class ObservableState {
     }
 
     set message(value) {
-        this._message = (
-            value instanceof Error ||
-            typeof value === 'string'
-        ) ? (
+        this._message = value instanceof Error || typeof value === 'string' ? (
             value
         ) : (
             undefined

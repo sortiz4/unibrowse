@@ -1,4 +1,4 @@
-import {React} from 'core/react';
+import { React } from 'core/react';
 
 /**
  * Constructs the state once and mutates the state on subsequent updates.

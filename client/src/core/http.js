@@ -1,5 +1,5 @@
 import Http from 'axios';
-import {from} from 'core/rx';
+import { from } from 'core/rx';
 
 /**
  * Ensures all paths begin and end with a slash.
@@ -111,12 +111,9 @@ export class Rest extends Request {
         response = super._resolve(response);
 
         // Map the response
-        const {status, data} = response;
+        const { status, data } = response;
         return status >= 200 && status < 300 ? (
-            (
-                !(typeof data === 'string') &&
-                !(data instanceof Page)
-            ) ? (
+            typeof data !== 'string' && !(data instanceof Page) ? (
                 new this._model(data)
             ) : (
                 data

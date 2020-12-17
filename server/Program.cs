@@ -9,10 +9,7 @@ namespace Unibrowse {
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
-            return (
-                Host.CreateDefaultBuilder(args)
-                    .ConfigureWebHostDefaults(web => web.UseStartup<Startup>())
-            );
+            return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(web => web.UseStartup<Startup>());
         }
     }
 }

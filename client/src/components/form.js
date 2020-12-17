@@ -1,6 +1,6 @@
-import {Hooks} from 'core/hooks';
-import {React} from 'core/react';
-import {Unicode} from 'core/string';
+import { Hooks } from 'core/hooks';
+import { React } from 'core/react';
+import { Unicode } from 'core/string';
 
 const CODEPOINT = 0;
 const LITERAL = 1;
@@ -11,19 +11,22 @@ class State {
     query = '';
 }
 
-export function Form({onSubmit}) {
+export function Form({ onSubmit }) {
     const [state, setState] = Hooks.useClassState(State);
+
     function onType(event) {
-        setState({query: event.target.value});
+        setState({ query: event.target.value });
     }
+
     function onSelect(event) {
-        setState({field: Number(event.target.value)});
+        setState({ field: Number(event.target.value) });
     }
+
     function onSubmitOverride(event) {
         event.preventDefault();
 
         // Grab the form inputs
-        let {field, query} = state;
+        let { field, query } = state;
 
         // Transform the query
         if (field === CODEPOINT) {
@@ -55,7 +58,7 @@ export function Form({onSubmit}) {
         );
 
         // Apply the filter
-        onSubmit({field, query});
+        onSubmit({ field, query });
     }
     return (
         <form onSubmit={onSubmitOverride}>

@@ -4,10 +4,12 @@ module.exports = {
         require('@neutrinojs/react')({
             // Server proxies
             devServer: {
-                proxy: [{
-                    context: ['/api'],
-                    target: 'http://localhost:8000',
-                }],
+                proxy: [
+                    {
+                        context: ['/api'],
+                        target: 'http://localhost:8000',
+                    },
+                ],
             },
 
             // Document properties
@@ -63,15 +65,17 @@ module.exports = {
                     .minimizer('terser')
                     .use(
                         require('terser-webpack-plugin'),
-                        [{
-                            cache: true,
-                            parallel: true,
-                            terserOptions: {
-                                output: {
-                                    comments: false,
+                        [
+                            {
+                                cache: true,
+                                parallel: true,
+                                terserOptions: {
+                                    output: {
+                                        comments: false,
+                                    },
                                 },
                             },
-                        }],
+                        ],
                     );
 
                 // Disable application splitting

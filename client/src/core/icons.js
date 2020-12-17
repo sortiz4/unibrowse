@@ -1,8 +1,8 @@
-import {faChevronLeft} from '@fortawesome/free-solid-svg-icons';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {faExclamationCircle} from '@fortawesome/free-solid-svg-icons';
-import {faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
-import {faSpinner} from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 class FaObject {
     constructor(...icons) {

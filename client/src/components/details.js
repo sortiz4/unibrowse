@@ -1,7 +1,7 @@
-import {CodePoint} from 'core/models';
-import {React} from 'core/react';
+import { CodePoint } from 'core/models';
+import { React } from 'core/react';
 
-export function Details({details}) {
+export function Details({ details }) {
     return details instanceof CodePoint ? (
         <div className="details">
             <dl>
