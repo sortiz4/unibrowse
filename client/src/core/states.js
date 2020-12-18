@@ -4,44 +4,44 @@ const PENDING = 2;
 const NONE = 3;
 
 export class ObservableState {
-    _status = NONE;
+  _status = NONE;
 
-    get didResolve() {
-        return this._status === RESOLVED;
-    }
+  get didResolve() {
+    return this._status === RESOLVED;
+  }
 
-    set didResolve(value) {
-        this._status = value ? RESOLVED : NONE;
-        this.message = value;
-    }
+  set didResolve(value) {
+    this._status = value ? RESOLVED : NONE;
+    this.message = value;
+  }
 
-    get didReject() {
-        return this._status === REJECTED;
-    }
+  get didReject() {
+    return this._status === REJECTED;
+  }
 
-    set didReject(value) {
-        this._status = value ? REJECTED : NONE;
-        this.message = value;
-    }
+  set didReject(value) {
+    this._status = value ? REJECTED : NONE;
+    this.message = value;
+  }
 
-    get isPending() {
-        return this._status === PENDING;
-    }
+  get isPending() {
+    return this._status === PENDING;
+  }
 
-    set isPending(value) {
-        this._status = value ? PENDING : NONE;
-        this.message = value;
-    }
+  set isPending(value) {
+    this._status = value ? PENDING : NONE;
+    this.message = value;
+  }
 
-    get message() {
-        return this._message;
-    }
+  get message() {
+    return this._message;
+  }
 
-    set message(value) {
-        this._message = value instanceof Error || typeof value === 'string' ? (
-            value
-        ) : (
-            undefined
-        );
-    }
+  set message(value) {
+    this._message = value instanceof Error || typeof value === 'string' ? (
+      value
+    ) : (
+      undefined
+    );
+  }
 }
