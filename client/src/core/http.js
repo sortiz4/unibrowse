@@ -152,7 +152,7 @@ export class Rest extends Request {
 
 // Bodiless HTTP methods
 for (const method of ['delete', 'get', 'head', 'options']) {
-    Rest.prototype[method] = function() {
+    Rest.prototype[method] = function () {
         const settings = {
             method,
             url: this._url(),
@@ -164,7 +164,7 @@ for (const method of ['delete', 'get', 'head', 'options']) {
 
 // Bodied HTTP methods
 for (const method of ['patch', 'post', 'put']) {
-    Rest.prototype[method] = function(data) {
+    Rest.prototype[method] = function (data) {
         const settings = {
             data,
             method,
