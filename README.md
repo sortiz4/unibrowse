@@ -7,10 +7,10 @@ character simply by mousing over them.
 ## Compilation
 Those seeking to compile must have...
 
-- .NET Core SDK 3.0+
-- Node.js 12.0+
-- NPM 6.0+
-- Python 3.5+
+- .NET SDK 6.0+
+- Node.js 16.0+
+- NPM 7.0+
+- Python 3.8+
 
 Once these requirements have been met, simply clone the repository and execute
 `py setup.py -sb` (this will setup and compile the project). Once completed,

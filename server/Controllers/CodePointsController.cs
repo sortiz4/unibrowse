@@ -7,6 +7,11 @@ using Unibrowse.Collections;
 using Unibrowse.Models;
 
 namespace Unibrowse.Controllers {
+    enum Field {
+        Name,
+        Value,
+    }
+
     [Route("api/[controller]")]
     public class CodePointsController : Controller {
         private readonly DatabaseContext _db;
@@ -16,38 +21,36 @@ namespace Unibrowse.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string query, string field, string page) {
-            IQueryable<CodePoint> records;
-            if (query?.Length > 0) {
-                if (field == "value") {
-                    // Search for a single code point
-                    var value = -1;
-                    try {
-                        value = int.Parse(query);
-                    } catch {
-                        // The user submitted a bogus value
+        public async Task<IActionResult> Get(int page, int field, string search) {
+            IQueryable<CodePoint> GetRecords() {
+                if (search?.Length > 0) {
+                    if (field == (int)Field.Value) {
+                        var value = int.TryParse(search, out var i) ? i : -1;
+ 
+                        // Search for a single code point
+                        return (
+                            from c in _db.CodePoints
+                            where c.Value == value
+                            select c
+                        );
                     }
-                    records = (
-                        from c in _db.CodePoints
-                        where c.Value == value
-                        select c
-                    );
-                } else {
+
                     // Search for a name (using likeness)
-                    records = (
+                    return (
                         from c in _db.CodePoints
-                        where EF.Functions.Like(c.Name, $"%{query}%")
+                        where EF.Functions.Like(c.Name, $"%{search}%")
                         select c
                     );
                 }
-            } else {
+
                 // Query all code points
-                records = (
+                return (
                     from c in _db.CodePoints
                     select c
                 );
             }
-            records = records.OrderBy(c => c.Value).AsNoTracking();
+
+            var records = GetRecords().OrderBy(c => c.Value).AsNoTracking();
 
             try {
                 return Json(await Page<CodePoint>.CreateAsync(records, page));

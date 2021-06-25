@@ -1,4 +1,4 @@
-{
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -15,10 +15,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Sparrow": {
+    "Unibrowse": {
       "commandName": "Project",
       "launchBrowser": false,
       "applicationUrl": "http://localhost:8000",
+      "dotnetRunMessages": "true",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

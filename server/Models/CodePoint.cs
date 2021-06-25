@@ -19,11 +19,11 @@ namespace Unibrowse.Models {
         [Column("category")]
         public int Category { get; set; }
 
-        [Column("bidirectional_class")]
-        public int BidirectionalClass { get; set; }
-
         [Column("combining_class")]
         public int CombiningClass { get; set; }
+
+        [Column("bidirectional_class")]
+        public int BidirectionalClass { get; set; }
 
         [Column("decomposition_class")]
         public int DecompositionClass { get; set; }
@@ -46,8 +46,8 @@ namespace Unibrowse.Models {
             Value = value;
             Block = info.Block;
             Category = (int)info.Category;
-            BidirectionalClass = (int)info.BidirectionalClass;
             CombiningClass = (int)info.CanonicalCombiningClass;
+            BidirectionalClass = (int)info.BidirectionalClass;
             DecompositionClass = (int)info.DecompositionType;
         }
     }

@@ -6,10 +6,9 @@ from subprocess import run
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 CLIENT_DIR = os.path.join(BASE_DIR, 'client')
-CLIENT_BUILD_DIR = os.path.join(CLIENT_DIR, 'build')
-CLIENT_ASSET_DIR = os.path.join(CLIENT_BUILD_DIR, 'assets')
+CLIENT_ASSET_DIR = os.path.join(CLIENT_DIR, 'build')
 SERVER_DIR = os.path.join(BASE_DIR, 'server')
-SERVER_ASSET_DIR = os.path.join(SERVER_DIR, 'wwwroot', 'static')
+SERVER_ASSET_DIR = os.path.join(SERVER_DIR, 'wwwroot')
 
 
 class Setup:
@@ -51,19 +50,9 @@ class Command:
         os.chdir(CLIENT_DIR)
         run(Build.CLIENT, shell=True)
 
-        # Organize the assets
-        for root, _, files in os.walk(CLIENT_ASSET_DIR):
-            for name in files:
-                if name.endswith('.js'):
-                    old_path = os.path.join(CLIENT_ASSET_DIR, name)
-                    new_path = os.path.join(CLIENT_ASSET_DIR, 'unibrowse.js')
-                    os.rename(old_path, new_path)
-                    break
-            break
-
         # Move the assets to the server
         dir_util.copy_tree(CLIENT_ASSET_DIR, SERVER_ASSET_DIR)
-        dir_util.remove_tree(CLIENT_BUILD_DIR)
+        dir_util.remove_tree(CLIENT_ASSET_DIR)
 
 
 if __name__ == '__main__':

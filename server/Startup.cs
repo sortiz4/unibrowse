@@ -22,14 +22,9 @@ namespace Unibrowse {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles()
+            app.UseFileServer()
                 .UseRouting()
-                .UseEndpoints(
-                    endpoints => {
-                        endpoints.MapControllers();
-                        endpoints.MapDefaultControllerRoute();
-                    }
-                );
+                .UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

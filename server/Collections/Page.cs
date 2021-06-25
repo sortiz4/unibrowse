@@ -20,31 +20,18 @@ namespace Unibrowse.Collections {
             Children = children;
         }
 
-        public static async Task<Page<T>> CreateAsync(IQueryable<T> results, string query, int size = 128) {
-            var index = 1;
+        public static async Task<Page<T>> CreateAsync(IQueryable<T> results, int offset, int size = 128) {
             var count = await results.CountAsync();
             var pages = (int)Math.Ceiling(count / (double)size);
+            var index = Math.Clamp(offset, 1, Math.Max(pages, 1));
 
             if (count == 0) {
                 // Return an empty page if the results are empty
-                return new Page<T>(index, pages + 1, new List<T>());
-            }
-
-            try {
-                index = int.Parse(query);
-            } catch {
-                // The user submitted a bogus page index
-            } finally {
-                // Clamp the page index within range
-                index = Math.Clamp(index, 1, pages);
+                return new Page<T>(1, pages + 1, new List<T>());
             }
 
             // Paginate the results
-            return new Page<T>(
-                index,
-                pages,
-                await results.Skip((index - 1) * size).Take(size).ToListAsync()
-            );
+            return new Page<T>(index, pages, await results.Skip((index - 1) * size).Take(size).ToListAsync());
         }
     }
 }
