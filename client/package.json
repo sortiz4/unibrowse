@@ -24,7 +24,7 @@
     "react-scripts": "~4.0.3"
   },
   "scripts": {
-    "clean": "rm -rf node_modules *-lock.json",
+    "clean": "rm -rf node_modules package-lock.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
