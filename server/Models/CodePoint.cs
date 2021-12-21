@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Unicode;
 
-namespace Unibrowse.Models {
-    public class CodePoint {
+namespace Unibrowse.Models
+{
+    public class CodePoint
+    {
         [Column("id")]
         public int Id { get; set; }
 
@@ -28,18 +30,25 @@ namespace Unibrowse.Models {
         [Column("decomposition_class")]
         public int DecompositionClass { get; set; }
 
-        public CodePoint(int value) {
+        public CodePoint(int value)
+        {
             var info = UnicodeInfo.GetCharInfo(value);
 
-            if (info.Block.Equals("No_Block")) {
+            if (info.Block.Equals("No_Block"))
+            {
                 throw new KeyNotFoundException();
             }
 
-            if (info.Name != null) {
+            if (info.Name != null)
+            {
                 Name = info.Name;
-            } else if (info.NameAliases.Count > 0) {
+            }
+            else if (info.NameAliases.Count > 0)
+            {
                 Name = info.NameAliases[0].Name;
-            } else {
+            }
+            else
+            {
                 Name = "NOT ASSIGNED";
             }
 

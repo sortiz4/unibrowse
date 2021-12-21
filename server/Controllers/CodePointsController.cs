@@ -6,27 +6,35 @@ using System.Threading.Tasks;
 using Unibrowse.Collections;
 using Unibrowse.Models;
 
-namespace Unibrowse.Controllers {
-    enum Field {
+namespace Unibrowse.Controllers
+{
+    enum Field
+    {
         Name,
         Value,
     }
 
     [Route("api/[controller]")]
-    public class CodePointsController : Controller {
+    public class CodePointsController : Controller
+    {
         private readonly DatabaseContext _db;
 
-        public CodePointsController(DatabaseContext db) {
+        public CodePointsController(DatabaseContext db)
+        {
             _db = db;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int page, int field, string search) {
-            IQueryable<CodePoint> GetRecords() {
-                if (search?.Length > 0) {
-                    if (field == (int)Field.Value) {
+        public async Task<IActionResult> Get(int page, int field, string search)
+        {
+            IQueryable<CodePoint> GetRecords()
+            {
+                if (search?.Length > 0)
+                {
+                    if (field == (int)Field.Value)
+                    {
                         var value = int.TryParse(search, out var i) ? i : -1;
- 
+
                         // Search for a single code point
                         return (
                             from c in _db.CodePoints
@@ -52,18 +60,25 @@ namespace Unibrowse.Controllers {
 
             var records = GetRecords().OrderBy(c => c.Value).AsNoTracking();
 
-            try {
+            try
+            {
                 return Json(await Page<CodePoint>.CreateAsync(records, page));
-            } catch (InvalidOperationException) {
+            }
+            catch (InvalidOperationException)
+            {
                 return NotFound();
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) {
-            try {
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
                 return Json(await _db.CodePoints.SingleAsync(c => c.Value == id));
-            } catch (InvalidOperationException) {
+            }
+            catch (InvalidOperationException)
+            {
                 return NotFound();
             }
         }
