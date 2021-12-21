@@ -7,7 +7,6 @@ namespace Unibrowse.Services
 {
     public class DatabaseContext : DbContext
     {
-        private const int UnicodeEnd = 0x10FFFF;
         public DbSet<CodePoint> CodePoints { get; set; }
 
         public void Initialize()
@@ -20,10 +19,11 @@ namespace Unibrowse.Services
                 return;
             }
 
+            var unicodeEnd = 0x10FFFF;
             var codePoints = new List<CodePoint>();
 
             // Add all available code points to the database
-            for (var i = 0; i < UnicodeEnd + 1; i++)
+            for (var i = 0; i < unicodeEnd + 1; i++)
             {
                 try
                 {

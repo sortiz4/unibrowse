@@ -6,28 +6,20 @@ namespace Unibrowse.Entities
 {
     public class CodePoint
     {
-        [Column("id")]
         public int Id { get; set; }
 
-        [Column("value")]
         public int Value { get; set; }
 
-        [Column("name")]
         public string Name { get; set; }
 
-        [Column("block")]
         public string Block { get; set; }
 
-        [Column("category")]
         public int Category { get; set; }
 
-        [Column("combining_class")]
         public int CombiningClass { get; set; }
 
-        [Column("bidirectional_class")]
         public int BidirectionalClass { get; set; }
 
-        [Column("decomposition_class")]
         public int DecompositionClass { get; set; }
 
         public CodePoint(int value)
