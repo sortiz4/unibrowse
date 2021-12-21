@@ -4,7 +4,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Unibrowse.Collections;
-using Unibrowse.Models;
+using Unibrowse.Entities;
+using Unibrowse.Services;
 
 namespace Unibrowse.Controllers
 {

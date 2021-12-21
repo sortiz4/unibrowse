@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using Unibrowse.Services;
 
 namespace Unibrowse.Extensions
 {
@@ -13,7 +14,9 @@ namespace Unibrowse.Extensions
             {
                 try
                 {
-                    DatabaseManager.Initialize(scope.ServiceProvider.GetRequiredService<DatabaseContext>());
+                    scope.ServiceProvider
+                        .GetRequiredService<DatabaseContext>()
+                        .Initialize();
                 }
                 catch (Exception exc)
                 {

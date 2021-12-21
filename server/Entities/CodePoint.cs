@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Unicode;
 
-namespace Unibrowse.Models
+namespace Unibrowse.Entities
 {
     public class CodePoint
     {
@@ -34,7 +34,7 @@ namespace Unibrowse.Models
         {
             var info = UnicodeInfo.GetCharInfo(value);
 
-            if (info.Block.Equals("No_Block"))
+            if (info.Block == "No_Block")
             {
                 throw new KeyNotFoundException();
             }
