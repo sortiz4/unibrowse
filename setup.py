@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 import argparse
 import os
-from distutils import dir_util
 from subprocess import run
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-CLIENT_BASE_DIR = os.path.join(BASE_DIR, 'client')
-CLIENT_ASSET_DIR = os.path.join(CLIENT_BASE_DIR, 'build')
-SERVER_BASE_DIR = os.path.join(BASE_DIR, 'server')
-SERVER_ASSET_DIR = os.path.join(SERVER_BASE_DIR, 'wwwroot')
-SETUP_CLIENT = ['npm', 'install']
-SETUP_SERVER = ['dotnet', 'restore']
-BUILD_CLIENT = ['npm', 'run', 'build']
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+CLIENT_PATH = os.path.join(BASE_PATH, 'client')
+CLIENT_ASSET_PATH = os.path.join(CLIENT_PATH, 'build')
+CLIENT_SETUP_TASK = ['npm', 'install']
+CLIENT_BUILD_TASK = ['npm', 'run', 'build']
+SERVER_PATH = os.path.join(BASE_PATH, 'server')
+SERVER_ASSET_PATH = os.path.join(SERVER_PATH, 'wwwroot')
+SERVER_SETUP_TASK = ['dotnet', 'restore']
 
 
 class Command:
@@ -53,20 +52,23 @@ class Command:
         self.args = parser.parse_args()
 
     def handle(self):
+        def run_in(callback, target):
+            source = os.getcwd()
+            os.chdir(target)
+            callback()
+            os.chdir(source)
+
         def setup():
-            os.chdir(CLIENT_BASE_DIR)
-            run(SETUP_CLIENT)
-            os.chdir(SERVER_BASE_DIR)
-            run(SETUP_SERVER)
+            # Set up the client and server
+            run_in(lambda: run(CLIENT_SETUP_TASK), CLIENT_PATH)
+            run_in(lambda: run(SERVER_SETUP_TASK), SERVER_PATH)
 
         def build():
             # Compile the client
-            os.chdir(CLIENT_BASE_DIR)
-            run(BUILD_CLIENT)
+            run_in(lambda: run(CLIENT_BUILD_TASK), CLIENT_PATH)
 
             # Move the assets to the server
-            dir_util.copy_tree(CLIENT_ASSET_DIR, SERVER_ASSET_DIR)
-            dir_util.remove_tree(CLIENT_ASSET_DIR)
+            os.rename(CLIENT_ASSET_PATH, SERVER_ASSET_PATH)
 
         if self.args.setup:
             setup()
