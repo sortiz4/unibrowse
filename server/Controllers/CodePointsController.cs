@@ -9,20 +9,20 @@ using Unibrowse.Services;
 
 namespace Unibrowse.Controllers
 {
-    enum Field
-    {
-        Name,
-        Value,
-    }
-
     [Route("api/[controller]")]
     public class CodePointsController : Controller
     {
-        private readonly DatabaseContext _db;
-
-        public CodePointsController(DatabaseContext db)
+        private enum Field
         {
-            _db = db;
+            Name,
+            Value,
+        }
+
+        private readonly Database _database;
+
+        public CodePointsController(Database database)
+        {
+            _database = database;
         }
 
         [HttpGet]
@@ -37,24 +37,27 @@ namespace Unibrowse.Controllers
                         var value = int.TryParse(search, out var i) ? i : -1;
 
                         // Search for a single code point
-                        return (
-                            from c in _db.CodePoints
+                        return
+                        (
+                            from c in _database.CodePoints
                             where c.Value == value
                             select c
                         );
                     }
 
                     // Search for a name (using likeness)
-                    return (
-                        from c in _db.CodePoints
+                    return
+                    (
+                        from c in _database.CodePoints
                         where EF.Functions.Like(c.Name, $"%{search}%")
                         select c
                     );
                 }
 
                 // Query all code points
-                return (
-                    from c in _db.CodePoints
+                return
+                (
+                    from c in _database.CodePoints
                     select c
                 );
             }
@@ -76,7 +79,7 @@ namespace Unibrowse.Controllers
         {
             try
             {
-                return Json(await _db.CodePoints.SingleAsync(c => c.Value == id));
+                return Json(await _database.CodePoints.SingleAsync(c => c.Value == id));
             }
             catch (InvalidOperationException)
             {

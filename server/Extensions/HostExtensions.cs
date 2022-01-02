@@ -15,7 +15,7 @@ namespace Unibrowse.Extensions
                 try
                 {
                     scope.ServiceProvider
-                        .GetRequiredService<DatabaseContext>()
+                        .GetRequiredService<Database>()
                         .Initialize();
                 }
                 catch (Exception exc)

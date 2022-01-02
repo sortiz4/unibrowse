@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Unicode;
 
 namespace Unibrowse.Entities
@@ -24,32 +23,33 @@ namespace Unibrowse.Entities
 
         public CodePoint(int value)
         {
-            var info = UnicodeInfo.GetCharInfo(value);
+            var unicode = UnicodeInfo.GetCharInfo(value);
 
-            if (info.Block == "No_Block")
+            if (unicode.Block == "No_Block")
             {
                 throw new KeyNotFoundException();
             }
 
-            if (info.Name != null)
+            string GetName()
             {
-                Name = info.Name;
-            }
-            else if (info.NameAliases.Count > 0)
-            {
-                Name = info.NameAliases[0].Name;
-            }
-            else
-            {
-                Name = "NOT ASSIGNED";
+                if (unicode.Name != null)
+                {
+                    return unicode.Name;
+                }
+                if (unicode.NameAliases.Count > 0)
+                {
+                    return unicode.NameAliases[0].Name;
+                }
+                return "NOT ASSIGNED";
             }
 
             Value = value;
-            Block = info.Block;
-            Category = (int)info.Category;
-            CombiningClass = (int)info.CanonicalCombiningClass;
-            BidirectionalClass = (int)info.BidirectionalClass;
-            DecompositionClass = (int)info.DecompositionType;
+            Name = GetName();
+            Block = unicode.Block;
+            Category = (int)unicode.Category;
+            CombiningClass = (int)unicode.CanonicalCombiningClass;
+            BidirectionalClass = (int)unicode.BidirectionalClass;
+            DecompositionClass = (int)unicode.DecompositionType;
         }
     }
 }

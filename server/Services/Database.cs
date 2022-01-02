@@ -5,9 +5,13 @@ using Unibrowse.Entities;
 
 namespace Unibrowse.Services
 {
-    public class DatabaseContext : DbContext
+    public class Database : DbContext
     {
         public DbSet<CodePoint> CodePoints { get; set; }
+
+        public Database(DbContextOptions options) : base(options)
+        {
+        }
 
         public void Initialize()
         {
@@ -39,17 +43,9 @@ namespace Unibrowse.Services
             SaveChanges();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlite("Filename=db.sqlite");
-        }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CodePoint>()
-                .ToTable(nameof(CodePoint).ToLower())
-                .HasIndex(e => e.Value)
-                .IsUnique();
+            builder.Entity<CodePoint>().HasIndex(e => e.Value).IsUnique();
         }
     }
 }

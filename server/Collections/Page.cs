@@ -12,7 +12,7 @@ namespace Unibrowse.Collections
         public int PageCount { get; }
         public bool HasNext { get; }
         public bool HasPrevious { get; }
-        public List<T> Children { get; }
+        public IList<T> Children { get; }
 
         public static async Task<Page<T>> CreateAsync(IQueryable<T> results, int offset, int size = 128)
         {
@@ -30,7 +30,7 @@ namespace Unibrowse.Collections
             return new Page<T>(index, pages, await results.Skip((index - 1) * size).Take(size).ToListAsync());
         }
 
-        public Page(int index, int pages, List<T> children)
+        public Page(int index, int pages, IList<T> children)
         {
             PageNumber = index;
             PageCount = pages;
