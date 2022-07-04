@@ -2,6 +2,8 @@
 import argparse
 import os
 from subprocess import run
+from typing import Any
+from typing import Callable
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 CLIENT_PATH = os.path.join(BASE_PATH, 'client')
@@ -15,7 +17,7 @@ SERVER_SETUP_TASK = ['dotnet', 'restore']
 
 class Command:
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Construct the argument parser
         options = {
             'description': 'Setup and prepare the application for publishing.',
@@ -51,19 +53,19 @@ class Command:
         # Parse the arguments from the system
         self.args = parser.parse_args()
 
-    def handle(self):
-        def run_in(callback, target):
+    def handle(self) -> None:
+        def run_in(callback: Callable[[], Any], target: str) -> None:
             source = os.getcwd()
             os.chdir(target)
             callback()
             os.chdir(source)
 
-        def setup():
+        def setup() -> None:
             # Set up the client and server
             run_in(lambda: run(CLIENT_SETUP_TASK), CLIENT_PATH)
             run_in(lambda: run(SERVER_SETUP_TASK), SERVER_PATH)
 
-        def build():
+        def build() -> None:
             # Compile the client
             run_in(lambda: run(CLIENT_BUILD_TASK), CLIENT_PATH)
 
