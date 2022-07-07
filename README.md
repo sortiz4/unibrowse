@@ -7,7 +7,7 @@ character simply by mousing over them.
 ## Compilation
 Those seeking to compile must have...
 
-- .NET SDK 5.0
+- .NET SDK 6.0
 - Node.js 16.0
 - Python 3.8
 

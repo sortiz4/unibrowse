@@ -10,7 +10,7 @@ CLIENT_PATH = os.path.join(BASE_PATH, 'client')
 CLIENT_ASSET_PATH = os.path.join(CLIENT_PATH, 'build')
 CLIENT_SETUP_TASK = ['npm', 'install']
 CLIENT_BUILD_TASK = ['npm', 'run', 'build']
-SERVER_PATH = os.path.join(BASE_PATH, 'server')
+SERVER_PATH = os.path.join(BASE_PATH, 'server', 'src')
 SERVER_ASSET_PATH = os.path.join(SERVER_PATH, 'wwwroot')
 SERVER_SETUP_TASK = ['dotnet', 'restore']
 

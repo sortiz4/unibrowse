@@ -1,4 +1,4 @@
-/bin
-/obj
-/wwwroot
-db.sqlite
+*.sqlite
+bin
+obj
+wwwroot
