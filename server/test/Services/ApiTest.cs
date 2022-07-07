@@ -1,12 +1,11 @@
+namespace Unibrowse.Test.Services;
+
 using Xunit;
 
-namespace Unibrowse.Test.Services
+public class DatabaseTest
 {
-    public class DatabaseTest
+    [Fact]
+    public void Test()
     {
-        [Fact]
-        public void Test()
-        {
-        }
     }
 }
