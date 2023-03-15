@@ -3,6 +3,12 @@ export enum ApiField {
   Value,
 }
 
+export enum Status {
+  Pending,
+  Rejected,
+  Resolved,
+}
+
 export interface ApiCodePoint {
   readonly id: number;
   readonly name: string;
@@ -32,6 +38,12 @@ export interface Page<T> {
   readonly hasNext: boolean;
   readonly hasPrevious: boolean;
   readonly children: T[];
+}
+
+export interface Search {
+  readonly page?: number;
+  readonly field?: number;
+  readonly search?: string;
 }
 
 const categories = [

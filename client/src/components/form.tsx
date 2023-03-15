@@ -1,8 +1,7 @@
 import { ChangeEvent, FormEvent, ReactElement } from 'react';
-import { ApiField } from '../models';
+import { Field, useFormState } from './form.state';
+import { ApiField, Search } from '../models';
 import { unicodeFromString } from '../utils';
-import { Field, useFormState } from '../states/form';
-import { Search } from '../states/viewport';
 
 interface FormProps {
   onSubmit?: (_: Search) => void;

@@ -6,11 +6,10 @@ import { Fallback } from './fallback';
 import { Form } from './form';
 import { PageButton } from './page-button';
 import { Panel } from './panel';
+import { useViewportState, ViewportState } from './viewport.state';
 import { getCodePoints } from '../api';
 import { useObservableEffect } from '../hooks';
-import { CodePoint, Page } from '../models';
-import { Status } from '../states/status';
-import { Search, useViewportState, ViewportState } from '../states/viewport';
+import { CodePoint, Page, Search, Status } from '../models';
 
 export function Viewport(): ReactElement {
   const [state, setState] = useViewportState();

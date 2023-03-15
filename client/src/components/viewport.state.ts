@@ -1,12 +1,5 @@
 import { useReducer } from 'react';
-import { Status } from './status';
-import { CodePoint, Page } from '../models';
-
-export interface Search {
-  readonly page?: number;
-  readonly field?: number;
-  readonly search?: string;
-}
+import { CodePoint, Page, Search, Status } from '../models';
 
 export interface ViewportState {
   readonly search: Search;
@@ -18,7 +11,9 @@ export interface ViewportState {
 
 function createViewportState(): ViewportState {
   return {
-    search: { page: 1 },
+    search: {
+      page: 1,
+    },
     status: Status.Pending,
   };
 }
