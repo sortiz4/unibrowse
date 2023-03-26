@@ -1,4 +1,11 @@
 .DS_Store
-*.pyc
 /.idea
 /.vscode
+/apps/client/.next
+/apps/client/next-env.d.ts
+/apps/client/public/static/icons
+/apps/client/src/unicode.json
+/coverage
+/node_modules
+/package-lock.json
+/www
