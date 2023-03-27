@@ -1,6 +1,7 @@
-import { DetailedHTMLProps, HTMLAttributes, ReactElement } from 'react';
+import { ReactElement } from 'react';
+import { SectionProps } from 'react-html-props';
 
-export function Header(props: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>): ReactElement {
+export function Header(props: SectionProps): ReactElement {
   return (
     <section className="header" {...props}/>
   );

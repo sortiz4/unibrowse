@@ -40,7 +40,6 @@ th {
 // App theme
 $fa-offset: -0.125em;
 $fa-size: 1em;
-$fa-wide: 1.5em;
 $app-background-color: #f2f4f6;
 $app-base-font-color: #222222;
 $app-base-font-family: (
@@ -83,9 +82,7 @@ $app-code-font-size: 90%;
 $app-code-gutter-horizontal: 2px;
 $app-code-gutter-vertical: 5px;
 $app-container-max-width: 1600px;
-$app-fallback-error-color: #ff3140;
 $app-fallback-icon-size: (100% * 3.5);
-$app-fallback-loading-speed: 500ms;
 $app-font-size-small: 80%;
 $app-full-width: 100%;
 $app-h1-font-size: 4rem;
@@ -153,19 +150,10 @@ $app-transition: 200ms ease;
   }
 }
 
-.fa {
+.svg-inline--fa {
   vertical-align: $fa-offset;
   width: $fa-size;
   height: $fa-size;
-
-  &-spin {
-    animation: spin 500ms infinite linear;
-    animation-duration: $app-fallback-loading-speed;
-  }
-
-  &-wide {
-    width: $fa-wide;
-  }
 }
 
 html {
@@ -563,11 +551,7 @@ hr {
 }
 
 .fallback {
-  &-error {
-    @include app-fallback($app-fallback-error-color);
-  }
-
-  &-loading {
+  &-empty {
     @include app-fallback($app-primary-color);
   }
 }

@@ -2,7 +2,7 @@ import { Fragment, ReactElement } from 'react';
 import { CodePoint } from '../../models';
 
 interface DetailsProps {
-  codePoint?: CodePoint;
+  readonly codePoint?: CodePoint;
 }
 
 export function Details({ codePoint }: DetailsProps): ReactElement {

@@ -6,12 +6,6 @@ export enum Field {
   Name,
 }
 
-export enum Status {
-  Pending,
-  Rejected,
-  Resolved,
-}
-
 export interface CodePoint {
   readonly key: number;
   readonly name: string;
@@ -43,8 +37,6 @@ export interface RawCodePoint {
 }
 
 export interface Page<T> {
-  readonly pageNumber: number;
-  readonly pageCount: number;
   readonly hasNext: boolean;
   readonly hasPrevious: boolean;
   readonly children: T[];
@@ -1503,8 +1495,6 @@ export function getCodePoints(search: Search, size = 128): Page<CodePoint> {
   const pageCount = Math.ceil(filteredUnicode.length / size);
 
   return {
-    pageNumber: page,
-    pageCount: pageCount,
     hasNext: page < pageCount,
     hasPrevious: (page - 1) > 0,
     children: pagedUnicode,

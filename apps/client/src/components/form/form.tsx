@@ -4,7 +4,7 @@ import { Field, Search } from '../../models';
 import { unicodeFromString } from '../../utils';
 
 interface FormProps {
-  onSubmit?: (_: Search) => void;
+  readonly onSubmit?: (_: Search) => void;
 }
 
 export function Form({ onSubmit }: FormProps): ReactElement {
