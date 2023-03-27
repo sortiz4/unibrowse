@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, ReactElement } from 'react';
 import { useFormState } from './form.state';
 import { Field, Search } from '../../models';
-import { unicodeFromString } from '../../utils';
+import { getUnicodeFromString } from '../../utils';
 
 interface FormProps {
   readonly onSubmit?: (_: Search) => void;
@@ -23,7 +23,7 @@ export function Form({ onSubmit }: FormProps): ReactElement {
 
     function getSearch(): string {
       switch (state.field) {
-        case Field.CodePoint:
+        case Field.CodePoint: {
           const value = Number.parseInt(state.search.trim().replace(/[uU]\+/, ''), 16);
 
           if (!Number.isNaN(value)) {
@@ -31,14 +31,17 @@ export function Form({ onSubmit }: FormProps): ReactElement {
           }
 
           return '';
-        case Field.Literal:
+        }
+        case Field.Literal: {
           if (state.search.length > 0) {
-            return unicodeFromString(state.search).toString(16).toUpperCase();
+            return getUnicodeFromString(state.search).toString(16).toUpperCase();
           }
 
           return '';
-        case Field.Name:
+        }
+        case Field.Name: {
           return state.search.trim();
+        }
       }
     }
 

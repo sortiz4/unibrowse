@@ -5,13 +5,14 @@ import { Fallback } from '../fallback/fallback';
 import { Form } from '../form/form';
 import { PageButton } from '../page-button/page-button';
 import { Panel } from '../panel/panel';
-import { CodePoint, getCodePoints, Search } from '../../models';
+import { CodePoint, Search } from '../../models';
+import { getCodePoints } from '../../utils';
 
 export function Viewport(): ReactElement {
   const [state, setState] = useViewportState();
 
-  function onHover(active?: CodePoint): void {
-    setState({ active });
+  function onHover(details?: CodePoint): void {
+    setState({ details });
   }
 
   function onChange(search: Search): void {
@@ -44,7 +45,7 @@ export function Viewport(): ReactElement {
       )}
       <PageButton previous onClick={onGetPrevious}/>
       <PageButton next onClick={onGetNext}/>
-      <Details codePoint={state.active}/>
+      <Details codePoint={state.details}/>
     </Fragment>
   );
 }

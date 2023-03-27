@@ -1,10 +1,11 @@
 import { useReducer } from 'react';
-import { CodePoint, getCodePoints, Page, Search } from '../../models';
+import { CodePoint, Page, Search } from '../../models';
+import { getCodePoints } from '../../utils';
 
 export interface ViewportState {
+  readonly details?: CodePoint;
   readonly search: Search;
   readonly page?: Page<CodePoint>,
-  readonly active?: CodePoint;
 }
 
 export function useViewportState(): [ViewportState, (_: Partial<ViewportState>) => void] {
