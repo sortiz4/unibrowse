@@ -1,10 +1,5 @@
 import { useReducer } from 'react';
-
-export enum Field {
-  CodePoint,
-  Literal,
-  Name,
-}
+import { Field } from '../../models';
 
 export interface FormState {
   readonly field: Field;

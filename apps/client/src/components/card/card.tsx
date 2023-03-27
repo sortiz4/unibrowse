@@ -3,8 +3,8 @@ import { Literal } from '../literal/literal';
 import { CodePoint } from '../../models';
 
 interface CardProps {
-  codePoint?: CodePoint;
-  onHover?: (_?: CodePoint) => void;
+  readonly codePoint?: CodePoint;
+  readonly onHover?: (_?: CodePoint) => void;
 }
 
 export function Card({ codePoint, onHover }: CardProps): ReactElement {

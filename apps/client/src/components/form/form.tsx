@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, ReactElement } from 'react';
-import { Field, useFormState } from './form.state';
-import { ApiField, Search } from '../../models';
+import { useFormState } from './form.state';
+import { Field, Search } from '../../models';
 import { unicodeFromString } from '../../utils';
 
 interface FormProps {
@@ -21,32 +21,28 @@ export function Form({ onSubmit }: FormProps): ReactElement {
   function onSubmitOverride(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
-    function getField(): number {
-      if (state.field === Field.Name) {
-        return ApiField.Name;
-      }
-      return ApiField.Value;
-    }
-
     function getSearch(): string {
       switch (state.field) {
         case Field.CodePoint:
-          const hexadecimal = Number.parseInt(state.search.trim().replace(/[uU]\+/, ''), 16);
-          if (!Number.isNaN(hexadecimal)) {
-            return `${hexadecimal}`;
+          const value = Number.parseInt(state.search.trim().replace(/[uU]\+/, ''), 16);
+
+          if (!Number.isNaN(value)) {
+            return value.toString(16).toUpperCase();
           }
+
           return '';
         case Field.Literal:
           if (state.search.length > 0) {
-            return `${unicodeFromString(state.search)}`;
+            return unicodeFromString(state.search).toString(16).toUpperCase();
           }
+
           return '';
         case Field.Name:
           return state.search.trim();
       }
     }
 
-    onSubmit?.({ field: getField(), search: getSearch() });
+    onSubmit?.({ field: state.field, search: getSearch() });
   }
 
   return (
