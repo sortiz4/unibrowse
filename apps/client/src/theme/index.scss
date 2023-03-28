@@ -73,6 +73,7 @@ $app-icon-size: 1.5rem;
 $app-input-border-width: $app-border-width;
 $app-input-margin: $app-space-3;
 $app-input-transition: $app-transition;
+$app-page-button-hover-color: $app-primary-color;
 $app-page-button-child-margin: $app-space-3 / 2;
 $app-panel-margin: $app-space-3 * 6;
 $app-panel-child-margin: $app-space-1;
@@ -99,6 +100,12 @@ $app-radio-checked-background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMj
   position: fixed;
   top: 0;
   bottom: 0;
+
+  &:hover {
+    & > * {
+      color: $app-page-button-hover-color;
+    }
+  }
 
   & > * {
     margin: $app-page-button-child-margin;
