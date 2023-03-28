@@ -8,8 +8,10 @@ character simply by mousing over them.
 Those seeking to compile must have...
 
 - Node.js 18.0
+- Python 3.10
 
 Once these requirements have been met, simply clone the repository and execute
-`npm install && npm run build` (this will setup and compile the project). Once
+`py setup.py -u` to download the latest Unicode data, `npm install` to download
+the project's dependencies, and `npm run build` to compile the project. Once
 completed, the `www/apps/client/exported` directory can then be deployed to any
 web server.
