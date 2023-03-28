@@ -123,7 +123,7 @@ html {
 }
 
 input {
-  &[type=search] {
+  &[type=text] {
     @extend .input, .is-large, .is-rounded;
   }
 }

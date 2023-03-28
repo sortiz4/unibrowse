@@ -51,7 +51,7 @@ export function Form({ onSubmit }: FormProps): ReactElement {
   return (
     <form onSubmit={onSubmitOverride}>
       <fieldset>
-        <input name="search" type="search" placeholder="Search..." value={state.search} onChange={onType}/>
+        <input name="search" type="text" placeholder="Search..." value={state.search} onChange={onType}/>
         <div className="form-options">
           <label>
             <input name="field" type="radio" value={Field.CodePoint} checked={state.field === Field.CodePoint} onChange={onSelect}/>
