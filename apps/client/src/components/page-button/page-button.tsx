@@ -11,7 +11,7 @@ export function PageButton({ next, previous, ...props }: PageButtonProps): React
   const direction = next ? 'right' : 'left';
 
   return (
-    <a className={`page-${direction}`} {...props}>
+    <a className={`page-button-${direction}`} {...props}>
       <h6>
         <Icon name={`chevron-${direction}`}/>
       </h6>
