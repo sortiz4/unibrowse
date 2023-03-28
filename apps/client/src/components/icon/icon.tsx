@@ -3,7 +3,7 @@ import { faChevronLeft, faChevronRight, faCircleQuestion } from '@fortawesome/fr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactElement } from 'react';
 
-const icons = createIconSet(
+const set = createIconSet(
   faChevronLeft,
   faChevronRight,
   faCircleQuestion,
@@ -20,6 +20,6 @@ function createIconSet(...icons: IconDefinition[]): { [_: string]: IconDefinitio
 
 export function Icon({ name = '', ...props }: IconProps): ReactElement {
   return (
-    <FontAwesomeIcon className="icon" icon={icons[name]} {...props}/>
+    <FontAwesomeIcon className="icon" icon={set[name]} {...props}/>
   );
 }

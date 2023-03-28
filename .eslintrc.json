@@ -50,7 +50,14 @@
             }
           }
         ],
-        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            "allowHigherOrderFunctions": false,
+            "allowDirectConstAssertionInArrowFunctions": false
+          }
+        ],
         "@typescript-eslint/member-ordering": [
           "error",
           {
@@ -76,6 +83,7 @@
             ]
           }
         ],
+        "@typescript-eslint/no-shadow": "error",
         "arrow-body-style": "off",
         "comma-dangle": [
           "error",
