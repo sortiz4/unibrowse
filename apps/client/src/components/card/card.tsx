@@ -17,17 +17,15 @@ export function Card({ codePoint, onHover }: CardProps): ReactElement {
 
   return (
     <div className="card" onMouseEnter={onHoverOverride} onMouseLeave={onHoverOverride}>
-      <div className="card-header">
-        <Literal value={codePoint?.key}/>
-        <dl className="card-subtitle">
-          <dt>
-            {codePoint?.value}
-          </dt>
-          <dd>
-            {codePoint?.name}
-          </dd>
-        </dl>
-      </div>
+      <Literal value={codePoint?.key}/>
+      <dl className="card-subtitle">
+        <dt>
+          {codePoint?.value}
+        </dt>
+        <dd>
+          {codePoint?.name}
+        </dd>
+      </dl>
     </div>
   );
 }

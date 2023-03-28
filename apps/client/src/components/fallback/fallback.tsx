@@ -8,7 +8,7 @@ interface FallbackProps {
 
 export function Fallback({ empty, message }: FallbackProps): ReactElement {
   return empty ? (
-    <div className="fallback-empty">
+    <div className="fallback">
       <Icon name="circle-question"/>
       <h5>
         {message ?? `We couldn't find anything...`}

@@ -1,132 +1,97 @@
-// Base theme
-body,
-div,
-fieldset,
-form,
-html,
-label,
-legend {
-  margin: 0;
-  padding: 0;
-}
+// Bulma defaults
+$body-overflow-x: auto;
+$body-overflow-y: auto;
+$box-shadow: none;
+$input-shadow: none;
+$link: #33c3f0;
+$speed: 250ms;
 
-img {
-  border: 0;
-}
+// Import Bulma
+@import 'bulma/sass/helpers/_all.sass';
+@import 'bulma/sass/utilities/_all.sass';
+@import 'bulma/sass/base/_all.sass';
+@import 'bulma/sass/form/_all.sass';
+@import 'bulma/sass/elements/_all.sass';
 
-caption,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-td,
-th {
-  font-weight: normal;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-td,
-th {
-  text-align: left;
-  vertical-align: top;
-}
+// App variables
+$app-light-color: $white;
+$app-primary-color: $link;
+$app-background-color: #f2f4f6;
+$app-border-radius: $input-radius;
+$app-border-radius-circle: 50%;
+$app-border-color: $border;
+$app-border-style: solid;
+$app-border-width: 1px;
+$app-border: $app-border-width $app-border-style $app-border-color;
+$app-font-size-small: $small-font-size;
+$app-space-1: $size-7 / 2;
+$app-space-2: $size-7;
+$app-space-3: $size-6;
+$app-space-4: $size-3;
+$app-space-5: $size-1;
+$app-transition: $speed ease;
 
 // App theme
-$fa-offset: -0.125em;
-$fa-size: 1em;
-$app-background-color: #f2f4f6;
-$app-base-font-color: #222222;
-$app-base-font-family: (
-  'Noto Sans',
-  ProximaNova,
-  -apple-system,
-  BlinkMacSystemFont,
-  'Segoe UI',
-  Roboto,
-  'Helvetica Neue',
-  Arial,
-  sans-serif,
-);
-$app-base-font-size: 16px;
-$app-base-font-weight: normal;
-$app-base-line-height: 1.5;
-$app-box-shadow-small: 0 2px 8px rgba(0, 0, 0, 0.08);
-$app-card-border-color: darken($app-background-color, 2.5%);
-$app-card-header-height: 55px;
+$app-app-max-width: 1600px;
+$app-app-padding: 0 $app-space-4;
+$app-app-section-margin-top: $app-space-5;
+$app-app-section-margin-bottom: $app-space-4;
+$app-card-background: $app-light-color;
+$app-card-border-radius: $app-border-radius;
+$app-card-border: $app-border;
+$app-card-hover-transform: scale(1.1);
+$app-card-padding: $app-space-3;
+$app-card-transition: $app-transition;
 $app-card-width: 150px;
-$app-gutter-small: 10px;
-$app-gutter-xsmall: 5px;
-$app-margin-large: 60px;
-$app-margin-medium: 30px;
-$app-margin-small: 15px;
-$app-border-circle: 50%;
-$app-border-pill: 50px;
-$app-border-round: 5px;
-$app-border-style: 1px solid;
-$app-button-border-color: #bbbbbb;
-$app-button-border-hover-color: darken($app-button-border-color, 15%);
-$app-button-font-color: #555555;
-$app-button-font-hover-color: darken($app-button-font-color, 15%);
-$app-button-font-size: 12px;
-$app-button-height: 40px;
-$app-button-line-height: ($app-button-height - 4px);
-$app-code-background-color: #f1f1f1;
-$app-code-border-color: darken($app-code-background-color, 15%);
-$app-code-font-size: 90%;
-$app-code-gutter-horizontal: 2px;
-$app-code-gutter-vertical: 5px;
-$app-container-max-width: 1600px;
-$app-fallback-icon-size: (100% * 3.5);
-$app-font-size-small: 80%;
-$app-full-width: 100%;
-$app-h1-font-size: 4rem;
-$app-h1-line-height: 1.2;
-$app-h2-font-size: 3.5rem;
-$app-h2-line-height: 1.25;
-$app-h3-font-size: 3rem;
-$app-h3-line-height: 1.3;
-$app-h4-font-size: 2.5rem;
-$app-h4-line-height: 1.35;
-$app-h5-font-size: 2rem;
-$app-h5-line-height: 1.4;
-$app-h6-font-size: 1.5rem;
-$app-h6-line-height: 1.45;
-$app-input-border-color: $app-code-border-color;
-$app-input-height: $app-button-height;
-$app-input-padding: $app-gutter-small;
-$app-input-radio-size: $app-base-font-size;
-$app-input-width: $app-full-width;
-$app-label-margin: $app-gutter-xsmall;
-$app-light-color: white;
-$app-primary-color: #33c3f0;
-$app-primary-hover-color: darken($app-primary-color, 10%);
-$app-search-box-shadow: 0 0 0 5px rgba($app-primary-color, 0.15);
-$app-search-font-size: 150%;
-$app-search-height: 50px;
-$app-search-padding: $app-search-height / 2;
-$app-svg-checkbox: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTEiIHZpZXdCb3g9IjAgMCAxNCAxMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cG9seWdvbiBmaWxsPSIjZmZmIiBwb2ludHM9IjEyIDEgNSA3LjUgMiA1IDEgNS41IDUgMTAgMTMgMS41Ii8+PC9zdmc+';
-$app-svg-radio: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGZpbGw9IiNmZmYiIGN4PSI4IiBjeT0iOCIgcj0iMiIvPjwvc3ZnPg==';
-$app-transition: 200ms ease;
+$app-card-character-background: $app-background-color;
+$app-card-character-border: $app-card-border;
+$app-card-character-border-radius: $app-card-border-radius;
+$app-card-character-height: 55px;
+$app-card-character-line-height: 1.2;
+$app-card-character-margin: 0 0 $app-space-2 0;
+$app-card-character-padding: $app-space-2;
+$app-card-subtitle-font-size: $app-font-size-small;
+$app-checkbox-border: $app-border-width $app-border-style $app-border-color;
+$app-checkbox-border-radius: $app-border-radius;
+$app-checkbox-margin: $app-space-3;
+$app-checkbox-size: 20px;
+$app-checkbox-transition: $app-transition;
+$app-checkbox-checked-background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cG9seWdvbiBmaWxsPSIjZmZmIiBwb2ludHM9IjEyIDEgNSA3LjUgMiA1IDEgNS41IDUgMTAgMTMgMS41Ii8+PC9zdmc+');
+$app-checkbox-checked-background-color: $link;
+$app-details-background: $app-light-color;
+$app-details-border: $app-border;
+$app-details-font-size: $app-font-size-small;
+$app-details-list-margin: $app-space-3;
+$app-fallback-color: $app-primary-color;
+$app-fallback-padding: $app-space-5 0;
+$app-fallback-icon-margin: $app-space-3;
+$app-fallback-icon-size: 3rem;
+$app-icon-offset: -0.125rem;
+$app-icon-size: 1.5rem;
+$app-input-border-width: $app-border-width;
+$app-input-margin: $app-space-3;
+$app-input-transition: $app-transition;
+$app-options-label-margin: $app-space-4;
+$app-options-label-text-margin: $app-space-1;
+$app-page-child-margin: $app-space-3 / 2;
+$app-panel-margin: $app-space-3 * 6;
+$app-panel-child-margin: $app-space-1;
+$app-radio-border-radius: $app-border-radius-circle;
+$app-radio-checked-background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGZpbGw9IiNmZmYiIGN4PSI4IiBjeT0iOCIgcj0iMiIvPjwvc3ZnPg==');
 
 @mixin app-fallback($color) {
-  padding: $app-margin-large 0;
+  padding: $app-fallback-padding;
   text-align: center;
 
   & svg {
     color: $color;
-    font-size: $app-fallback-icon-size;
-    margin-bottom: $app-margin-small;
+    margin-bottom: $app-fallback-icon-margin;
+    width: $app-fallback-icon-size;
+    height: $app-fallback-icon-size;
   }
 }
 
-@mixin app-page {
-  color: $app-base-font-color;
+@mixin app-page() {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -136,375 +101,85 @@ $app-transition: 200ms ease;
   bottom: 0;
 
   & > * {
-    margin: ($app-margin-small / 2);
+    margin: $app-page-child-margin;
   }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+@for $i from 1 through 6 {
+  h#{$i} {
+    @extend .title, .is-#{$i};
   }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.svg-inline--fa {
-  vertical-align: $fa-offset;
-  width: $fa-size;
-  height: $fa-size;
 }
 
 html {
   background-color: $app-background-color;
-  color: $app-base-font-color;
-  font-family: $app-base-font-family;
-  font-size: $app-base-font-size;
-  font-weight: $app-base-font-weight;
-  line-height: $app-base-line-height;
 }
 
-noscript {
-  position: absolute;
-  text-align: center;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: $app-margin-medium;
-}
-
-h1 {
-  font-size: $app-h1-font-size;
-  line-height: $app-h1-line-height;
-}
-
-h2 {
-  font-size: $app-h2-font-size;
-  line-height: $app-h2-line-height;
-}
-
-h3 {
-  font-size: $app-h3-font-size;
-  line-height: $app-h3-line-height;
-}
-
-h4 {
-  font-size: $app-h4-font-size;
-  line-height: $app-h4-line-height;
-}
-
-h5 {
-  font-size: $app-h5-font-size;
-  line-height: $app-h5-line-height;
-}
-
-h6 {
-  font-size: $app-h6-font-size;
-  line-height: $app-h6-line-height;
-}
-
-a {
-  color: $app-primary-color;
-
-  &:hover,
-  &:focus {
-    color: $app-primary-hover-color;
+input {
+  &[type=search] {
+    @extend .input, .is-large, .is-rounded;
   }
-}
-
-.button,
-button,
-input[type=button],
-input[type=submit],
-input[type=reset] {
-  background-color: transparent;
-  border-radius: $app-border-round;
-  border: $app-border-style $app-button-border-color;
-  box-sizing: border-box;
-  color: $app-button-font-color;
-  cursor: pointer;
-  display: inline-block;
-  font-size: $app-button-font-size;
-  font-weight: bold;
-  height: $app-button-height;
-  line-height: $app-button-line-height;
-  padding: 0 $app-margin-medium;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:hover,
-  &:focus {
-    border-color: $app-button-border-hover-color;
-    color: $app-button-font-hover-color;
-    outline: 0;
-  }
-
-  &.button-primary {
-    background-color: $app-primary-color;
-    border-color: $app-primary-color;
-    color: $app-light-color;
-
-    &:hover,
-    &:focus {
-      background-color: $app-primary-hover-color;
-      border-color: $app-primary-hover-color;
-      color: $app-light-color;
-    }
-  }
-}
-
-input[type=email],
-input[type=number],
-input[type=password],
-input[type=search],
-input[type=tel],
-input[type=text],
-input[type=url],
-textarea {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-}
-
-input[type=email],
-input[type=number],
-input[type=password],
-input[type=search],
-input[type=tel],
-input[type=text],
-input[type=url],
-select,
-textarea {
-  background-color: $app-light-color;
-  border: $app-border-style $app-input-border-color;
-  border-radius: $app-border-round;
-  box-shadow: none;
-  box-sizing: border-box;
-  width: $app-input-width;
-  height: $app-input-height;
-  padding: $app-input-padding;
-  transition: $app-transition;
-
-  &:focus {
-    border: $app-border-style $app-primary-color;
-    outline: 0;
-  }
-}
-
-input[type=search] {
-  border-radius: $app-border-pill;
-  font-size: $app-search-font-size;
-  padding: 0 $app-search-padding;
-  height: $app-search-height;
-
-  &:active,
-  &:focus {
-    box-shadow: $app-search-box-shadow;
-  }
-
-  &::-webkit-search-cancel-button,
-  &::-webkit-search-decoration,
-  &::-webkit-search-results-button,
-  &::-webkit-search-results-decoration {
-    display: none;
-  }
-}
-
-input[type=checkbox],
-input[type=radio] {
-  background: $app-light-color no-repeat 50% 50%;
-  border: $app-border-style $app-input-border-color;
-  box-sizing: border-box;
-  cursor: pointer;
-  font: inherit;
-  overflow: hidden;
-  transition: $app-transition;
-  vertical-align: middle;
-  width: $app-input-radio-size;
-  height: $app-input-radio-size;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-
-  &:checked {
-    background-color: $app-primary-color;
-    border-color: transparent;
-  }
-
-  &:checked,
-  &:active,
-  &:focus {
-    outline: transparent none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-  }
-}
-
-input[type=checkbox] {
-  border-radius: $app-border-round;
-
-  &:checked {
-    background-image: url($app-svg-checkbox);
-  }
-}
-
-input[type=radio] {
-  border-radius: $app-border-circle;
-
-  &:checked {
-    background-image: url($app-svg-radio);
-  }
-}
-
-fieldset {
-  border-width: 0;
-  margin: 0;
-  padding: 0;
-}
-
-label,
-legend {
-  display: block;
-  font-weight: bold;
-  margin-bottom: $app-label-margin;
-}
-
-textarea {
-  resize: vertical;
-}
-
-ol {
-  list-style: decimal inside;
-}
-
-ul {
-  list-style: circle inside;
-}
-
-ol,
-ul {
-  padding-left: 0;
-  margin-top: 0;
-}
-
-ol ol,
-ol ul,
-ul ol,
-ul ul {
-  margin: 0 0 0 $app-margin-medium;
-}
-
-code {
-  padding: $app-code-gutter-horizontal $app-code-gutter-vertical;
-  margin: 0 $app-code-gutter-horizontal;
-  font-size: $app-code-font-size;
-  white-space: nowrap;
-  background: $app-code-background-color;
-  border: $app-border-style $app-code-border-color;
-  border-radius: $app-border-round;
-}
-
-pre > code {
-  display: block;
-  padding: $app-margin-small $app-margin-small;
-  white-space: pre;
-}
-
-table {
-  width: $app-full-width;
-}
-
-tbody > tr {
-  &:nth-child(even) {
-    background-color: $app-light-color;
-  }
-}
-
-th {
-  font-weight: bold;
-}
-
-th,
-td {
-  padding: $app-gutter-xsmall $app-gutter-small;
-}
-
-thead {
-  background-color: $app-light-color;
-}
-
-blockquote,
-dl,
-ol,
-ul,
-figure,
-form,
-p,
-pre,
-table {
-  margin-bottom: $app-margin-medium;
-}
-
-button,
-.button {
-  margin-bottom: $app-margin-small;
 }
 
 fieldset,
-input,
-select,
-textarea {
-  margin-bottom: $app-margin-small;
+input {
+  margin-bottom: $app-input-margin;
 }
 
-hr {
-  border-width: 0;
-  border-top: $app-border-style $app-code-border-color;
-  margin: $app-margin-medium 0;
+label {
+  &:has(input[type=checkbox]) {
+    @extend .checkbox;
+  }
+
+  &:has(input[type=radio]) {
+    @extend .radio;
+  }
+}
+
+.app {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: $app-app-max-width;
+  padding: $app-app-padding;
+  position: relative;
+
+  & > section {
+    margin-top: $app-app-section-margin-top;
+    margin-bottom: $app-app-section-margin-bottom;
+    text-align: center;
+
+    & > * {
+      margin: 0;
+    }
+  }
 }
 
 .card {
-  background-color: $app-light-color;
-  border-radius: $app-border-round;
-  box-shadow: $app-box-shadow-small;
-  padding: $app-margin-small;
-  transition: $app-transition;
+  background: $app-card-background;
+  border: $app-card-border;
+  border-radius: $app-card-border-radius;
+  cursor: pointer;
+  padding: $app-card-padding;
+  text-align: center;
+  transition: $app-card-transition;
   width: $app-card-width;
 
   &:hover {
-    transform: scale(1.1);
+    transform: $app-card-hover-transform;
   }
 
-  &-header {
-    text-align: center;
-
-    & > h4 {
-      background-color: $app-background-color;
-      border: $app-border-style $app-card-border-color;
-      border-radius: $app-border-round;
-      height: $app-card-header-height;
-      line-height: 1.2;
-      margin: 0 0 $app-gutter-small 0;
-      padding: $app-gutter-small;
-    }
+  & > h4 {
+    background: $app-card-character-background;
+    border: $app-card-character-border;
+    border-radius: $app-card-character-border-radius;
+    height: $app-card-character-height;
+    line-height: $app-card-character-line-height;
+    margin: $app-card-character-margin;
+    padding: $app-card-character-padding;
   }
 
   &-subtitle {
-    font-size: $app-font-size-small;
+    font-size: $app-card-subtitle-font-size;
     margin: 0;
 
     & > dt {
@@ -517,18 +192,60 @@ hr {
   }
 }
 
-.container {
+.checkbox,
+.radio {
+  display: flex;
+  align-items: center;
+  margin-right: $app-checkbox-margin;
+}
+
+.checkbox > input,
+.radio > input {
+  appearance: none;
+  background: white no-repeat 50% 50%;
+  border: $app-checkbox-border;
   box-sizing: border-box;
-  margin: 0 auto;
-  max-width: $app-container-max-width;
-  padding: 0 $app-margin-medium;
-  position: relative;
+  cursor: pointer;
+  font: inherit;
+  overflow: hidden;
+  transition: $app-checkbox-transition;
+  vertical-align: middle;
+  width: $app-checkbox-size;
+  height: $app-checkbox-size;
+
+  &:checked {
+    background-color: $app-checkbox-checked-background-color;
+    border-color: transparent;
+  }
+
+  &:checked,
+  &:active,
+  &:focus {
+    appearance: none;
+    outline: transparent none;
+  }
+}
+
+.checkbox > input {
+  border-radius: $app-checkbox-border-radius;
+
+  &:checked {
+    background-image: $app-checkbox-checked-background;
+  }
+}
+
+.radio > input {
+  border-radius: $app-radio-border-radius;
+
+  &:checked {
+    background-image: $app-radio-checked-background;
+  }
 }
 
 .details {
-  background-color: $app-light-color;
-  box-shadow: $app-box-shadow-small;
-  font-size: $app-font-size-small;
+  background: $app-details-background;
+  border-top: $app-details-border;
+  font-size: $app-details-font-size;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -538,7 +255,7 @@ hr {
   bottom: 0;
 
   & dl {
-    margin: $app-margin-small;
+    margin: $app-details-list-margin;
 
     & > dt {
       font-weight: bold;
@@ -551,19 +268,19 @@ hr {
 }
 
 .fallback {
-  &-empty {
-    @include app-fallback($app-primary-color);
-  }
+  @include app-fallback($app-fallback-color);
 }
 
-.header {
-  margin-top: $app-margin-large;
-  margin-bottom: $app-margin-medium;
-  text-align: center;
+.icon {
+  vertical-align: $app-icon-offset;
+  width: $app-icon-size;
+  height: $app-icon-size;
+}
 
-  & > * {
-    margin: 0;
-  }
+.input {
+  border-width: $app-input-border-width;
+  box-sizing: border-box;
+  transition: $app-input-transition;
 }
 
 .options {
@@ -580,25 +297,25 @@ hr {
     align-items: center;
 
     &:not(:first-child) {
-      margin-left: $app-margin-medium;
+      margin-left: $app-options-label-margin;
     }
   }
 
   & span {
     font-weight: normal;
-    margin-left: $app-label-margin;
+    margin-left: $app-options-label-text-margin;
   }
 }
 
 .page {
   &-left {
+    @include app-page();
     left: 0;
-    @include app-page;
   }
 
   &-right {
+    @include app-page();
     right: 0;
-    @include app-page;
   }
 }
 
@@ -606,9 +323,9 @@ hr {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  margin-bottom: ($app-margin-small * 6);
+  margin-bottom: $app-panel-margin;
 
   & > * {
-    margin: $app-gutter-xsmall;
+    margin: $app-panel-child-margin;
   }
 }

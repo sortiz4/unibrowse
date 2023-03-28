@@ -1,3 +1,4 @@
+import { titleCase } from 'title-case';
 import { CodePoint, Field, Page, RawCodePoint, Search } from './models';
 import unicode from './unicode.json';
 
@@ -1491,7 +1492,7 @@ function mapRawCodePointToCodePoint(rawCodePoint: RawCodePoint): CodePoint {
 
   return {
     key: value,
-    name: rawCodePoint.characterName.toUpperCase(),
+    name: titleCase(rawCodePoint.characterName.toLowerCase()),
     value: `U+${value.toString(16).toUpperCase().padStart(4, '0')}`,
     plane: getPlane(value),
     block: getBlock(value),
