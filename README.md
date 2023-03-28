@@ -2,7 +2,7 @@
 Unibrowse is a single-page web application allowing users to browse through all
 of the currently allocated Unicode blocks, search for character names,
 literals, and code points, and learn additional information about each
-character simply by mousing over them.
+character simply by hovering over them.
 
 ## Compilation
 Those seeking to compile must have...
