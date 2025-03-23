@@ -8,5 +8,6 @@
 /apps/client/.next
 /apps/client/next-env.d.ts
 /apps/client/out
+/apps/client/src/common/unicode.json
 /coverage
 /node_modules
