@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-interface LiteralProps {
+export interface LiteralProps {
   readonly value?: number;
 }
 

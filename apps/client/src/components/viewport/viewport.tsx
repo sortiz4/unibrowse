@@ -1,12 +1,12 @@
-import { Fragment, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useViewportState } from './viewport.state';
 import { Details } from '../details/details';
 import { Fallback } from '../fallback/fallback';
 import { Form } from '../form/form';
 import { PageButton } from '../page-button/page-button';
 import { Panel } from '../panel/panel';
-import { CodePoint, Search } from '../../models';
-import { getCodePoints } from '../../utils';
+import { CodePoint, Search } from '../../common/models';
+import { getCodePoints } from '../../common/unicode';
 
 export function Viewport(): ReactElement {
   const [state, setState] = useViewportState();
@@ -36,7 +36,7 @@ export function Viewport(): ReactElement {
   }
 
   return (
-    <Fragment>
+    <>
       <Form onSubmit={onSubmit}/>
       {(state.page?.children?.length ?? 0) > 0 ? (
         <Panel codePoints={state.page?.children} onHover={onHover}/>
@@ -46,6 +46,6 @@ export function Viewport(): ReactElement {
       <PageButton previous onClick={onGetPrevious}/>
       <PageButton next onClick={onGetNext}/>
       <Details codePoint={state.details}/>
-    </Fragment>
+    </>
   );
 }

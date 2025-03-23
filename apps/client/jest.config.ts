@@ -3,12 +3,12 @@ export default {
   displayName: 'client',
   coverageDirectory: '../../coverage/apps/client',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': [
       'babel-jest',
       {
         presets: [
-          '@nrwl/next/babel',
+          '@nx/next/babel',
         ],
       },
     ],

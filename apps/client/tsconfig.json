@@ -2,13 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
+    "noEmit": true,
+    "incremental": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "types": [
       "jest",
       "node"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ]
   },
   "include": [
@@ -16,7 +28,10 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "../../apps/client/.next/types/**/*.ts",
+    "../../dist/apps/client/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

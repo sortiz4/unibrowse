@@ -1,19 +1,17 @@
 import { ReactElement } from 'react';
 import { AProps } from 'react-html-props';
-import { Icon } from '../icon/icon';
+import { Icon, Icons } from '../icon/icon';
 
-interface PageButtonProps extends AProps {
+export interface PageButtonProps extends AProps {
   readonly next?: boolean;
   readonly previous?: boolean;
 }
 
 export function PageButton({ next, previous, ...props }: PageButtonProps): ReactElement {
-  const direction = next ? 'right' : 'left';
-
   return (
-    <a className={`page-button-${direction}`} {...props}>
+    <a className={`page-button-${next ? 'right' : 'left'}`} {...props}>
       <h6>
-        <Icon name={`chevron-${direction}`}/>
+        <Icon icon={next ? Icons.chevronRight : Icons.chevronLeft}/>
       </h6>
     </a>
   );

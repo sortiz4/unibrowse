@@ -1,3 +1,4 @@
+'use client';
 import { ReactElement } from 'react';
 import { Viewport } from '../viewport/viewport';
 

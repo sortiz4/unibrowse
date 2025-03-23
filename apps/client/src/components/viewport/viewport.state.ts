@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
-import { CodePoint, Page, Search } from '../../models';
-import { getCodePoints } from '../../utils';
+import { CodePoint, Page, Search } from '../../common/models';
+import { getCodePoints } from '../../common/unicode';
 
 export interface ViewportState {
   readonly details?: CodePoint;

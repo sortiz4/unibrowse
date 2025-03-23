@@ -1,5 +1,8 @@
-import { getJestProjects } from '@nrwl/jest';
+import { getJestProjectsAsync } from '@nx/jest';
+import { Config } from 'jest';
 
-export default {
-  projects: getJestProjects(),
-};
+export default async function(): Promise<Config> {
+  return {
+    projects: await getJestProjectsAsync(),
+  };
+}

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { Card } from '../card/card';
-import { CodePoint } from '../../models';
+import { CodePoint } from '../../common/models';
 
-interface PanelProps {
+export interface PanelProps {
   readonly codePoints?: CodePoint[];
   readonly onHover?: (_?: CodePoint) => void;
 }

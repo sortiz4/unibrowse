@@ -1,8 +1,8 @@
 import { ReactElement, useRef } from 'react';
 import { Literal } from '../literal/literal';
-import { CodePoint } from '../../models';
+import { CodePoint } from '../../common/models';
 
-interface CardProps {
+export interface CardProps {
   readonly codePoint?: CodePoint;
   readonly onHover?: (_?: CodePoint) => void;
 }

@@ -1,11 +1,11 @@
-import { Fragment, ReactElement } from 'react';
-import { CodePoint } from '../../models';
+import { ReactElement } from 'react';
+import { CodePoint } from '../../common/models';
 
-interface DetailsProps {
+export interface DetailsProps {
   readonly codePoint?: CodePoint;
 }
 
-export function Details({ codePoint }: DetailsProps): ReactElement {
+export function Details({ codePoint }: DetailsProps): ReactElement | null {
   return codePoint ? (
     <div className="details">
       <dl>
@@ -58,6 +58,6 @@ export function Details({ codePoint }: DetailsProps): ReactElement {
       </dl>
     </div>
   ) : (
-    <Fragment/>
+    null
   );
 }

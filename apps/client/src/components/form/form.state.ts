@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { Field } from '../../models';
+import { Field } from '../../common/models';
 
 export interface FormState {
   readonly field: Field;

@@ -1,9 +1,11 @@
-const { withNx } = require('@nrwl/next/plugins/with-nx');
+const { composePlugins, withNx } = require('@nx/next');
 
-module.exports = withNx({
-  output: 'export',
-  reactStrictMode: true,
-  nx: {
-    svgr: false,
+module.exports = composePlugins(withNx)(
+  {
+    reactStrictMode: true,
+    output: 'export',
+    nx: {
+      svgr: false,
+    },
   },
-});
+);

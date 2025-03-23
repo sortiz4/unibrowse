@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, ReactElement } from 'react';
 import { useFormState } from './form.state';
-import { Field, Search } from '../../models';
-import { getUnicodeFromString } from '../../utils';
+import { Field, Search } from '../../common/models';
+import { getUnicodeFromString } from '../../common/unicode';
 
-interface FormProps {
+export interface FormProps {
   readonly onSubmit?: (_: Search) => void;
 }
 
@@ -53,19 +53,19 @@ export function Form({ onSubmit }: FormProps): ReactElement {
       <fieldset>
         <input name="search" type="text" placeholder="Search..." value={state.search} onChange={onType}/>
         <div className="form-options">
-          <label>
+          <label className="control radio">
             <input name="field" type="radio" value={Field.CodePoint} checked={state.field === Field.CodePoint} onChange={onSelect}/>
             <span>
               Code point
             </span>
           </label>
-          <label>
+          <label className="control radio">
             <input name="field" type="radio" value={Field.Literal} checked={state.field === Field.Literal} onChange={onSelect}/>
             <span>
               Literal
             </span>
           </label>
-          <label>
+          <label className="control radio">
             <input name="field" type="radio" value={Field.Name} checked={state.field === Field.Name} onChange={onSelect}/>
             <span>
               Name
