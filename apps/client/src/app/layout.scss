@@ -67,8 +67,7 @@ $app-fallback-color: $app-primary-color;
 $app-fallback-padding: $app-space-5 0;
 $app-fallback-icon-margin: $app-space-3;
 $app-fallback-icon-size: calc($app-space-3 * 4);
-$app-form-options-gap: $app-space-4;
-$app-form-options-label-text-margin: $app-space-1;
+$app-form-options-gap: calc($app-space-3 * 2);
 $app-icon-offset: -0.125rem;
 $app-icon-size: $app-space-5;
 $app-input-border-width: $app-border-width;
@@ -81,7 +80,7 @@ $app-radio-border: $app-border-width $app-border-style $app-border-color;
 $app-radio-border-radius: $app-border-radius-circle;
 $app-radio-checked-background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGZpbGw9IiNmZmYiIGN4PSI4IiBjeT0iOCIgcj0iMiIvPjwvc3ZnPg==');
 $app-radio-checked-background-color: $app-primary-color;
-$app-radio-margin: $app-space-3;
+$app-radio-margin: $app-space-1;
 $app-radio-size: $app-space-4;
 $app-radio-transition: $app-transition;
 
@@ -139,10 +138,6 @@ input {
 }
 
 label {
-  &:has(input[type=checkbox]) {
-    @extend .checkbox;
-  }
-
   &:has(input[type=radio]) {
     @extend .radio;
   }
@@ -210,10 +205,9 @@ label {
   }
 }
 
-.radio {
+.radio {  
   display: flex;
   align-items: center;
-  margin-right: $app-radio-margin;
 }
 
 .radio > input {
@@ -224,6 +218,7 @@ label {
   transition: $app-radio-transition;
   width: $app-radio-size;
   height: $app-radio-size;
+  margin-right: $app-radio-margin;
 
   &:checked {
     background-color: $app-radio-checked-background-color;
@@ -290,11 +285,6 @@ label {
       display: flex;
       align-items: center;
       margin: 0 !important;
-    }
-
-    & span {
-      font-weight: normal;
-      margin-left: $app-form-options-label-text-margin;
     }
   }
 }
