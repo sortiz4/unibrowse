@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "analytics": false,
   "namedInputs": {
     "default": [
       "sharedGlobals",
@@ -7,7 +8,8 @@
     ],
     "production": [
       "default",
-      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.mjs",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/test-setup.[jt]s",
       "!{projectRoot}/tsconfig.spec.json",
@@ -18,11 +20,27 @@
   },
   "plugins": [
     {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "configName": "tsconfig.lib.json",
+          "targetName": "build",
+          "buildDepsName": "build-deps",
+          "watchDepsName": "watch-deps"
+        }
+      }
+    },
+    {
       "plugin": "@nx/next/plugin",
       "options": {
         "devTargetName": "dev",
         "buildTargetName": "build",
         "startTargetName": "start",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps",
         "serveStaticTargetName": "serve-static"
       }
     },
@@ -45,6 +63,13 @@
         "style": "scss",
         "linter": "eslint"
       }
+    }
+  },
+  "targetDefaults": {
+    "test": {
+      "dependsOn": [
+        "^build"
+      ]
     }
   }
 }

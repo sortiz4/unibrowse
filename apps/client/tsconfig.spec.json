@@ -1,25 +1,29 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "react",
-    "module": "commonjs",
-    "outDir": "../../dist/out-tsc",
-    "moduleResolution": "node10",
+    "outDir": "./out-tsc/jest",
+    "jsx": "preserve",
     "types": [
       "jest",
       "node"
     ]
   },
   "include": [
+    "jest.config.cts",
     "jest.config.ts",
     "src/**/*.d.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx",
     "src/**/*.spec.js",
     "src/**/*.spec.jsx",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
     "src/**/*.test.js",
-    "src/**/*.test.jsx"
+    "src/**/*.test.jsx",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.json"
+    }
   ]
 }

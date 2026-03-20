@@ -1,28 +1,26 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": ".",
     "strict": true,
     "allowJs": true,
-    "sourceMap": true,
-    "declaration": false,
+    "composite": true,
     "skipLibCheck": true,
     "importHelpers": true,
-    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "declarationMap": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "skipDefaultLibCheck": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "noImplicitOverride": true,
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "target": "es6",
     "lib": [
-      "dom",
       "esnext"
+    ],
+    "customConditions": [
+      "@unibrowse/source"
     ]
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

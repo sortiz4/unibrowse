@@ -1,4 +1,4 @@
-const nx = require('@nx/eslint-plugin');
+import nx from '@nx/eslint-plugin';
 
 const options = {
   noUnusedVars: [
@@ -12,21 +12,22 @@ const options = {
   ],
 };
 
-module.exports = [
+export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
     ignores: [
       '**/dist',
+      '**/out-tsc',
     ],
   },
   {
     files: [
-      '**/*.ts',
-      '**/*.tsx',
       '**/*.js',
       '**/*.jsx',
+      '**/*.ts',
+      '**/*.tsx',
     ],
     rules: {
       '@nx/enforce-module-boundaries': [
@@ -42,7 +43,7 @@ module.exports = [
             },
           ],
           allow: [
-            '^.*/eslint(\\.base)?\\.config\\.[cm]?js$',
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$',
           ],
         },
       ],
@@ -50,14 +51,14 @@ module.exports = [
   },
   {
     files: [
-      '**/*.ts',
-      '**/*.tsx',
+      '**/*.cjs',
       '**/*.cts',
-      '**/*.mts',
       '**/*.js',
       '**/*.jsx',
-      '**/*.cjs',
       '**/*.mjs',
+      '**/*.mts',
+      '**/*.ts',
+      '**/*.tsx',
     ],
     rules: {
       '@next/next/no-img-element': 'off',
@@ -72,7 +73,7 @@ module.exports = [
           allowExpressions: true,
           allowHigherOrderFunctions: false,
           allowDirectConstAssertionInArrowFunctions: false,
-        }
+        },
       ],
       '@typescript-eslint/member-ordering': [
         'error',

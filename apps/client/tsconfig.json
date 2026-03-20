@@ -1,41 +1,48 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "jsx": "preserve",
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
+    "emitDeclarationOnly": false,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
     "types": [
       "jest",
       "node"
     ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+    "plugins": [
+      {
+        "name": "next"
+      }
     ]
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "../../apps/client/.next/types/**/*.ts",
-    "../../dist/apps/client/.next/types/**/*.ts"
+    "../../dist/apps/client/.next/types/**/*.ts",
   ],
   "exclude": [
-    "node_modules",
+    ".next",
+    "dist",
+    "eslint.config.cjs",
+    "eslint.config.js",
+    "eslint.config.mjs",
+    "jest.config.cts",
     "jest.config.ts",
+    "node_modules",
+    "out-tsc",
     "src/**/*.spec.ts",
     "src/**/*.test.ts"
   ]

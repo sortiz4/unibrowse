@@ -10,7 +10,7 @@ about the symbols at your fingertips.
 ## Compilation
 Those seeking to compile must have...
 
-- Node.js 22.0
+- Node.js 24.0
 
 Once these requirements have been met, simply clone the repository and execute
 `npm install` to download the project's dependencies, and `npm run build` to
