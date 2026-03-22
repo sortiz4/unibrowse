@@ -1,6 +1,5 @@
 .DS_Store
 *.ico
-*.png
 *.svg
 /.idea
 /.nx
