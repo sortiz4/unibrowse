@@ -1,16 +1,21 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/jest",
     "jsx": "preserve",
+    "outDir": "./out-tsc/jest",
+    "rootDir": ".",
     "types": [
       "jest",
       "node"
     ]
   },
   "include": [
-    "jest.config.cts",
+    "jest.config.js",
+    "jest.config.cjs",
+    "jest.config.mjs",
     "jest.config.ts",
+    "jest.config.cts",
+    "jest.config.mts",
     "src/**/*.d.ts",
     "src/**/*.spec.js",
     "src/**/*.spec.jsx",
@@ -20,10 +25,5 @@
     "src/**/*.test.jsx",
     "src/**/*.test.ts",
     "src/**/*.test.tsx"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.json"
-    }
   ]
 }

@@ -1,7 +1,7 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faChevronLeft, faChevronRight, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 export namespace Icons {
   export const chevronLeft = faChevronLeft;
@@ -14,7 +14,7 @@ export interface IconProps {
   readonly spin?: boolean;
 }
 
-export function Icon(props: IconProps): ReactElement {
+export function Icon(props: IconProps): ReactNode {
   return (
     <FontAwesomeIcon className="icon" {...props}/>
   );

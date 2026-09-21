@@ -1,13 +1,13 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import { AProps } from 'react-html-props';
-import { Icon, Icons } from '../icon/icon';
+import { Icon, Icons } from '../icon';
 
 export interface PageButtonProps extends AProps {
   readonly next?: boolean;
   readonly previous?: boolean;
 }
 
-export function PageButton({ next, previous, ...props }: PageButtonProps): ReactElement {
+export function PageButton({ next, previous, ...props }: PageButtonProps): ReactNode {
   return (
     <a className={`page-button-${next ? 'right' : 'left'}`} {...props}>
       <h6>

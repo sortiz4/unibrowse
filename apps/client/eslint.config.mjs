@@ -1,19 +1,17 @@
 import nx from '@nx/eslint-plugin';
-import nextEslintPluginNext from '@next/eslint-plugin-next';
-import baseConfig from '../../eslint.config.mjs';
+import coreWebVitals from 'eslint-config-next/core-web-vitals';
+import workspaceConfig from '../../eslint.config.mjs';
 
 export default [
-  {
-    plugins: {
-      '@next/next': nextEslintPluginNext,
-    },
-  },
-  ...baseConfig,
   ...nx.configs['flat/react-typescript'],
+  ...coreWebVitals,
+  ...workspaceConfig,
   {
-    ignores: [
-      '.next/**/*',
-      '**/out-tsc',
-    ],
+    rules: {
+      '@next/next/no-img-element': 'off',
+      'jsx-a11y/anchor-is-valid': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/refs': 'off',
+    },
   },
 ];

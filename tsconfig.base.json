@@ -4,20 +4,24 @@
     "allowJs": true,
     "composite": true,
     "skipLibCheck": true,
-    "importHelpers": true,
     "noEmitOnError": true,
+    "importHelpers": true,
     "declarationMap": true,
+    "esModuleInterop": true,
     "isolatedModules": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "noImplicitOverride": true,
     "emitDeclarationOnly": true,
-    "allowSyntheticDefaultImports": true,
+    "noUncheckedSideEffectImports": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "target": "es6",
     "lib": [
       "esnext"
+    ],
+    "types": [
+      "*"
     ],
     "customConditions": [
       "@unibrowse/source"

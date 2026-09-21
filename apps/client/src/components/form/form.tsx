@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, ReactElement } from 'react';
+import { ChangeEvent, FormEvent, ReactNode } from 'react';
 import { useFormState } from './form.state';
 import { Field, Search } from '../../common/models';
 import { getUnicodeFromString } from '../../common/unicode';
@@ -7,21 +7,21 @@ export interface FormProps {
   readonly onSubmit?: (_: Search) => void;
 }
 
-export function Form({ onSubmit }: FormProps): ReactElement {
+export function Form(props: FormProps): ReactNode {
   const [state, setState] = useFormState();
 
-  function onType(event: ChangeEvent<HTMLInputElement>): void {
+  const onType = (event: ChangeEvent<HTMLInputElement>): void => {
     setState({ search: event.target.value });
-  }
+  };
 
-  function onSelect(event: ChangeEvent<HTMLInputElement>): void {
+  const onSelect = (event: ChangeEvent<HTMLInputElement>): void => {
     setState({ field: +event.target.value });
-  }
+  };
 
-  function onSubmitOverride(event: FormEvent<HTMLFormElement>): void {
+  const onSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    function getSearch(): string {
+    const getSearch = (): string => {
       switch (state.field) {
         case Field.CodePoint: {
           const value = Number.parseInt(state.search.trim().replace(/[uU]\+/, ''), 16);
@@ -43,13 +43,13 @@ export function Form({ onSubmit }: FormProps): ReactElement {
           return state.search.trim();
         }
       }
-    }
+    };
 
-    onSubmit?.({ field: state.field, search: getSearch() });
-  }
+    props.onSubmit?.({ field: state.field, search: getSearch() });
+  };
 
   return (
-    <form onSubmit={onSubmitOverride}>
+    <form onSubmit={onSubmit}>
       <fieldset>
         <input name="search" type="text" placeholder="Search..." value={state.search} onChange={onType}/>
         <div className="form-options">

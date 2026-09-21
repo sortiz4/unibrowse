@@ -9,18 +9,18 @@ export interface ViewportState {
 }
 
 export function useViewportState(): [ViewportState, (_: Partial<ViewportState>) => void] {
-  function reducer(current: ViewportState, next: Partial<ViewportState>): ViewportState {
+  const reducer = (current: ViewportState, next: Partial<ViewportState>): ViewportState => {
     return Object.assign({}, current, next);
-  }
+  };
 
-  function initializer(): ViewportState {
+  const initializer = (): ViewportState => {
     return {
       search: {
         page: 1,
       },
       page: getCodePoints({ page: 1 }),
     };
-  }
+  };
 
   return useReducer(reducer, null, initializer);
 }

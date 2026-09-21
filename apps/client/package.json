@@ -1,5 +1,26 @@
 {
   "name": "@unibrowse/client",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-common-types": "~7.3.1",
+    "@fortawesome/fontawesome-svg-core": "~7.3.1",
+    "@fortawesome/free-solid-svg-icons": "~7.3.1",
+    "@fortawesome/react-fontawesome": "~3.5.0",
+    "bulma": "~1.0.4",
+    "classnames": "~2.5.1",
+    "next": "~16.3.4",
+    "react": "~19.2.8",
+    "react-dom": "~19.2.8",
+    "react-html-props": "~2.1.1",
+    "title-case": "~4.3.2",
+    "tslib": "~2.8.1"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "~16.2.0",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1"
+  }
 }

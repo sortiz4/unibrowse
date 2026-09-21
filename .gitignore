@@ -6,6 +6,7 @@
 /.vscode
 /apps/client/.next
 /apps/client/next-env.d.ts
+/apps/client/node_modules
 /apps/client/out
 /apps/client/src/common/unicode.json
 /coverage

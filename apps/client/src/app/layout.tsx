@@ -36,11 +36,11 @@ export interface LayoutProps {
   readonly children: ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps): ReactNode {
+export default function Layout(props: LayoutProps): ReactNode {
   return (
     <html lang="en">
       <body>
-        {children}
+        {props.children}
       </body>
     </html>
   );

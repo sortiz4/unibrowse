@@ -1,19 +1,19 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import { CodePoint } from '../../common/models';
 
 export interface DetailsProps {
   readonly codePoint?: CodePoint;
 }
 
-export function Details({ codePoint }: DetailsProps): ReactElement | null {
-  return codePoint ? (
+export function Details(props: DetailsProps): ReactNode {
+  return props.codePoint ? (
     <div className="details">
       <dl>
         <dt>
           Plane
         </dt>
         <dd>
-          {codePoint.plane}
+          {props.codePoint.plane}
         </dd>
       </dl>
       <dl>
@@ -21,7 +21,7 @@ export function Details({ codePoint }: DetailsProps): ReactElement | null {
           Block
         </dt>
         <dd>
-          {codePoint.block}
+          {props.codePoint.block}
         </dd>
       </dl>
       <dl>
@@ -29,7 +29,7 @@ export function Details({ codePoint }: DetailsProps): ReactElement | null {
           Category
         </dt>
         <dd>
-          {codePoint.category}
+          {props.codePoint.category}
         </dd>
       </dl>
       <dl>
@@ -37,7 +37,7 @@ export function Details({ codePoint }: DetailsProps): ReactElement | null {
           Combining Class
         </dt>
         <dd>
-          {codePoint.combiningClass}
+          {props.codePoint.combiningClass}
         </dd>
       </dl>
       <dl>
@@ -45,7 +45,7 @@ export function Details({ codePoint }: DetailsProps): ReactElement | null {
           Bidirectional Class
         </dt>
         <dd>
-          {codePoint.bidirectionalClass}
+          {props.codePoint.bidirectionalClass}
         </dd>
       </dl>
       <dl>
@@ -53,7 +53,7 @@ export function Details({ codePoint }: DetailsProps): ReactElement | null {
           Decomposition Class
         </dt>
         <dd>
-          {codePoint.decompositionClass}
+          {props.codePoint.decompositionClass}
         </dd>
       </dl>
     </div>

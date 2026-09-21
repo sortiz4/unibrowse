@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
-import { App } from '../components/app/app';
+import { ReactNode } from 'react';
+import { App } from '../components/app';
 
-export default async function Page(): Promise<ReactElement> {
+export default async function Page(): Promise<ReactNode> {
   return (
     <App/>
   );

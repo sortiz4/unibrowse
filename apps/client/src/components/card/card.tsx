@@ -1,5 +1,5 @@
-import { ReactElement, useRef } from 'react';
-import { Literal } from '../literal/literal';
+import { ReactNode, useRef } from 'react';
+import { Literal } from '../literal';
 import { CodePoint } from '../../common/models';
 
 export interface CardProps {
@@ -7,23 +7,23 @@ export interface CardProps {
   readonly onHover?: (_?: CodePoint) => void;
 }
 
-export function Card({ codePoint, onHover }: CardProps): ReactElement {
+export function Card(props: CardProps): ReactNode {
   const hover = useRef(false);
 
-  function onHoverOverride(): void {
-    onHover?.(!hover.current ? codePoint : void 0);
+  const onHover = (): void => {
+    props.onHover?.(!hover.current ? props.codePoint : void 0);
     hover.current = !hover.current;
-  }
+  };
 
   return (
-    <div className="card" onMouseEnter={onHoverOverride} onMouseLeave={onHoverOverride}>
-      <Literal value={codePoint?.key}/>
+    <div className="card" onMouseEnter={onHover} onMouseLeave={onHover}>
+      <Literal value={props.codePoint?.key}/>
       <dl className="card-subtitle">
         <dt>
-          {codePoint?.value}
+          {props.codePoint?.value}
         </dt>
         <dd>
-          {codePoint?.name}
+          {props.codePoint?.name}
         </dd>
       </dl>
     </div>

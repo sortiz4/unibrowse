@@ -1,8 +1,8 @@
 'use client';
-import { ReactElement } from 'react';
-import { Viewport } from '../viewport/viewport';
+import { ReactNode } from 'react';
+import { Viewport } from '../viewport';
 
-export function App(): ReactElement {
+export function App(): ReactNode {
   return (
     <div className="app">
       <section>

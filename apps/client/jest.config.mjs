@@ -1,14 +1,10 @@
-const nextJest = require('next/jest.js');
+import nextJest from 'next/jest.js';
+import { dirname } from 'node:path';
+import { fileURLToPath as fileUrlToPath } from 'node:url';
 
-const createJestConfig = nextJest(
+export default nextJest({ dir: dirname(fileUrlToPath(import.meta.url)) })(
   {
-    dir: './',
-  },
-);
-
-module.exports = createJestConfig(
-  {
-    preset: '../../jest.preset.js',
+    preset: '../../jest.preset.mjs',
     displayName: '@unibrowse/client',
     testEnvironment: 'jsdom',
     coverageDirectory: '../../coverage/apps/client',
@@ -18,8 +14,12 @@ module.exports = createJestConfig(
     moduleFileExtensions: [
       'js',
       'jsx',
+      'cjs',
+      'mjs',
       'ts',
       'tsx',
+      'cts',
+      'mts',
     ],
   },
 );

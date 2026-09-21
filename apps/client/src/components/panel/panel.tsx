@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
-import { Card } from '../card/card';
+import { ReactNode } from 'react';
+import { Card } from '../card';
 import { CodePoint } from '../../common/models';
 
 export interface PanelProps {
@@ -7,10 +7,12 @@ export interface PanelProps {
   readonly onHover?: (_?: CodePoint) => void;
 }
 
-export function Panel({ codePoints, onHover }: PanelProps): ReactElement {
+export function Panel(props: PanelProps): ReactNode {
   return (
     <div className="panel">
-      {codePoints?.map?.((codePoint, i) => <Card key={i} codePoint={codePoint} onHover={onHover}/>)}
+      {props.codePoints?.map?.((codePoint: CodePoint, i: number): ReactNode => (
+        <Card key={i} codePoint={codePoint} onHover={props.onHover}/>
+      ))}
     </div>
   );
 }
